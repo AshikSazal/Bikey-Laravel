@@ -1,1 +1,0 @@
-php artisan make:command LaravelWithTailwindcss  //app\Console\Commands\LaravelWithTailwindcss.php
