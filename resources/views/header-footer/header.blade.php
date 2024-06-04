@@ -2,19 +2,19 @@
     <nav class="grid grid-cols-3 p-4 shadow">
         <div class="flex items-center"><img src="./images/logo.png" alt="" height="150" width="150"></div>
         <div class="grid grid-cols-4 gap-2 items-center relative">
-            <a href="#" class="text-2xl relative inline-block group hover:text-nav_color flex justify-center">
+            <a href="#" class="text-2xl relative group hover:text-nav_color flex justify-center">
                 Home
                 <span class="absolute bottom-0 left-1/2 bg-nav_color h-0.5 w-0 transition-width transition-left duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
             </a>
-            <a href="#" class="text-2xl relative inline-block group hover:text-nav_color flex justify-center">
+            <a href="#" class="text-2xl relative group hover:text-nav_color flex justify-center">
                 Brand
                 <span class="absolute bottom-0 left-1/2 bg-nav_color h-0.5 w-0 transition-width transition-left duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
             </a>
-            <a href="#" class="text-2xl relative inline-block group hover:text-nav_color flex justify-center">
+            <a href="#" class="text-2xl relative group hover:text-nav_color flex justify-center">
                 About
                 <span class="absolute bottom-0 left-1/2 bg-nav_color h-0.5 w-0 transition-width transition-left duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
             </a>
-            <a href="#" class="text-2xl relative inline-block group hover:text-nav_color flex justify-center">
+            <a href="#" class="text-2xl relative group hover:text-nav_color flex justify-center">
                 Contact
                 <span class="absolute bottom-0 left-1/2 bg-nav_color h-0.5 w-0 transition-width transition-left duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
             </a>
