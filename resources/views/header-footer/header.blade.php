@@ -1,12 +1,25 @@
 <header>
     <nav class="grid grid-cols-3 p-4 shadow">
         <div class="flex items-center"><img src="./images/logo.png" alt="" height="150" width="150"></div>
-        <div class="grid grid-cols-4 gap-2 items-center">
-            <div class="text-2xl hover:text-nav_color hover:underline"><a href="#">Home</a></div>
-            <div class="text-2xl hover:text-nav_color hover:underline"><a href="#">Brand</a></div>
-            <div class="text-2xl hover:text-nav_color hover:underline"><a href="#">About</a></div>
-            <div class="text-2xl hover:text-nav_color hover:underline"><a href="#">Contact</a></div>
-        </div>
+        <div class="grid grid-cols-4 gap-2 items-center relative">
+            <a href="#" class="text-2xl relative inline-block group hover:text-nav_color">
+                Home
+                <span class="absolute bottom-0 left-1/2 bg-nav_color h-0.5 w-0 transition-width transition-left duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
+            </a>
+            <a href="#" class="text-2xl relative inline-block group hover:text-nav_color">
+                Brand
+                <span class="absolute bottom-0 left-1/2 bg-nav_color h-0.5 w-0 transition-width transition-left duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
+            </a>
+            <a href="#" class="text-2xl relative inline-block group hover:text-nav_color">
+                About
+                <span class="absolute bottom-0 left-1/2 bg-nav_color h-0.5 w-0 transition-width transition-left duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
+            </a>
+            <a href="#" class="text-2xl relative inline-block group hover:text-nav_color">
+                Contact
+                <span class="absolute bottom-0 left-1/2 bg-nav_color h-0.5 w-0 transition-width transition-left duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
+            </a>
+        </div>       
+        
         <div class="grid grid-cols-2">
             <a href="#" class="flex items-center justify-end relative">
                 {{-- <a href=""><img src="./images/cart.png" alt="" height="60" width="60"></a> --}}
