@@ -47,3 +47,17 @@
     </nav>
     <hr class="border-0 h-px bg-slate-300">
 </header>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('Header loaded');
+
+        // Example: Adding an event listener to the 'Home' link
+        document.querySelector('a[href="#"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Home link clicked');
+        });
+
+        // Additional JavaScript code can be added here
+    });
+</script>
