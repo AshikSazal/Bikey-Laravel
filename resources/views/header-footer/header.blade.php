@@ -20,11 +20,6 @@
             </a>
         </div>       
         
-        <div class="md:hidden col-span-1 flex justify-center md:justify-end items-center">
-            <button >
-                <svg height="60" width="60" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
-            </button>
-        </div>
         <div class="col-span-2 grid grid-cols-2 md:col-span-2">
             <a href="#" class="flex items-center lg:justify-end relative sm:justify-center justify-end">
                 {{-- <a href=""><img src="./images/cart.png" alt="" height="60" width="60"></a> --}}
@@ -39,7 +34,7 @@
                     <span class="text-lg">Login</span>
                 </a>
             </div> --}}
-            <div class="flex items-center justify-end lg:justify-center sm:justify-start">
+            <div class="hidden md:flex md:justify-end lg:justify-center sm:justify-start">
                 <a href="./login" class="relative flex items-center text-white bg-nav_color border-2 border-nav_color px-8 py-3 space-x-3 rounded-full overflow-hidden group">
                     <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-in-out origin-center"></span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-6 relative z-10 transition-colors duration-500 ease-in-out group-hover:text-nav_color">
@@ -48,6 +43,11 @@
                     <span class="relative z-10 text-lg transition-colors duration-500 ease-in-out group-hover:text-nav_color">Login</span>
                 </a>
             </div>            
+        </div>
+        <div class="md:hidden col-span-1 flex justify-center md:justify-end items-center">
+            <button >
+                <svg height="60" width="60" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
+            </button>
         </div>
     </nav>
     <hr class="border-0 h-px bg-slate-300">
