@@ -1,32 +1,18 @@
-/* .navbar {
+.navbar-list{
     position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, 50%);
 }
 
-.navbar-list {
-    list-style: none;
+.box-list li {
+    width: 300px;
+    height: 60px;
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    transform-origin: 50% 0%;
+    /* transform: perspective(350px) rotateX(-90deg); */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    line-height: 58px;
 }
-
-.list-item-1 {
-    transform: perspective(350px) rotateX(0deg);
-    transition: 0.2s linear 0s;
-}
-
-list-item-2 {
-    transition-delay: 0.2s;
-}
-list-item-3 {
-    transition-delay: 0.4s;
-}
-list-item-4 {
-    transition-delay: 0.6s;
-} */
-
-.hidden {
-    opacity: 0;
-    transition: opacity 0.5s;
-}
-
-.fadeIn {
-    opacity: 1;
-}
-
