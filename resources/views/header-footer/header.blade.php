@@ -33,7 +33,7 @@
         </div>
     </nav>
     <hr class="border-0 h-px bg-slate-300">
-    <div class="navbar-list flex justify-center items-center">
+    <div class="navbar-list absolute flex justify-center items-center">
         <ul class="box-list">
             <li class="bg-nav_color">
                 @include('components.landing-page.nav', ['text' => 'Home', 'href' => '#','flag'=>2])
@@ -61,7 +61,7 @@
         listHeader.addEventListener('click', function() {
             if (window.innerWidth <= 1060) {
                 if (!menuOpen) {
-                    navList.style.height = '100%';
+                    navList.style.height = '80%';
                     navList.style.width = '100%';
                     document.body.style.overflow = 'hidden';
                     document.body.style.background = 'rgba(0, 0, 0, 0.5)';
