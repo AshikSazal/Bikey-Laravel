@@ -1,7 +1,7 @@
 <header>
     <nav class="grid grid-cols-5 md:grid-cols-5 p-4 shadow">
         <div class="flex items-center col-span-2 md:col-span-1"><img src="./images/logo.png" alt="" height="150" width="150"></div>
-        <div class="hidden md:grid md:grid-cols-4 gap-2 items-center relative md:col-span-2">
+        <div class="ss:hidden md:grid md:grid-cols-4 gap-2 items-center relative md:col-span-2">
             <a href="#" class="text-2xl relative group hover:text-nav_color flex justify-center">
                 Home
                 <span class="absolute bottom-0 left-1/2 bg-nav_color h-0.5 w-0 transition-width transition-left duration-500 ease-in-out group-hover:w-full group-hover:left-0"></span>
@@ -36,7 +36,7 @@
                     <span class="text-lg">Login</span>
                 </a>
             </div> --}}
-            <div class="hidden md:flex md:justify-end lg:justify-center sm:justify-start">
+            <div class="ss:hidden md:flex md:justify-end lg:justify-center sm:justify-start">
                 <a href="./login" class="relative flex items-center text-white bg-nav_color border-2 border-nav_color px-8 py-3 space-x-3 rounded-full overflow-hidden group">
                     <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-in-out origin-center"></span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-6 relative z-10 transition-colors duration-500 ease-in-out group-hover:text-nav_color">
@@ -47,35 +47,45 @@
             </div>            
         </div>
         <div class="md:hidden col-span-1 flex justify-center md:justify-end items-center">
-            <button id="mobileMenuButton" onclick="showMenu()">
+            <button class="list-header" onclick="showMenu()">
                 <svg height="60" width="60" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
             </button>
         </div>
     </nav>
     <hr class="border-0 h-px bg-slate-300">
     <div id="animatedList" class="navbar-list hidden">
-        <a href="#" class="hidden">Home</a>
-        <a href="#" class="hidden">Brand</a>
-        <a href="#" class="hidden">About</a>
-        <a href="#" class="hidden">Contact</a>
+        <ul class="box-list">
+            <li><a href="#" class="hidden">Home</a></li>
+            <li><a href="#" class="hidden">Brand</a></li>
+            <li><a href="#" class="hidden">About</a></li>
+            <li><a href="#" class="hidden">Contact</a></li>
+        </ul>
     </div>        
 </header>
 
 <script>
-    function showMenu() {
-    console.log("showMenu function executed");
-    var animatedList = document.getElementById('animatedList');
-    console.log("animatedList:", animatedList);
-    var links = animatedList.querySelectorAll('a');
-    console.log("links:", links);
+    document.addEventListener("DOMContentLoaded", function() {
+    const listHeader = document.querySelector('.list-header');
+    const listItems = document.querySelectorAll('.box-list li');
+    let menuOpen = false;
 
-    links.forEach(function(link, index) {
-        setTimeout(function() {
-            link.classList.add('fadeIn');
-        }, index * 500);
-    });
+        if (!menuOpen) {
+            listItems.forEach(function(item, index) {
+                item.style.transition = `transform 0.2s linear ${index * 0.2}s`;
+                item.style.transform = 'perspective(350px) rotateX(0deg)';
+            });
+            menuOpen = true;
+        } else {
+            listItems.forEach(function(item, index) {
+                const reverseIndex = listItems.length - index - 1;
+                item.style.transition = `transform 0.2s linear ${reverseIndex * 0.2}s`;
+                item.style.transform = 'perspective(350px) rotateX(-90deg)';
+            });
+            menuOpen = false;
+        }
+    });    
+});
 
-    animatedList.classList.toggle('hidden');
 }
 
 </script>
