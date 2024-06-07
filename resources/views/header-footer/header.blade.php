@@ -67,7 +67,6 @@
     let menuOpen = false;
     
     listHeader.addEventListener('click', function() {
-        // Check if the window width is greater than or equal to 1060 pixels
         if (window.innerWidth <= 1060) {
             if (!menuOpen) {
                 listItems.forEach(function(item, index) {
@@ -98,7 +97,5 @@
         }
     });
 });
-
-
 
 </script>
