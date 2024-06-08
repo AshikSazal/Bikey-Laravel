@@ -1,5 +1,5 @@
 <header>
-    <nav class="grid grid-cols-5 md:grid-cols-5 p-4 shadow">
+    <nav class="grid grid-cols-5 md:grid-cols-5 p-4 shadow fixed overflow-hidden w-full">
         <div class="flex items-center col-span-2 md:col-span-1"><img src="./images/logo.png" alt="" height="150" width="150"></div>
         <div class="ms:hidden md:grid md:grid-cols-4 gap-2 items-center relative md:col-span-2">
             @include('components.landing-page.nav', ['text' => 'Home', 'href' => '#','flag'=>1])
@@ -61,7 +61,7 @@
         listHeader.addEventListener('click', function() {
             if (window.innerWidth <= 1060) {
                 if (!menuOpen) {
-                    navList.style.height = '80%';
+                    navList.style.height = '100%';
                     navList.style.width = '100%';
                     document.body.style.overflow = 'hidden';
                     document.body.style.background = 'rgba(0, 0, 0, 0.5)';
