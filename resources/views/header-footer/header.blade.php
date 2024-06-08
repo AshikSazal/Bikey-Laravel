@@ -35,6 +35,9 @@
     <hr class="border-0 h-px bg-slate-300">
     <div class="navbar-list absolute flex justify-center items-center">
         <ul class="box-list">
+            <li class="nav-close flex justify-end">
+                <button class="border-2 border-nav_color rounded-full mb-2"><svg height="40" width="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg></button>
+            </li>
             <li class="bg-nav_color">
                 @include('components.landing-page.nav', ['text' => 'Home', 'href' => '#','flag'=>2])
             </li>
@@ -54,6 +57,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const navList = document.querySelector('.navbar-list');
+        const navClose = document.querySelector('.nav-close');
         const listHeader = document.querySelector('.list-header');
         const listItems = document.querySelectorAll('.box-list li');
         let menuOpen = false;
@@ -94,11 +98,41 @@
         });
 
         // Window close for outside click of the menu
+        navClose.addEventListener('click', function(e) {
+            document.body.style.overflow = '';
+                document.body.style.background = '';
+
+                // This is for animation
+                /*listItems.forEach(function(item, index) {
+                    const reverseIndex = listItems.length - index - 1;
+                    item.style.transition = `transform 0.2s linear ${reverseIndex * 0.2}s`;
+                    item.style.transform = 'perspective(350px) rotateX(-90deg)';
+                });*/
+
+                // This is not for animation
+                listItems.forEach(function(item, index) {
+                    item.style.transition = '';
+                    item.style.transform = '';
+                });
+                navList.style.height = '';
+                navList.style.width = '';
+                menuOpen = false;
+        });
+
+        // Window close for outside click of the menu
         window.addEventListener('click', function(e) {
             if(e.target==navList){
                 document.body.style.overflow = '';
                 document.body.style.background = '';
+                
+                // This is for animation
+                /*listItems.forEach(function(item, index) {
+                    const reverseIndex = listItems.length - index - 1;
+                    item.style.transition = `transform 0.2s linear ${reverseIndex * 0.2}s`;
+                    item.style.transform = 'perspective(350px) rotateX(-90deg)';
+                });*/
 
+                // This is not for animation
                 
                 listItems.forEach(function(item, index) {
                     item.style.transition = '';
