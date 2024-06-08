@@ -106,7 +106,7 @@
             }
         });
 
-        // Window close for outside click of the menu
+        // Window close on close button
         navClose.addEventListener('click', function(e) {
             document.body.style.overflow = '';
                 document.body.style.background = '';
@@ -153,7 +153,7 @@
             }
         });
 
-        
+        // more than 1060 size window menu will automatically closed
         window.addEventListener('resize', function() {
             if (window.innerWidth >= 1060 && menuOpen) {
                 document.body.style.overflow = '';
@@ -177,6 +177,4 @@
             }
         });
     });
-
-
 </script>
