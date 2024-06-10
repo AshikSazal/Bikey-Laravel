@@ -10,6 +10,8 @@
 </head>
 <body>
     @include('header-footer.header')
-
+    <div class="bg-red-600">
+        hello world
+    </div>
 </body>
 </html>
