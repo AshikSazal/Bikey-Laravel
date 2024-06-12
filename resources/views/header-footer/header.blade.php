@@ -1,5 +1,5 @@
 <header>
-    <nav class="grid grid-cols-5 md:grid-cols-5 p-4 shadow fixed overflow-hidden w-full z-10">
+    <nav class="grid grid-cols-5 md:grid-cols-5 p-4 shadow fixed overflow-hidden w-full z-10 bg-white">
         <div class="flex items-center col-span-2 md:col-span-1"><img src="./images/logo.png" alt="" height="150" width="150"></div>
         <div class="ms:hidden md:grid md:grid-cols-4 gap-2 items-center relative md:col-span-2">
             @include('components.landing-page.nav', ['text' => 'Home', 'href' => '#','flag'=>1])
