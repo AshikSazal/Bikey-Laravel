@@ -11,8 +11,6 @@
 <body>
     @include('header-footer.header')
     @include('features.chat.chat')
-    <div>
-        @yield('content')
-    </div>
+    @yield('content')
 </body>
 </html>
