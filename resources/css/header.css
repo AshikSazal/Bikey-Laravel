@@ -15,15 +15,15 @@
     position: relative;
     top: 15%;
     left: 50%;
-    transform: translate(-50%, 50%);
-}
+    transform: translate(50%, 50%);
+} */
 
-.box-list{
+/* .box-list{
     width: 300;
     height: 240;
-}
+} */
 
-.box-list li {
+/*.box-list li {
     width: 300px;
     height: 60px;
     color: #fff;

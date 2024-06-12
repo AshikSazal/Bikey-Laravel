@@ -11,8 +11,8 @@
 <body>
     @include('header-footer.header')
     @include('features.chat.chat')
-    <div class="bg-red-600">
-        hello world
+    <div>
+        @yield('content')
     </div>
 </body>
 </html>
