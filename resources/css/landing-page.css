@@ -1,0 +1,17 @@
+.typewriter {
+    font-family: "Inconsolata", Consolas, monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 0.15em solid orange;
+    animation: blink-caret 1s step-end infinite;
+}
+
+@keyframes blink-caret {
+    from,
+    to {
+        border-color: transparent;
+    }
+    50% {
+        border-color: theme("colors.cart_count_color");
+    }
+}
