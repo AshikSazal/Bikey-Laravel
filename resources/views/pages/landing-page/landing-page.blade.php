@@ -14,22 +14,22 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const element = document.getElementById('typewriter');
-        const text = element.innerText;
+        const typewriter = document.getElementById('typewriter');
+        const text = typewriter.innerText;
         let index = 0;
         let isDeleting = false;
 
         function type() {
             if (isDeleting) {
                 if (index > 0) {
-                    element.innerText = text.substring(0, index - 1);
+                    typewriter.innerText = text.substring(0, index - 1);
                     index--;
                 } else {
                     isDeleting = false;
                 }
             } else {
                 if (index < text.length) {
-                    element.innerText = text.substring(0, index + 1);
+                    typewriter.innerText = text.substring(0, index + 1);
                     index++;
                 } else {
                     isDeleting = true;
