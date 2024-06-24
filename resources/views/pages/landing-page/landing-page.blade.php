@@ -1,11 +1,47 @@
 @extends('app')
 
 @section('content')
-    <div class="">
+    <div class="my-[89px]">
         <div class="relative inline-block align-middle">
             <img class="block" src="./images/honda.jpg" alt="Honda">
             <div class="absolute inset-0 flex items-center justify-center">
                 <h1 id="typewriter" class="relative typewriter text-white text-sm sm:text-2xl md:text-3xl lg:text-3xl xl:text-3xl">Lorem ipsum dolor sit amet consectetur.</h1>
+            </div>
+        </div>
+        <div class="grid sm:grid-cols-2">
+            <div class="bg-nav_color col-span-1 flex items-center">
+                <div class="p-10">
+                    <span class="uppercase text-white"><b>Lorem ipsum dolor sit</b></span>
+                    <span class="text-gray-200"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta nemo corrupti molestiae iste quia eos totam recusandae voluptatum quidem rerum nobis.</p></span>
+                </div>
+            </div>
+            <div class="col-span-1">
+                <img src="./images/bike-1.jpg" alt="">
+            </div>
+        </div>
+        <div class="grid sm:grid-cols-2">
+            <div class="col-span-1 hidden sm:block">
+                <img src="./images/bike-2.jpg" alt="">
+            </div>
+            <div class="bg-cart_count_color col-span-1 flex items-center">
+                <div class="p-10">
+                    <span class="uppercase text-white"><b>Lorem ipsum dolor sit</b></span>
+                    <span class="text-gray-200"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta nemo corrupti molestiae iste quia eos totam recusandae voluptatum quidem rerum nobis.</p></span>
+                </div>
+            </div>
+            <div class="col-span-1 sm:hidden">
+                <img src="./images/bike-2.jpg" alt="">
+            </div>
+        </div>
+        <div class="grid sm:grid-cols-2">
+            <div class="bg-nav_color col-span-1 flex items-center">
+                <div class="p-10">
+                    <span class="uppercase text-white"><b>Lorem ipsum dolor sit</b></span>
+                    <span class="text-gray-200"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta nemo corrupti molestiae iste quia eos totam recusandae voluptatum quidem rerum nobis.</p></span>
+                </div>
+            </div>
+            <div class="col-span-1">
+                <img src="./images/bike-3.jpg" alt="">
             </div>
         </div>
     </div>
