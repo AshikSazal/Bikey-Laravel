@@ -44,6 +44,11 @@
                 <img src="./images/bike-3.jpg" alt="">
             </div>
         </div>
+        <div class="grid grid-cols-3">
+            <div class="col-span-1"></div>
+            <div class="col-span-1"></div>
+            <div class="col-span-1"></div>
+        </div>
     </div>
 @endsection
 
