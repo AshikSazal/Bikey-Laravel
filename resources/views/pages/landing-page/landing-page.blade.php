@@ -9,8 +9,8 @@
             </div>
         </div>
         <div class="grid sm:grid-cols-2">
-            <div class="bg-nav_color col-span-1 flex items-center">
-                <div class="p-10">
+            <div class="col-span-1">
+                <div class="p-10 bg-nav_color h-full">
                     <span class="uppercase text-white"><b>Lorem ipsum dolor sit</b></span>
                     <span class="text-gray-200"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta nemo corrupti molestiae iste quia eos totam recusandae voluptatum quidem rerum nobis.</p></span>
                 </div>
@@ -23,8 +23,8 @@
             <div class="col-span-1 hidden sm:block">
                 <img src="./images/bike-2.jpg" alt="">
             </div>
-            <div class="bg-cart_count_color col-span-1 flex items-center">
-                <div class="p-10">
+            <div class=" col-span-1">
+                <div class="p-10 bg-cart_count_color h-full">
                     <span class="uppercase text-white"><b>Lorem ipsum dolor sit</b></span>
                     <span class="text-gray-200"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta nemo corrupti molestiae iste quia eos totam recusandae voluptatum quidem rerum nobis.</p></span>
                 </div>
@@ -34,8 +34,8 @@
             </div>
         </div>
         <div class="grid sm:grid-cols-2">
-            <div class="bg-nav_color col-span-1 flex items-center">
-                <div class="p-10">
+            <div class="col-span-1">
+                <div class="bg-nav_color p-10 h-full">
                     <span class="uppercase text-white"><b>Lorem ipsum dolor sit</b></span>
                     <span class="text-gray-200"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta nemo corrupti molestiae iste quia eos totam recusandae voluptatum quidem rerum nobis.</p></span>
                 </div>
@@ -74,6 +74,7 @@
         }
 
         setInterval(type, 100);
+        
     });
 
 </script>
