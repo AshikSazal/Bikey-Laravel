@@ -12,5 +12,6 @@
     @include('header-footer.header')
     @include('features.chat.chat')
     @yield('content')
+    @include('header-footer.footer')
 </body>
 </html>

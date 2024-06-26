@@ -15,8 +15,8 @@ module.exports = {
     },
     extend: {
       colors: {
-        nav_color: "#1ca3e4",
-        cart_count_color: "#f85606",
+        sky_blue_color: "#1ca3e4",
+        orange_color: "#f85606",
         box_bg: "#d4ecff"
       },
       boxShadow:{

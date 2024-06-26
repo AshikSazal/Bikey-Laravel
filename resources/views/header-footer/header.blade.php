@@ -12,16 +12,16 @@
             <div class="flex relative items-center lg:justify-end sm:justify-center justify-end">
                 <a href="#" class="">
                     <svg height="40" width="40" xmlns="http://www.w3.org/2000/svg" fill="#1ca3e4" viewBox="0 0 576 512"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
-                    <span class="absolute text-lg text-white top-0 transform translate-x-8 -translate-y-1/4 bg-cart_count_color px-2 rounded-full">0</span>
+                    <span class="absolute text-lg text-white top-0 transform translate-x-8 -translate-y-1/4 bg-orange_color px-2 rounded-full">0</span>
                 </a>
             </div>
             <div class="ms:hidden md:flex md:justify-end lg:justify-center sm:justify-start">
-                <a href="./login" class="relative flex items-center text-white bg-nav_color border-2 border-nav_color px-8 py-3 space-x-3 rounded-full overflow-hidden group">
+                <a href="./login" class="relative flex items-center text-white bg-sky_blue_color border-2 border-sky_blue_color px-8 py-3 space-x-3 rounded-full overflow-hidden group">
                     <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-in-out origin-center"></span>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-6 relative z-10 transition-colors duration-500 ease-in-out group-hover:text-nav_color">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-6 relative z-10 transition-colors duration-500 ease-in-out group-hover:text-sky_blue_color">
                         <path fill="currentColor" d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z" />
                     </svg>
-                    <span class="relative z-10 text-lg transition-colors duration-500 ease-in-out group-hover:text-nav_color">Login</span>
+                    <span class="relative z-10 text-lg transition-colors duration-500 ease-in-out group-hover:text-sky_blue_color">Login</span>
                 </a>
             </div>          
         </div>
@@ -35,23 +35,23 @@
     <div class="navbar-list absolute flex justify-center items-center z-20">
         <ul class="box-list">
             <li class="nav-close flex justify-end">
-                <button class="border-4 border-nav_color rounded-full mb-2"><svg height="40" width="40" class="text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg></button>
+                <button class="border-4 border-sky_blue_color rounded-full mb-2"><svg height="40" width="40" class="text-sky_blue_color" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg></button>
             </li>
-            <li class="bg-nav_color">
+            <li class="bg-sky_blue_color">
                 @include('components.landing-page.nav', ['text' => 'Home', 'href' => '#','flag'=>2])
             </li>
-            <li class="bg-nav_color">
+            <li class="bg-sky_blue_color">
                 @include('components.landing-page.nav', ['text' => 'Brand', 'href' => '#','flag'=>2])
             </li>
-            <li class="bg-nav_color">
+            <li class="bg-sky_blue_color">
                 @include('components.landing-page.nav', ['text' => 'About', 'href' => '#','flag'=>2])
             </li>
-            <li class="bg-nav_color">
+            <li class="bg-sky_blue_color">
                 @include('components.landing-page.nav', ['text' => 'Contact', 'href' => '#','flag'=>2])
             </li>
             <li>
-                <a href="./login" class="relative mt-4 flex items-center justify-center text-nav_color bg-white border-2 border-nav_color py-3 space-x-3 rounded-full overflow-hidden group">
-                    <span class="absolute inset-0 bg-nav_color transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-in-out origin-center"></span>
+                <a href="./login" class="relative mt-4 flex items-center justify-center text-sky_blue_color bg-white border-2 border-sky_blue_color py-3 space-x-3 rounded-full overflow-hidden group">
+                    <span class="absolute inset-0 bg-sky_blue_color transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-in-out origin-center"></span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-6 relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
                         <path fill="currentColor" d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z" />
                     </svg>
@@ -69,22 +69,29 @@
         const listHeader = document.querySelector('.list-header');
         const listItems = document.querySelectorAll('.box-list li');
         let menuOpen = false;
+        let timeout;
         
         listHeader.addEventListener('click', function() {
             if (window.innerWidth <= 1060) {
                 if (!menuOpen) {
-                    navList.style.height = '100%';
-                    navList.style.width = '100%';
+                    navList.style.display = 'flex';
+                    navList.style.position = 'fixed';
+                    // navList.style.top = '0';
+                    // navList.style.left = '0';
                     document.body.style.overflow = 'hidden';
-                    document.body.style.background = 'rgba(0, 0, 0, 0.5)';
-                    listItems.forEach(function(item, index) {
-                        item.style.transition = `transform 0.2s linear ${index * 0.2}s`;
-                        item.style.transform = 'perspective(350px) rotateX(0deg)';
-                    });
+                    navList.style.background = 'rgba(0, 0, 0, 0.8)';
+                    navList.style.width = '100%';
+                    navList.style.height = '100%';
+                    timeout = setTimeout(() => {
+                        listItems.forEach(function(item, index) {
+                            item.style.transition = `transform 0.2s linear ${index * 0.2}s`;
+                            item.style.transform = 'perspective(350px) rotateX(0deg)';
+                        });
+                    }, 10);
                     menuOpen = true;
                 } else {
                     document.body.style.overflow = '';
-                    document.body.style.background = '';
+                    navList.style.background = '';
 
                     // This is for animation
                     /*listItems.forEach(function(item, index) {
@@ -100,6 +107,8 @@
                     });
                     navList.style.height = '';
                     navList.style.width = '';
+                    navList.style.display = 'none';
+                    clearTimeout(timeout);
                     menuOpen = false;
                 }
             }
@@ -108,7 +117,7 @@
         // Window close on close button
         navClose.addEventListener('click', function(e) {
             document.body.style.overflow = '';
-                document.body.style.background = '';
+                navList.style.background = '';
 
                 // This is for animation
                 /*listItems.forEach(function(item, index) {
@@ -124,6 +133,8 @@
                 });
                 navList.style.height = '';
                 navList.style.width = '';
+                navList.style.display = 'none';
+                clearTimeout(timeout);
                 menuOpen = false;
         });
 
@@ -131,7 +142,7 @@
         window.addEventListener('click', function(e) {
             if(e.target==navList){
                 document.body.style.overflow = '';
-                document.body.style.background = '';
+                navList.style.background = '';
 
                 // This is for animation
                 /*listItems.forEach(function(item, index) {
@@ -148,6 +159,8 @@
                 });
                 navList.style.height = '';
                 navList.style.width = '';
+                navList.style.display = 'none';
+                clearTimeout(timeout);
                 menuOpen = false;
             }
         });
@@ -156,7 +169,7 @@
         window.addEventListener('resize', function() {
             if (window.innerWidth >= 1060 && menuOpen) {
                 document.body.style.overflow = '';
-                document.body.style.background = '';
+                navList.style.background = '';
 
                 // This is for animation
                 /*listItems.forEach(function(item, index) {
@@ -172,6 +185,8 @@
                 });
                 navList.style.height = '';
                 navList.style.width = '';
+                navList.style.display = 'none';
+                clearTimeout(timeout);
                 menuOpen = false;
             }
         });

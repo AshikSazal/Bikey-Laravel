@@ -12,6 +12,6 @@
         border-color: transparent;
     }
     50% {
-        border-color: theme("colors.cart_count_color");
+        border-color: theme("colors.orange_color");
     }
 }

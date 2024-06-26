@@ -6,7 +6,7 @@
         </ul>
     </div>
     <div class="" id="showChatProcess">
-        <button class="p-2 bg-cart_count_color rounded-md">
+        <button class="p-2 bg-orange_color rounded-md">
             <svg id="chat-icon" fill="#fff" height="35px" width="35px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 60 60" xml:space="preserve">
                 <path d="M54,2H6C2.748,2,0,4.748,0,8v33c0,3.252,2.748,6,6,6h28.558l9.703,10.673C44.454,57.885,44.724,58,45,58
                 c0.121,0,0.243-0.022,0.361-0.067C45.746,57.784,46,57.413,46,57V47h8c3.252,0,6-2.748,6-6V8C60,4.748,57.252,2,54,2z"/>

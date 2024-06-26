@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-    <div class="my-[89px]">
+    <div class="mt-[89px]">
         <div class="relative inline-block align-middle">
             <img class="block" src="./images/honda.jpg" alt="Honda">
             <div class="absolute inset-0 flex items-center justify-center">
@@ -10,7 +10,7 @@
         </div>
         <div class="grid sm:grid-cols-2">
             <div class="col-span-1 flex items-center">
-                <div class="p-10 bg-nav_color flex flex-col justify-center h-full">
+                <div class="p-10 bg-sky_blue_color flex flex-col justify-center h-full">
                     <span class="uppercase text-white"><b>Lorem ipsum dolor sit</b></span>
                     <p class="text-gray-200">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta nemo corrupti molestiae iste quia eos totam recusandae voluptatum quidem rerum nobis.</p>
                 </div>
@@ -24,7 +24,7 @@
                 <img src="./images/bike-2.jpg" alt="">
             </div>
             <div class=" col-span-1 flex items-center">
-                <div class="p-10 bg-cart_count_color flex flex-col justify-center h-full">
+                <div class="p-10 bg-orange_color flex flex-col justify-center h-full">
                     <span class="uppercase text-white"><b>Lorem ipsum dolor sit</b></span>
                     <span class="text-gray-200"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta nemo corrupti molestiae iste quia eos totam recusandae voluptatum quidem rerum nobis.</p></span>
                 </div>
@@ -35,7 +35,7 @@
         </div>
         <div class="grid sm:grid-cols-2">
             <div class="col-span-1 flex items-center">
-                <div class="bg-nav_color p-10 flex flex-col justify-center h-full">
+                <div class="bg-sky_blue_color p-10 flex flex-col justify-center h-full">
                     <span class="uppercase text-white"><b>Lorem ipsum dolor sit</b></span>
                     <span class="text-gray-200"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta nemo corrupti molestiae iste quia eos totam recusandae voluptatum quidem rerum nobis.</p></span>
                 </div>
@@ -74,12 +74,12 @@
             <div class="sm:col-span-2 flex justify-center items-center text-2xl">
                 <h1>Get Latest Update & <br class="sm:block hidden"> Offers from BIKEY</h1>
             </div>
-            <div class="relative sm:col-span-3 border-b-[150px] border-b-nav_color border-l-[65px] border-l-transparent">
+            <div class="relative sm:col-span-3 border-b-[150px] border-b-sky_blue_color border-l-[65px] border-l-transparent">
                 <div class="absolute w-[90%] inline-block mt-[50px] rounded-full">
-                    <input type="text" placeholder="Enter your email" class="w-full py-3 px-4 border-none rounded-full focus:outline-none caret-cart_count_color">
-                    <button class="absolute bg-cart_count_color top-1 right-1 px-3 py-[6px] rounded-full text-white group border-cart_count_color overflow-hidden border-2">
+                    <input type="text" placeholder="Enter your email" class="w-full py-3 px-4 border-none rounded-full focus:outline-none caret-orange_color">
+                    <button class="absolute bg-orange_color top-1 right-1 px-3 py-[6px] rounded-full text-white group border-orange_color overflow-hidden border-2">
                         <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-in-out origin-center"></span>
-                        <span class="relative z-50 transition-colors duration-500 ease-in-out group-hover:text-cart_count_color">SUBMIT</span>
+                        <span class="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-orange_color">SUBMIT</span>
                     </button>
                 </div>                 
             </div>
