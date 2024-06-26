@@ -79,7 +79,6 @@
             getPos.centerY,
             getPos.width
         );
-        console.log(bgColor)
         if(bgColor == 'rgb(248, 86, 6)'){
             chatButton.style.backgroundColor = "#1ca3e4";
         }else{
