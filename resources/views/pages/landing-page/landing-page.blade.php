@@ -44,7 +44,7 @@
                 <img src="./images/bike-3.jpg" alt="">
             </div>
         </div>
-        <div class="grid grid-cols-3 p-20 bg-box_bg gap-x-10">
+        <div class="grid md:grid-cols-3 p-20 bg-box_bg md:gap-x-10 ms:grid-cols-1 ms:gap-y-10">
             <div class="col-span-1 bg-[#ADDEF5] shadow-box_shadow rounded-md p-10">
                 <div class="flex justify-center"><h1><svg fill="#f85606" xmlns="http://www.w3.org/2000/svg" height="60" width="60" viewBox="0 0 640 512"><path d="M112 0C85.5 0 64 21.5 64 48V96H16c-8.8 0-16 7.2-16 16s7.2 16 16 16H64 272c8.8 0 16 7.2 16 16s-7.2 16-16 16H64 48c-8.8 0-16 7.2-16 16s7.2 16 16 16H64 240c8.8 0 16 7.2 16 16s-7.2 16-16 16H64 16c-8.8 0-16 7.2-16 16s7.2 16 16 16H64 208c8.8 0 16 7.2 16 16s-7.2 16-16 16H64V416c0 53 43 96 96 96s96-43 96-96H384c0 53 43 96 96 96s96-43 96-96h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V288 256 237.3c0-17-6.7-33.3-18.7-45.3L512 114.7c-12-12-28.3-18.7-45.3-18.7H416V48c0-26.5-21.5-48-48-48H112zM544 237.3V256H416V160h50.7L544 237.3zM160 368a48 48 0 1 1 0 96 48 48 0 1 1 0-96zm272 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0z"/></svg></h1></div>
                 <div class="text-justify mt-10">
@@ -68,6 +68,20 @@
                         Quas error nemo, atque rem tempora perspiciatis est nulla sed impedit, omnis officia itaque voluptas voluptatibus aliquam consequuntur.
                     </p>
                 </div>
+            </div>
+        </div>
+        <div class="grid sm:grid-cols-5 ms:grid-cols-1 pt-10 ms:gap-y-10">
+            <div class="sm:col-span-2 flex justify-center items-center text-2xl">
+                <h1>Get Latest Update & <br> Offers from BIKEY</h1>
+            </div>
+            <div class="relative sm:col-span-3 border-b-[150px] border-b-nav_color border-l-[65px] border-l-transparent">
+                <div class="absolute w-[90%] inline-block mt-[50px] rounded-full">
+                    <input type="text" placeholder="Enter your email" class="w-full py-3 px-4 border-none rounded-full focus:outline-none caret-cart_count_color">
+                    <button class="absolute bg-cart_count_color top-1 right-1 px-3 py-[6px] rounded-full text-white group border-cart_count_color overflow-hidden border-2">
+                        <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-in-out origin-center"></span>
+                        <span class="relative z-50 transition-colors duration-500 ease-in-out group-hover:text-cart_count_color">SUBMIT</span>
+                    </button>
+                </div>                 
             </div>
         </div>
     </div>
