@@ -72,7 +72,7 @@
         </div>
         <div class="grid sm:grid-cols-5 ms:grid-cols-1 pt-10 ms:gap-y-10">
             <div class="sm:col-span-2 flex justify-center items-center text-2xl">
-                <h1>Get Latest Update & <br> Offers from BIKEY</h1>
+                <h1>Get Latest Update & <br class="sm:block hidden"> Offers from BIKEY</h1>
             </div>
             <div class="relative sm:col-span-3 border-b-[150px] border-b-nav_color border-l-[65px] border-l-transparent">
                 <div class="absolute w-[90%] inline-block mt-[50px] rounded-full">
