@@ -36,7 +36,7 @@
             </ul>
         </div>
         
-        <div class="col-span-1">
+        <div class="col-span-1 text-white">
             <h1 class="border-b-[3px] text-2xl border-b-dark_blue_color">
                 Social Links
             </h1>
