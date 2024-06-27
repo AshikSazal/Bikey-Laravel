@@ -7,7 +7,7 @@
             <form>
                 <x-input type="text" name="email" placeholder="Enter Your E-Mail" />
                 <x-input type="password" name="password" placeholder="Enter Your Password" />
-                <div class="grid justify-center items-center">
+                <div class="grid justify-center items-center mt-6">
                     <x-button type="submit" text="LOGIN" class="orange_color">LOGIN</x-button>
                 </div>
             </form>
