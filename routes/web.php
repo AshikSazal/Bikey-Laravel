@@ -16,4 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('pages.landing-page.landing-page');
     // return view('app');
-});
+})->name('home');
+
+Route::get('/login',function(){
+    return view('pages.auth.login');
+})->name('login');
+Route::get('/registration',function(){
+    return view('pages.auth.registration');
+})->name('registration');
