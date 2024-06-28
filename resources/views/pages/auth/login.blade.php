@@ -3,7 +3,7 @@
 @section('content')
 <div class="h-screen">
     <div class="w-full flex justify-center items-center h-full">
-        <x-card class="bg-sky_blue_color w-screen ss:w-2/3 md:w-1/2">
+        <x-card class="bg-sky_blue_color w-screen ss:w-2/3 md:w-1/3">
             <form>
                 <x-input type="text" name="email" placeholder="Enter Your E-Mail" />
                 <x-input type="password" name="password" placeholder="Enter Your Password" />
