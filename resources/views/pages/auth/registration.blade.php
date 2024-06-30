@@ -19,3 +19,21 @@
     </div>
 </div>
 @endsection
+
+<script>
+    import { initializeApp } from "firebase/app";
+    import { getAnalytics } from "firebase/analytics";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDWhrPNSa5qicV64g86nuumvedGodXjWMs",
+        authDomain: "otp-laravel-bb4ff.firebaseapp.com",
+        projectId: "otp-laravel-bb4ff",
+        storageBucket: "otp-laravel-bb4ff.appspot.com",
+        messagingSenderId: "805078416753",
+        appId: "1:805078416753:web:7e9d0c38eff735c0fb0ad0",
+        measurementId: "G-C141Y9N90N"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+</script>
