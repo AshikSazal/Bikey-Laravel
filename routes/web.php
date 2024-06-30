@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,7 @@ Route::get('/login',function(){
 Route::get('/registration',function(){
     return view('pages.auth.registration');
 })->name('registration');
+
+
+Route::post('/register',[UserController::class,'register'])->name('user.registration');
+Route::post('/login',[UserController::class,'login'])->name('user.login');

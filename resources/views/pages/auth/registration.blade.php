@@ -4,7 +4,8 @@
 <div class="h-screen mt-[90px]">
     <div class="w-full flex justify-center items-center h-full">
         <x-card class="bg-sky_blue_color w-screen ss:w-2/3 md:w-1/3">
-            <form>
+            <form method="POST" action="{{route('user.registration')}}">
+                @csrf
                 <x-input type="text" name="name" placeholder="Enter Your Name" />
                 <x-input type="text" name="phone" placeholder="Enter Your Phone Number" />
                 <x-input type="text" name="email" placeholder="Enter Your E-Mail" />
