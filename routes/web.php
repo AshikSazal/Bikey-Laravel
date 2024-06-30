@@ -16,7 +16,6 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('pages.landing-page.landing-page');
-    // return view('app');
 })->name('home');
 
 Route::get('/login',function(){

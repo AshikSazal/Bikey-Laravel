@@ -9,7 +9,7 @@
                 <x-input type="text" name="email" placeholder="Enter Your E-Mail" />
                 <x-input type="password" name="password" placeholder="Enter Your Password" />
                 <div class="grid justify-center items-center mt-6">
-                    <x-button type="submit" text="LOGIN" class="orange_color">LOGIN</x-button>
+                    <x-button type="submit" text="LOGIN" class="orange_color" id='hello'>LOGIN</x-button>
                 </div>
             </form>
             <a class="text-white text-md underline" href="{{route('registration')}}">Create an account?</a>

@@ -6,19 +6,14 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Button extends Component
+class pop-up extends Component
 {
-    public $type;
-    public $class;
-    public $id;
     /**
      * Create a new component instance.
      */
-    public function __construct($type, $class, $id)
+    public function __construct()
     {
-        $this->type = $type;
-        $this->class = $class;
-        $this->id = $id;
+        //
     }
 
     /**
@@ -26,6 +21,6 @@ class Button extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.button');
+        return view('components.pop-up');
     }
 }
