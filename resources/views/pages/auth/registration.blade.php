@@ -19,9 +19,11 @@
         </div>
     </div>
     <div>
-        <x-pop-up />
+        <x-pop_up />
     </div>
 @endsection
+
+@section('scripts')
 
 <script>
     // import { initializeApp } from "firebase/app";
@@ -40,16 +42,29 @@
     // const app = initializeApp(firebaseConfig);
     // const analytics = getAnalytics(app);
 
-    document.addEventListener("DOMContentLoaded",function(){
+    document.addEventListener("DOMContentLoaded", function() {
         const showPopUp = document.getElementById("show-pop-up");
         const popUp = document.getElementById("pop-up");
-        showPopUp.addEventListener("click", () => {
-            console.log("Clicked");
+
+        if (!showPopUp || !popUp) {
+            console.error("Button or pop-up element not found.");
+            return;
+        }
+
+        showPopUp.addEventListener("click", function(event) {
+            event.preventDefault();
+
+            popUp.style.display = "flex";
+            popUp.style.position = 'fixed';
             document.body.style.overflow = 'hidden';
-            popUp.style.display="block";
             popUp.style.background = 'rgba(0, 0, 0, 0.8)';
+            popUp.style.top = '0';
+            popUp.style.left = '0';
             popUp.style.width = '100%';
             popUp.style.height = '100%';
         });
-    })
+    });
+
 </script>
+
+@endsection
