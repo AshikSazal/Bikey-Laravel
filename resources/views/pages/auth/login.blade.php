@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-    <div class="h-screen mt-[90px]">
+    <div class="h-screen">
         <div class="w-full flex justify-center items-center h-full">
             <x-card class="bg-sky_blue_color w-screen ss:w-2/3 md:w-1/3">
                 <form method="POST" action="{{route('user.login')}}">
