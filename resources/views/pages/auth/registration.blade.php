@@ -32,10 +32,10 @@
             <div class="flex justify-center">
                 <form action="#">
                     <div class="flex gap-3 flex-row justify-center items-center input-field">
-                        <input class="h-[45px] w-[42px] rounded-md ouline-none text-xl items-center border border-gray-300 focus:shadow-md" type="number" />
-                        <input class="h-[45px] w-[42px] rounded-md ouline-none text-xl items-center border border-gray-300 focus:shadow-md" type="number" disabled />
-                        <input class="h-[45px] w-[42px] rounded-md ouline-none text-xl items-center border border-gray-300 focus:shadow-md" type="number" disabled />
-                        <input class="h-[45px] w-[42px] rounded-md ouline-none text-xl items-center border border-gray-300 focus:shadow-md" type="number" disabled />
+                        <input class="h-[45px] w-[42px] rounded-md ouline-none text-xl items-center text-center border border-gray-300 focus:shadow-md" type="number" />
+                        <input class="h-[45px] w-[42px] rounded-md ouline-none text-xl items-center text-center border border-gray-300 focus:shadow-md" type="number" disabled />
+                        <input class="h-[45px] w-[42px] rounded-md ouline-none text-xl items-center text-center border border-gray-300 focus:shadow-md" type="number" disabled />
+                        <input class="h-[45px] w-[42px] rounded-md ouline-none text-xl items-center text-center border border-gray-300 focus:shadow-md" type="number" disabled />
                     </div>
                     <div class="grid justify-center items-center mt-4">
                         <x-button type="submit" class="sky_blue_color" id="show-pop-up">Verify OTP</x-button>
