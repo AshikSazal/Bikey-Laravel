@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class pop_up extends Component
+class Error extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class pop_up extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.pop_up');
+        return view('components.error');
     }
 }
