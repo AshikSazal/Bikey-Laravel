@@ -38,7 +38,10 @@
                         <input class="h-[45px] w-[42px] rounded-md ouline-none text-xl items-center text-center border border-gray-300 focus:shadow-md" type="number" disabled />
                     </div>
                     <div class="grid justify-center items-center mt-4">
-                        <x-button type="submit" class="sky_blue_color" id="show-pop-up" flag=1>Verify OTP</x-button>
+                        <button type="submit" class="relative border-gray-400 px-4 py-[6px] rounded-full text-white group overflow-hidden border-2 bg-gray-400" id="show-otp-button" disabled>
+                            <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-in-out origin-center"></span>
+                            <span class="group-hover:text-sky_blue_color relative transition-colors duration-500 ease-in-out">Verify OTP</span>
+                        </button>
                     </div>
                 </form>
             </div>
@@ -88,7 +91,7 @@
 
             // OTP input
             const inputs = document.querySelectorAll(".input-field input");
-            const button = document.getElementById("show-pop-up");
+            const button = document.getElementById("show-otp-button");
             inputs.forEach((input, index1) => {
                 input.addEventListener("keyup",(e)=>{
                     const currentInput = input;
@@ -112,11 +115,26 @@
                             }
                         })
                     }
-                    if (!inputs[3].disabled && inputs[3].value !== "") {
-                        button.classList.add("active");
-                        return;
+                    let allFilled = true;
+                    inputs.forEach((input) => {
+                        if (input.value === "") {
+                            allFilled = false;
+                        }
+                    });
+
+                    if (allFilled) {
+                        button.classList.add("bg-sky_blue_color");
+                        button.classList.remove("bg-gray-400");
+                        button.classList.add("border-sky_blue_color");
+                        button.classList.remove("border-gray-400");
+                        button.removeAttribute("disabled");
+                    } else {
+                        button.classList.remove("bg-sky_blue_color");
+                        button.classList.add("bg-gray-400");
+                        button.classList.remove("border-sky_blue_color");
+                        button.classList.add("border-gray-400");
+                        button.setAttribute("disabled", "disabled");
                     }
-                    button.classList.remove("active");
                 });
             });
             window.addEventListener("load", () => inputs[0].focus());
