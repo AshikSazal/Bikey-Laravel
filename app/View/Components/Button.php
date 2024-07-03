@@ -11,14 +11,16 @@ class Button extends Component
     public $type;
     public $class;
     public $id;
+    public $flag;
     /**
      * Create a new component instance.
      */
-    public function __construct($type, $class, $id)
+    public function __construct($type, $class, $id, $flag=null)
     {
         $this->type = $type;
         $this->class = $class;
         $this->id = $id;
+        $this->flag=$flag;
     }
 
     /**
