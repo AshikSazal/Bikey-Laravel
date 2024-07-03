@@ -115,6 +115,7 @@
                             }
                         })
                     }
+                    
                     let allFilled = true;
                     inputs.forEach((input) => {
                         if (input.value === "") {
@@ -139,9 +140,9 @@
             });
             window.addEventListener("load", () => inputs[0].focus());
         });
+
         
     });
-
 
 </script>
 
