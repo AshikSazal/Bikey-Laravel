@@ -13,6 +13,7 @@
                     <div class="grid justify-center items-center mt-6">
                         <x-button type="submit" class="orange_color" id="show-pop-up">SIGN UP</x-button>
                     </div>
+                    <div id="recaptcha-container"></div>
                 </form>
                 <a class="text-white text-md underline" href="{{route('login')}}">Have an account?Login</a>
             </x-card>
@@ -30,7 +31,6 @@
                 </header>
             </div>
             <div class="flex justify-center text-red-600" id="show-message"></div>
-            <div id="recaptcha-container"></div>
             <h4 class="flex flex-col items-center justify-center pb-2">Enter OTP Code</h4>
             <div class="flex justify-center">
                 <form action="{{route('user.registration')}}" method="POST" id="verify-otp">
@@ -57,20 +57,20 @@
 
 @section('scripts')
 {{-- <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script> --}}
-<script type="text/javascript" src="{{ URL::to('src/js/firebase.js') }}">
-    // const firebaseConfig = {
-    //     apiKey: "AIzaSyDWhrPNSa5qicV64g86nuumvedGodXjWMs",
-    //     authDomain: "otp-laravel-bb4ff.firebaseapp.com",
-    //     projectId: "otp-laravel-bb4ff",
-    //     storageBucket: "otp-laravel-bb4ff.appspot.com",
-    //     messagingSenderId: "805078416753",
-    //     appId: "1:805078416753:web:7e9d0c38eff735c0fb0ad0",
-    //     measurementId: "G-C141Y9N90N"
-    // };
-
-    // firebase.initializeApp(firebaseConfig);
-</script>
+<script type="text/javascript" src="{{ URL::to('src/js/firebase.js') }}"></script>
 <script>
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDWhrPNSa5qicV64g86nuumvedGodXjWMs",
+        authDomain: "otp-laravel-bb4ff.firebaseapp.com",
+        projectId: "otp-laravel-bb4ff",
+        storageBucket: "otp-laravel-bb4ff.appspot.com",
+        messagingSenderId: "805078416753",
+        appId: "1:805078416753:web:7e9d0c38eff735c0fb0ad0",
+        measurementId: "G-C141Y9N90N"
+    };
+
+    firebase.initializeApp(firebaseConfig);
 
     document.addEventListener("DOMContentLoaded", function() {
         const showPopUp = document.getElementById("show-pop-up");
@@ -83,6 +83,7 @@
 
         showPopUp.addEventListener("click", function(event) {
             event.preventDefault();
+            phoneSendAuth();
 
             popUp.style.display = "flex";
             popUp.style.position = 'fixed';
@@ -152,8 +153,7 @@
             inputs.forEach((input) => {
                 otpNumber += input.value;
             });
-
-            // phoneSendAuth();
+            verifyCode(otpNumber);
             $.ajax({
                type:'POST',
                url:"./registration",
@@ -162,10 +162,10 @@
                     _token: '{!! csrf_token() !!}'
                 },
                success:function(data) {
-                    $(".otp-show").hide();
-                    $(".otp-show").parent().css("background-color", "white");
-                    $(".otp-close").show();
-                    $("#show-message").html(data.message);
+                    // $(".otp-show").hide();
+                    // $(".otp-show").parent().css("background-color", "white");
+                    // $(".otp-close").show();
+                    // $("#show-message").html(data.message);
                },
                error: function(xhr, status, error) {
                     console.error(xhr.responseText);
@@ -177,7 +177,7 @@
 
 </script>
 
-{{-- <script type="text/javascript">
+<script type="text/javascript">
   
     window.onload=function () {
       render();
@@ -186,22 +186,21 @@
     function render() {
         window.recaptchaVerifier=new firebase.auth.RecaptchaVerifier('recaptcha-container',{
             'size': 'invisible',
-            // 'callback': (response) => {
-            //     onSignInSubmit();
-            // }
+            'callback': (response) => {
+                onSignInSubmit();
+            }
         });
         recaptchaVerifier.render();
     }
   
     function phoneSendAuth() {
            
-        var number = "+8801797908210"
+        var number = "+8801723069649"
           
         firebase.auth().signInWithPhoneNumber(number,window.recaptchaVerifier).then(function (confirmationResult) {
               
             window.confirmationResult=confirmationResult;
             coderesult=confirmationResult;
-            console.log(coderesult);
   
             $("#show-message").text("Message Sent Successfully.");
             $("#show-message").show();
@@ -212,8 +211,22 @@
         });
   
     }
+
+    function verifyCode(code){
+        coderesult.confirm(code).then(function(result){
+            var user = result.user;
+            $("#show-message").text("Your registration has been successfull");
+            $("#show-message").show();
+        }).catch(function(error){
+            $(".otp-show").hide();
+            $(".otp-show").parent().css("background-color", "white");
+            $(".otp-close").show();
+            $("#show-message").text(error.message);
+            $("#show-message").show();
+        })
+    }
   
-</script> --}}
+</script>
 
 
 @endsection
