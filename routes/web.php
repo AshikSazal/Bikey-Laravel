@@ -26,5 +26,5 @@ Route::get('/registration',function(){
 })->name('registration');
 
 
-Route::post('/registration',[UserController::class,'registration']);
+Route::post('/registration',[UserController::class,'registration'])->name('user.registration');
 Route::post('/login',[UserController::class,'login'])->name('user.login');
