@@ -32,6 +32,7 @@
             <h4 class="flex flex-col items-center justify-center pb-2">Enter OTP Code</h4>
             <div class="flex justify-center">
                 <form action="{{url('registration')}}" method="POST" id="verify-otp">
+                    @csrf
                     <div class="flex gap-3 flex-row justify-center items-center input-field">
                         <input class="h-[45px] w-[42px] rounded-md ouline-none text-xl items-center text-center border border-gray-300 focus:shadow-md" type="number" />
                         <input class="h-[45px] w-[42px] rounded-md ouline-none text-xl items-center text-center border border-gray-300 focus:shadow-md" type="number" disabled />
@@ -146,7 +147,7 @@
             $.ajax({
                type:'POST',
                url:"{{url('registration')}}",
-               data:'hell',
+               data:{first:'hell'},
                success:function(data) {
                   $("#show-message").html(data.message);
                }
