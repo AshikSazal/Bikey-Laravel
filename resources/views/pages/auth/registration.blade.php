@@ -19,7 +19,7 @@
         </div>
     </div>
     <div id="otp" class="hidden z-20 relative justify-center items-center bg-white py-[30px] px-[65px]">
-        <div class="absolute bg-white w-[350px] h-[280px] rounded-md">
+        <div class="absolute bg-white w-[450px] h-[280px] rounded-md">
             <div class="flex justify-center py-2">
                 <header class="relative h-[65px] w-[65px] bg-sky_blue_color text-white flex flex-col justify-center items-center rounded-full">
                     <svg class="otp-show" fill="#fff" width="40px" height="40px" viewBox="0 0 36 36" version="1.1"  preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -30,12 +30,15 @@
                 </header>
             </div>
             <div class="flex justify-center text-red-600" id="show-message"></div>
+            <div id="recaptcha-container"></div>
             <h4 class="flex flex-col items-center justify-center pb-2">Enter OTP Code</h4>
             <div class="flex justify-center">
                 <form action="{{route('user.registration')}}" method="POST" id="verify-otp">
                     @csrf
                     <div class="flex gap-3 flex-row justify-center items-center input-field">
                         <input class="h-[45px] w-[42px] rounded-md ouline-none text-xl items-center text-center border border-gray-300 focus:shadow-md" type="number" />
+                        <input class="h-[45px] w-[42px] rounded-md ouline-none text-xl items-center text-center border border-gray-300 focus:shadow-md" type="number" disabled />
+                        <input class="h-[45px] w-[42px] rounded-md ouline-none text-xl items-center text-center border border-gray-300 focus:shadow-md" type="number" disabled />
                         <input class="h-[45px] w-[42px] rounded-md ouline-none text-xl items-center text-center border border-gray-300 focus:shadow-md" type="number" disabled />
                         <input class="h-[45px] w-[42px] rounded-md ouline-none text-xl items-center text-center border border-gray-300 focus:shadow-md" type="number" disabled />
                         <input class="h-[45px] w-[42px] rounded-md ouline-none text-xl items-center text-center border border-gray-300 focus:shadow-md" type="number" disabled />
@@ -53,9 +56,9 @@
 @endsection
 
 @section('scripts')
+{{-- <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script> --}}
+<script type="text/javascript" src="{{ URL::to('src/js/firebase.js') }}"></script>
 <script>
-    // import { initializeApp } from "firebase/app";
-    // import { getAnalytics } from "firebase/analytics";
 
     // const firebaseConfig = {
     //     apiKey: "AIzaSyDWhrPNSa5qicV64g86nuumvedGodXjWMs",
@@ -67,8 +70,7 @@
     //     measurementId: "G-C141Y9N90N"
     // };
 
-    // const app = initializeApp(firebaseConfig);
-    // const analytics = getAnalytics(app);
+    // firebase.initializeApp(firebaseConfig);
 
     document.addEventListener("DOMContentLoaded", function() {
         const showPopUp = document.getElementById("show-pop-up");
@@ -145,6 +147,13 @@
 
         $('#verify-otp').on('submit',function(event){
             event.preventDefault();
+            const inputs = document.querySelectorAll(".input-field input");
+            let otpNumber = "";
+            inputs.forEach((input) => {
+                otpNumber += input.value;
+            });
+
+            // phoneSendAuth();
             $.ajax({
                type:'POST',
                url:"./registration",
@@ -167,6 +176,44 @@
     });
 
 </script>
+
+{{-- <script type="text/javascript">
+  
+    window.onload=function () {
+      render();
+    };
+  
+    function render() {
+        window.recaptchaVerifier=new firebase.auth.RecaptchaVerifier('recaptcha-container',{
+            'size': 'invisible',
+            // 'callback': (response) => {
+            //     onSignInSubmit();
+            // }
+        });
+        recaptchaVerifier.render();
+    }
+  
+    function phoneSendAuth() {
+           
+        var number = "+8801797908210"
+          
+        firebase.auth().signInWithPhoneNumber(number,window.recaptchaVerifier).then(function (confirmationResult) {
+              
+            window.confirmationResult=confirmationResult;
+            coderesult=confirmationResult;
+            console.log(coderesult);
+  
+            $("#show-message").text("Message Sent Successfully.");
+            $("#show-message").show();
+              
+        }).catch(function (error) {
+            $("#show-message").text(error.message);
+            $("#show-message").show();
+        });
+  
+    }
+  
+</script> --}}
 
 
 @endsection
