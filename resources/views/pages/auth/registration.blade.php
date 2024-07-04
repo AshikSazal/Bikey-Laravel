@@ -57,9 +57,7 @@
 
 @section('scripts')
 {{-- <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script> --}}
-<script type="text/javascript" src="{{ URL::to('src/js/firebase.js') }}"></script>
-<script>
-
+<script type="text/javascript" src="{{ URL::to('src/js/firebase.js') }}">
     // const firebaseConfig = {
     //     apiKey: "AIzaSyDWhrPNSa5qicV64g86nuumvedGodXjWMs",
     //     authDomain: "otp-laravel-bb4ff.firebaseapp.com",
@@ -71,6 +69,8 @@
     // };
 
     // firebase.initializeApp(firebaseConfig);
+</script>
+<script>
 
     document.addEventListener("DOMContentLoaded", function() {
         const showPopUp = document.getElementById("show-pop-up");
