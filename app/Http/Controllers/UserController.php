@@ -8,6 +8,6 @@ use App\Models\User;
 class UserController extends Controller
 {
     public function registration(Request $request){
-        return ['message'=>"Successfull ".$request];
+        return ['message'=>"Successfull ".$request->input('first')];
     }
 }
