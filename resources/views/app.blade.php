@@ -7,7 +7,7 @@
     {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
     <link rel="icon" href="./images/logo.png" type="image/png">
     @vite(['resources/css/app.css','resources/css/header.css','resources/css/chat.css','resources/css/landing-page.css','resources/css/input.css'])
-    @vite(['resources/js/jquery.js'])
+    {{-- @vite(['resources/js/jquery.js']) --}}
     <title>Bikey</title>
 </head>
 <body>

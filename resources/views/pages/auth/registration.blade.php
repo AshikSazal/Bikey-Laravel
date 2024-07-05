@@ -4,16 +4,16 @@
     <div class="h-screen mt-[90px]">
         <div class="w-full flex justify-center items-center h-full">
             <x-card class="bg-sky_blue_color w-screen ss:w-2/3 md:w-1/3">
-                <form>
+                <form id="signup-form">
                     @csrf
                     <x-input type="text" name="name" placeholder="Enter Your Name" />
                     <x-input type="text" name="phone" placeholder="Enter Your Phone Number" />
                     <x-input type="text" name="email" placeholder="Enter Your E-Mail" />
                     <x-input type="password" name="password" placeholder="Enter Your Password" />
+                    <div id="recaptcha-container" class="mt-2"></div>
                     <div class="grid justify-center items-center mt-6 mb-4">
                         <x-button type="submit" class="orange_color" id="show-pop-up">SIGN UP</x-button>
                     </div>
-                    <div id="recaptcha-container"></div>
                 </form>
                 <a class="text-white text-md underline" href="{{route('login')}}">Have an account?Login</a>
             </x-card>
@@ -58,6 +58,55 @@
 @section('scripts')
 {{-- <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script> --}}
 <script type="text/javascript" src="{{ URL::to('src/js/firebase.js') }}"></script>
+<script type="text/javascript" src="{{ URL::to('src/js/jquery.js') }}"></script>
+
+<script>
+    $(document).ready(function() {
+        // Function to check if the form is valid
+        function isFormValid() {
+            // You can implement your validation logic here
+            var name = $('input[name="name"]').val().trim();
+            var phone = $('input[name="phone"]').val().trim();
+            var email = $('input[name="email"]').val().trim();
+            var password = $('input[name="password"]').val().trim();
+
+            // Example validation: check if required fields are not empty
+            if (name !== '' && phone !== '' && email !== '' && password !== '') {
+                return true; // Form is valid
+            } else {
+                return false; // Form is not valid
+            }
+        }
+
+        // Disable the button initially
+        $('#show-pop-up').prop('disabled', true);
+
+        // Validate the form on keyup or change in any input field
+        $('#signup-form').on('keyup change', 'input', function() {
+            if (isFormValid()) {
+                $('#show-pop-up').prop('disabled', false);
+            } else {
+                $('#show-pop-up').prop('disabled', true);
+            }
+        });
+
+        // Validate the form on form submit
+        $('#signup-form').submit(function(event) {
+            event.preventDefault(); // Prevent form submission for demonstration purpose
+
+            // You can add more advanced validation here if needed
+            if (isFormValid()) {
+                // Form is valid, you can proceed with form submission
+                // For demonstration, just alert
+                alert('Form is valid! Submitting form...');
+            } else {
+                // Form is not valid, handle it accordingly (optional)
+                alert('Form is not valid. Please fill all required fields.');
+            }
+        });
+    });
+</script>
+
 <script>
 
     const firebaseConfig = {
@@ -84,8 +133,12 @@
         showPopUp.addEventListener("click", function(event) {
             event.preventDefault();
             const firebaseVerificationId = localStorage.getItem("firebaseVerificationId");
-            if(!firebaseVerificationId)
+            if(firebaseVerificationId){
+                $("#show-message").text("Already send a OTP code. Please enter the OTP code");
+                $("#show-message").show();
+            }else{
                 phoneSendAuth();
+            }
 
             popUp.style.display = "flex";
             popUp.style.position = 'fixed';
@@ -186,29 +239,34 @@
         if(firebaseVerificationId)
             size="invisible";
         window.recaptchaVerifier=new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-                size: size
+                size: size,
+                callback: function(response) {
+                    localStorage.setItem("recaptchaToken",response)
+                },
             }
         );
         recaptchaVerifier.render();
     }
     function phoneSendAuth() {
-           
+        
         var number = "+8801797908210"
         // var number = "+8801576497909"
         // var number = "+8801797908210"
+        
+        console.log(window.recaptchaVerifier.token);
           
-        firebase.auth().signInWithPhoneNumber(number,window.recaptchaVerifier).then(function (confirmationResult) {
+        // firebase.auth().signInWithPhoneNumber(number,window.recaptchaVerifier).then(function (confirmationResult) {
               
-            window.confirmationResult=confirmationResult;
-            localStorage.setItem("firebaseVerificationId", confirmationResult.verificationId);
+        //     window.confirmationResult=confirmationResult;
+        //     localStorage.setItem("firebaseVerificationId", confirmationResult.verificationId);
   
-            $("#show-message").text("Message Sent Successfully.");
-            $("#show-message").show();
+        //     $("#show-message").text("Message Sent Successfully.");
+        //     $("#show-message").show();
               
-        }).catch(function (error) {
-            $("#show-message").text(error.message);
-            $("#show-message").show();
-        });  
+        // }).catch(function (error) {
+        //     $("#show-message").text(error.message);
+        //     $("#show-message").show();
+        // });  
     }
 
     function verifyCode(){
@@ -228,6 +286,7 @@
             
             // Optionally, clear localStorage after successful verification
             localStorage.removeItem("firebaseVerificationId");
+            localStorage.removeItem("recaptchaToken");
         })
         .catch(function(error) {
             $(".otp-show").hide();
