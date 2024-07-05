@@ -10,7 +10,7 @@
                     <x-input type="text" name="phone" placeholder="Enter Your Phone Number" />
                     <x-input type="text" name="email" placeholder="Enter Your E-Mail" />
                     <x-input type="password" name="password" placeholder="Enter Your Password" />
-                    <div class="grid justify-center items-center mt-6">
+                    <div class="grid justify-center items-center mt-6 mb-4">
                         <x-button type="submit" class="orange_color" id="show-pop-up">SIGN UP</x-button>
                     </div>
                     <div id="recaptcha-container"></div>
@@ -20,7 +20,7 @@
         </div>
     </div>
     <div id="otp" class="hidden z-20 relative justify-center items-center bg-white py-[30px] px-[65px]">
-        <div class="absolute bg-white w-[450px] h-[280px] rounded-md">
+        <div class="absolute bg-white w-[450px] h-[300px] rounded-md">
             <div class="flex justify-center py-2">
                 <header class="relative h-[65px] w-[65px] bg-sky_blue_color text-white flex flex-col justify-center items-center rounded-full">
                     <svg class="otp-show" fill="#fff" width="40px" height="40px" viewBox="0 0 36 36" version="1.1"  preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -30,7 +30,7 @@
                     <svg class="hidden otp-close" fill="#FF0000" width="40px" height="40px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/></svg>
                 </header>
             </div>
-            <div class="flex justify-center text-red-600" id="show-message"></div>
+            <div class="flex justify-center text-red-600 px-2" id="show-message"></div>
             <h4 class="flex flex-col items-center justify-center pb-2">Enter OTP Code</h4>
             <div class="flex justify-center">
                 <form action="{{route('user.registration')}}" method="POST" id="verify-otp">
@@ -83,7 +83,9 @@
 
         showPopUp.addEventListener("click", function(event) {
             event.preventDefault();
-            phoneSendAuth();
+            const firebaseVerificationId = localStorage.getItem("firebaseVerificationId");
+            if(!firebaseVerificationId)
+                phoneSendAuth();
 
             popUp.style.display = "flex";
             popUp.style.position = 'fixed';
@@ -148,12 +150,7 @@
 
         $('#verify-otp').on('submit',function(event){
             event.preventDefault();
-            const inputs = document.querySelectorAll(".input-field input");
-            let otpNumber = "";
-            inputs.forEach((input) => {
-                otpNumber += input.value;
-            });
-            verifyCode(otpNumber);
+            verifyCode();
             $.ajax({
                type:'POST',
                url:"./registration",
@@ -184,23 +181,26 @@
     };
   
     function render() {
-        window.recaptchaVerifier=new firebase.auth.RecaptchaVerifier('recaptcha-container',{
-            'size': 'invisible',
-            'callback': (response) => {
-                onSignInSubmit();
+        const firebaseVerificationId = localStorage.getItem("firebaseVerificationId");
+        const size="normal";
+        if(firebaseVerificationId)
+            size="invisible";
+        window.recaptchaVerifier=new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+                size: size
             }
-        });
+        );
         recaptchaVerifier.render();
     }
-  
     function phoneSendAuth() {
            
-        var number = "+8801723069649"
+        var number = "+8801797908210"
+        // var number = "+8801576497909"
+        // var number = "+8801797908210"
           
         firebase.auth().signInWithPhoneNumber(number,window.recaptchaVerifier).then(function (confirmationResult) {
               
             window.confirmationResult=confirmationResult;
-            coderesult=confirmationResult;
+            localStorage.setItem("firebaseVerificationId", confirmationResult.verificationId);
   
             $("#show-message").text("Message Sent Successfully.");
             $("#show-message").show();
@@ -208,22 +208,34 @@
         }).catch(function (error) {
             $("#show-message").text(error.message);
             $("#show-message").show();
-        });
-  
+        });  
     }
 
-    function verifyCode(code){
-        coderesult.confirm(code).then(function(result){
+    function verifyCode(){
+        const inputs = document.querySelectorAll(".input-field input");
+        let otpNumber = "";
+        inputs.forEach((input) => {
+            otpNumber += input.value;
+        });
+        const firebaseVerificationId = localStorage.getItem("firebaseVerificationId");
+        const phoneCredential = firebase.auth.PhoneAuthProvider.credential(firebaseVerificationId,otpNumber)
+        firebase.auth().signInWithCredential(phoneCredential)
+        .then(function(result) {
             var user = result.user;
-            $("#show-message").text("Your registration has been successfull");
+            console.log(user);
+            $("#show-message").text("Your registration has been successful.");
             $("#show-message").show();
-        }).catch(function(error){
+            
+            // Optionally, clear localStorage after successful verification
+            localStorage.removeItem("firebaseVerificationId");
+        })
+        .catch(function(error) {
             $(".otp-show").hide();
             $(".otp-show").parent().css("background-color", "white");
             $(".otp-close").show();
             $("#show-message").text(error.message);
             $("#show-message").show();
-        })
+        });
     }
   
 </script>
