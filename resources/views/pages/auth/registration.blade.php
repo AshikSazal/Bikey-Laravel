@@ -77,16 +77,16 @@
                 return false; // Form is not valid
             }
         }
-
+        
         // Disable the button initially
         $('#show-pop-up').prop('disabled', true);
-
+        
         // Validate the form on keyup or change in any input field
         $('#signup-form').on('keyup change', 'input', function() {
             if (isFormValid()) {
-                $('#show-pop-up').prop('disabled', false);
+                $('#show-pop-up').css("background-color", "").prop('disabled', true);
             } else {
-                $('#show-pop-up').prop('disabled', true);
+                $('#show-pop-up').css("background-color", "white").prop('disabled', false);
             }
         });
 
