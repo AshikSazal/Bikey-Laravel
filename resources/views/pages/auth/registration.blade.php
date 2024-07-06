@@ -62,19 +62,16 @@
 
 <script>
     $(document).ready(function() {
-        // Function to check if the form is valid
         function isFormValid() {
-            // You can implement your validation logic here
             var name = $('input[name="name"]').val().trim();
             var phone = $('input[name="phone"]').val().trim();
             var email = $('input[name="email"]').val().trim();
             var password = $('input[name="password"]').val().trim();
 
-            // Example validation: check if required fields are not empty
             if (name !== '' && phone !== '' && email !== '' && password !== '') {
-                return true; // Form is valid
+                return true;
             } else {
-                return false; // Form is not valid
+                return false;
             }
         }
         
@@ -92,7 +89,7 @@
 
         // Validate the form on form submit
         $('#signup-form').submit(function(event) {
-            event.preventDefault(); // Prevent form submission for demonstration purpose
+            event.preventDefault();
 
             // You can add more advanced validation here if needed
             if (isFormValid()) {
@@ -249,6 +246,7 @@
     }
     function phoneSendAuth() {
         
+        // var number = $('input[name="phone"]').val().trim();
         var number = "+8801797908210"
         // var number = "+8801576497909"
         // var number = "+8801797908210"
