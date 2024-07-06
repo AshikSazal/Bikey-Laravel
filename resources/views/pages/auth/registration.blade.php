@@ -59,34 +59,46 @@
 {{-- <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script> --}}
 <script type="text/javascript" src="{{ URL::to('src/js/firebase.js') }}"></script>
 <script type="text/javascript" src="{{ URL::to('src/js/jquery.js') }}"></script>
-
-<script>
+<script type="module" src="{{ asset('src/js/validator.js') }}"></script>
+<script type="module">
+    import { validate, VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_PHONE_NUMBER } from "{{ asset('src/js/validator.js') }}";
     $(document).ready(function() {
         // Function to check if the form is valid
         function isFormValid() {
-            // You can implement your validation logic here
-            var name = $('input[name="name"]').val().trim();
-            var phone = $('input[name="phone"]').val().trim();
-            var email = $('input[name="email"]').val().trim();
-            var password = $('input[name="password"]').val().trim();
+            var name = $('input[name="name"]').val();
+            var phone = $('input[name="phone"]').val();
+            var email = $('input[name="email"]').val();
+            var password = $('input[name="password"]').val();
 
-            // Example validation: check if required fields are not empty
-            if (name !== '' && phone !== '' && email !== '' && password !== '') {
-                return true; // Form is valid
+            var nameIsValid = validate(name, [VALIDATOR_REQUIRE()]);
+            var phoneIsValid = validate(phone, [VALIDATOR_REQUIRE(),VALIDATOR_PHONE_NUMBER()]);
+            var emailIsValid = validate(email, [VALIDATOR_REQUIRE(),VALIDATOR_EMAIL()]);
+            var passwordIsValid = validate(password, [VALIDATOR_REQUIRE()]);
+
+            console.log(nameIsValid, phoneIsValid, emailIsValid, passwordIsValid)
+
+            if (nameIsValid && phoneIsValid && emailIsValid && emailIsValid) {
+                return true;
             } else {
-                return false; // Form is not valid
+                return false;
             }
         }
         
         // Disable the button initially
-        $('#show-pop-up').prop('disabled', true);
+        $('#show-pop-up').css({
+            "background": "#9ca3af",
+            "border-color": "#9ca3af"
+        }).prop('disabled', true);
         
         // Validate the form on keyup or change in any input field
         $('#signup-form').on('keyup change', 'input', function() {
             if (isFormValid()) {
-                $('#show-pop-up').css("background-color", "").prop('disabled', true);
+                $('#show-pop-up').css({"background-color":"#f85606","border-color":"#f85606"}).prop('disabled', false);
             } else {
-                $('#show-pop-up').css("background-color", "white").prop('disabled', false);
+                $('#show-pop-up').css({
+                    "background": "#9ca3af",
+                    "border-color": "#9ca3af"
+                }).prop('disabled', true);
             }
         });
 
