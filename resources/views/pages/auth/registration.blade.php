@@ -62,7 +62,6 @@
 <script type="module">
     import { validate, VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_PHONE_NUMBER, VALIDATOR_MINLENGTH } from "{{ URL::to('src/js/validator.js') }}";
     $(document).ready(function() {
-        // Function to check if the form is valid
         function isFormValid() {
             var name = $('input[name="name"]').val();
             var phone = $('input[name="phone"]').val();
@@ -73,8 +72,6 @@
             var phoneIsValid = validate(phone, [VALIDATOR_REQUIRE(),VALIDATOR_PHONE_NUMBER()]);
             var emailIsValid = validate(email, [VALIDATOR_REQUIRE(),VALIDATOR_EMAIL()]);
             var passwordIsValid = validate(password, [VALIDATOR_REQUIRE(),VALIDATOR_MINLENGTH(4)]);
-
-            console.log(nameIsValid, phoneIsValid, emailIsValid, passwordIsValid)
 
             if (nameIsValid && phoneIsValid && emailIsValid && passwordIsValid) {
                 return true;
