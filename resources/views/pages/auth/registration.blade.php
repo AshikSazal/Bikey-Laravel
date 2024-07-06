@@ -59,9 +59,8 @@
 {{-- <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script> --}}
 <script type="text/javascript" src="{{ URL::to('src/js/firebase.js') }}"></script>
 <script type="text/javascript" src="{{ URL::to('src/js/jquery.js') }}"></script>
-<script type="module" src="{{ asset('src/js/validator.js') }}"></script>
 <script type="module">
-    import { validate, VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_PHONE_NUMBER } from "{{ asset('src/js/validator.js') }}";
+    import { validate, VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_PHONE_NUMBER, VALIDATOR_MINLENGTH } from "{{ URL::to('src/js/validator.js') }}";
     $(document).ready(function() {
         // Function to check if the form is valid
         function isFormValid() {
@@ -73,11 +72,11 @@
             var nameIsValid = validate(name, [VALIDATOR_REQUIRE()]);
             var phoneIsValid = validate(phone, [VALIDATOR_REQUIRE(),VALIDATOR_PHONE_NUMBER()]);
             var emailIsValid = validate(email, [VALIDATOR_REQUIRE(),VALIDATOR_EMAIL()]);
-            var passwordIsValid = validate(password, [VALIDATOR_REQUIRE()]);
+            var passwordIsValid = validate(password, [VALIDATOR_REQUIRE(),VALIDATOR_MINLENGTH(4)]);
 
             console.log(nameIsValid, phoneIsValid, emailIsValid, passwordIsValid)
 
-            if (nameIsValid && phoneIsValid && emailIsValid && emailIsValid) {
+            if (nameIsValid && phoneIsValid && emailIsValid && passwordIsValid) {
                 return true;
             } else {
                 return false;
