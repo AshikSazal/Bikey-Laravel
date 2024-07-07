@@ -30,7 +30,7 @@
                     <svg class="hidden otp-close" fill="#FF0000" width="40px" height="40px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/></svg>
                 </header>
             </div>
-            <div class="flex justify-center text-red-600 px-2" id="show-message"></div>
+            <div class="flex justify-center text-red-600 px-2 text-sm" id="show-message"></div>
             <h4 class="flex flex-col items-center justify-center pb-2">Enter OTP Code</h4>
             <div class="flex justify-center">
                 <form action="{{route('user.registration')}}" method="POST" id="verify-otp">
@@ -49,6 +49,7 @@
                             <span class="group-hover:text-sky_blue_color relative transition-colors duration-500 ease-in-out">Verify OTP</span>
                         </button>
                     </div>
+                    <a id="resend-otp" href="" class="flex justify-center mt-4 underline text-gray-400 decoration-gray-400 pointer-events-none">Resend OTP</a>
                 </form>
             </div>
         </div>
@@ -134,7 +135,6 @@
         const popUp = document.getElementById("otp");
 
         if (!showPopUp || !popUp) {
-            console.error("Button or pop-up element not found.");
             return;
         }
 
