@@ -82,10 +82,10 @@
         }
         
         // Disable the button initially
-        $('#show-pop-up').css({
-            "background": "#9ca3af",
-            "border-color": "#9ca3af"
-        }).prop('disabled', true);
+        // $('#show-pop-up').css({
+        //     "background": "#9ca3af",
+        //     "border-color": "#9ca3af"
+        // }).prop('disabled', true);
         
         // Validate the form on keyup or change in any input field
         $('#signup-form').on('keyup change', 'input', function() {
@@ -133,6 +133,37 @@
     document.addEventListener("DOMContentLoaded", function() {
         const showPopUp = document.getElementById("show-pop-up");
         const popUp = document.getElementById("otp");
+        var showTimer = document.getElementById("show-message");
+
+        function otpTimeCount() {
+            var minute = 4;
+            var second = 59;
+            showTimer.textContent = minute + ":" + second;
+
+            var countdown = setInterval(function() {
+                second -= 1;
+
+                if (second < 10 && second >= 0) {
+                    second = '0' + second;
+                }
+
+                if (second <0) {
+                    minute -= 1;
+                    if (minute < 0) {
+                        clearInterval(countdown);
+                        showTimer.textContent = "Your Time Has Been Expired";
+                        return;
+                    }
+                    second = 59;
+                }
+                showTimer.textContent = minute + ":" + second;
+                
+            }, 1000);
+            
+            $('#verify-otp').on('click',function(){
+                clearInterval(countdown);
+            });
+        }
 
         if (!showPopUp || !popUp) {
             return;
@@ -156,7 +187,8 @@
                     $("#show-message").text("Already send a OTP code. Please enter the OTP code");
                     $("#show-message").show();
                 }else{
-                    phoneSendAuth();
+                    // phoneSendAuth();
+                    otpTimeCount();
                 }
 
                 popUp.style.display = "flex";
@@ -265,6 +297,7 @@
                 },
             }
         );
+        localStorage.setItem("recaptchaVerifier",window.recaptchaVerifier);
         recaptchaVerifier.render();
     }
     function phoneSendAuth() {
@@ -272,21 +305,19 @@
         var number = "+8801797908210"
         // var number = "+8801576497909"
         // var number = "+8801797908210"
-        
-        console.log(window.recaptchaVerifier.token);
-          
-        // firebase.auth().signInWithPhoneNumber(number,window.recaptchaVerifier).then(function (confirmationResult) {
+        const recaptchaVerifier = localStorage.getItem("recaptchaVerifier")
+        firebase.auth().signInWithPhoneNumber(number,window.recaptchaVerifier).then(function (confirmationResult) {
               
-        //     window.confirmationResult=confirmationResult;
-        //     localStorage.setItem("firebaseVerificationId", confirmationResult.verificationId);
+            window.confirmationResult=confirmationResult;
+            localStorage.setItem("firebaseVerificationId", confirmationResult.verificationId);
   
-        //     $("#show-message").text("Message Sent Successfully.");
-        //     $("#show-message").show();
+            $("#show-message").text("Message Sent Successfully.");
+            $("#show-message").show();
               
-        // }).catch(function (error) {
-        //     $("#show-message").text(error.message);
-        //     $("#show-message").show();
-        // });  
+        }).catch(function (error) {
+            $("#show-message").text(error.message);
+            $("#show-message").show();
+        });  
     }
 
     function verifyCode(){
