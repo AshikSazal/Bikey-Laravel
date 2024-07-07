@@ -138,16 +138,8 @@
             return;
         }
 
-        showPopUp.addEventListener("click", function(event) {
-            event.preventDefault();
-            const firebaseVerificationId = localStorage.getItem("firebaseVerificationId");
-            if(firebaseVerificationId){
-                $("#show-message").text("Already send a OTP code. Please enter the OTP code");
-                $("#show-message").show();
-            }else{
-                phoneSendAuth();
-            }
-
+        const firebaseVerificationId = localStorage.getItem("firebaseVerificationId");
+        if(firebaseVerificationId){
             popUp.style.display = "flex";
             popUp.style.position = 'fixed';
             document.body.style.overflow = 'hidden';
@@ -156,58 +148,78 @@
             popUp.style.left = '0';
             popUp.style.width = '100%';
             popUp.style.height = '100%';
+        }else{
+            showPopUp.addEventListener("click", function(event) {
+                event.preventDefault();
+                const firebaseVerificationId = localStorage.getItem("firebaseVerificationId");
+                if(firebaseVerificationId){
+                    $("#show-message").text("Already send a OTP code. Please enter the OTP code");
+                    $("#show-message").show();
+                }else{
+                    phoneSendAuth();
+                }
 
-            // OTP input
-            const inputs = document.querySelectorAll(".input-field input");
-            const button = document.getElementById("show-otp-button");
-            inputs.forEach((input, index1) => {
-                input.addEventListener("keyup",(e)=>{
-                    const currentInput = input;
-                    const nextInput = input.nextElementSibling;
-                    const prevInput = input.previousElementSibling;
-    
-                    if(currentInput.value.length>1){
-                        currentInput.value = "";
-                        return;
-                    }
-                    if (nextInput && nextInput.hasAttribute("disabled") && currentInput.value !== "") {
-                        nextInput.removeAttribute("disabled");
-                        nextInput.focus();
-                    }
-                    if(e.key === "Backspace"){
-                        inputs.forEach((input, index2)=>{
-                            if(index1 <= index2 && prevInput){
-                                input.setAttribute("disabled",true);
-                                input.value="";
-                                prevInput.focus();
+                popUp.style.display = "flex";
+                popUp.style.position = 'fixed';
+                document.body.style.overflow = 'hidden';
+                popUp.style.background = 'rgba(0, 0, 0, 0.8)';
+                popUp.style.top = '0';
+                popUp.style.left = '0';
+                popUp.style.width = '100%';
+                popUp.style.height = '100%';
+
+                // OTP input
+                const inputs = document.querySelectorAll(".input-field input");
+                const button = document.getElementById("show-otp-button");
+                inputs.forEach((input, index1) => {
+                    input.addEventListener("keyup",(e)=>{
+                        const currentInput = input;
+                        const nextInput = input.nextElementSibling;
+                        const prevInput = input.previousElementSibling;
+        
+                        if(currentInput.value.length>1){
+                            currentInput.value = "";
+                            return;
+                        }
+                        if (nextInput && nextInput.hasAttribute("disabled") && currentInput.value !== "") {
+                            nextInput.removeAttribute("disabled");
+                            nextInput.focus();
+                        }
+                        if(e.key === "Backspace"){
+                            inputs.forEach((input, index2)=>{
+                                if(index1 <= index2 && prevInput){
+                                    input.setAttribute("disabled",true);
+                                    input.value="";
+                                    prevInput.focus();
+                                }
+                            })
+                        }
+                        
+                        let allFilled = true;
+                        inputs.forEach((input) => {
+                            if (input.value === "") {
+                                allFilled = false;
                             }
-                        })
-                    }
-                    
-                    let allFilled = true;
-                    inputs.forEach((input) => {
-                        if (input.value === "") {
-                            allFilled = false;
+                        });
+
+                        if (allFilled) {
+                            button.classList.add("bg-sky_blue_color");
+                            button.classList.remove("bg-gray-400");
+                            button.classList.add("border-sky_blue_color");
+                            button.classList.remove("border-gray-400");
+                            button.removeAttribute("disabled");
+                        } else {
+                            button.classList.remove("bg-sky_blue_color");
+                            button.classList.add("bg-gray-400");
+                            button.classList.remove("border-sky_blue_color");
+                            button.classList.add("border-gray-400");
+                            button.setAttribute("disabled", "disabled");
                         }
                     });
-
-                    if (allFilled) {
-                        button.classList.add("bg-sky_blue_color");
-                        button.classList.remove("bg-gray-400");
-                        button.classList.add("border-sky_blue_color");
-                        button.classList.remove("border-gray-400");
-                        button.removeAttribute("disabled");
-                    } else {
-                        button.classList.remove("bg-sky_blue_color");
-                        button.classList.add("bg-gray-400");
-                        button.classList.remove("border-sky_blue_color");
-                        button.classList.add("border-gray-400");
-                        button.setAttribute("disabled", "disabled");
-                    }
                 });
+                window.addEventListener("load", () => inputs[0].focus());
             });
-            window.addEventListener("load", () => inputs[0].focus());
-        });
+        }
 
         $('#verify-otp').on('submit',function(event){
             event.preventDefault();
