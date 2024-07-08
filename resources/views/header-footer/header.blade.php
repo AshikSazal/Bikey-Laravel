@@ -32,7 +32,7 @@
         </div>
     </nav>
     <hr class="border-0 h-px bg-slate-300">
-    <div class="navbar-list absolute flex justify-center items-center z-20">
+    <div class="navbar-list absolute flex justify-center items-center -z-20" id="box">
         <ul class="box-list">
             <li class="nav-close flex justify-end">
                 <button class="border-4 border-sky_blue_color rounded-full mb-2"><svg height="40" width="40" class="text-sky_blue_color" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg></button>
@@ -68,12 +68,15 @@
         const navClose = document.querySelector('.nav-close');
         const listHeader = document.querySelector('.list-header');
         const listItems = document.querySelectorAll('.box-list li');
+        const box = document.getElementById("box");
         let menuOpen = false;
         let timeout;
         
         listHeader.addEventListener('click', function() {
             if (window.innerWidth <= 1060) {
                 if (!menuOpen) {
+                    box.classList.remove("-z-20");
+                    box.classList.add("z-20");
                     navList.style.display = 'flex';
                     navList.style.position = 'fixed';
                     // navList.style.top = '0';
@@ -90,6 +93,8 @@
                     }, 10);
                     menuOpen = true;
                 } else {
+                    box.classList.remove("z-20");
+                    box.classList.add("-z-20");
                     document.body.style.overflow = '';
                     navList.style.background = '';
 
@@ -116,6 +121,8 @@
 
         // Window close on close button
         navClose.addEventListener('click', function(e) {
+            box.classList.remove("z-20");
+            box.classList.add("-z-20");
             document.body.style.overflow = '';
                 navList.style.background = '';
 
@@ -141,6 +148,8 @@
         // Window close for outside click of the menu
         window.addEventListener('click', function(e) {
             if(e.target==navList){
+                box.classList.remove("z-20");
+                box.classList.add("-z-20");
                 document.body.style.overflow = '';
                 navList.style.background = '';
 
@@ -168,6 +177,8 @@
         // more than 1060 size window menu will automatically closed
         window.addEventListener('resize', function() {
             if (window.innerWidth >= 1060 && menuOpen) {
+                box.classList.remove("z-20");
+                box.classList.add("-z-20");
                 document.body.style.overflow = '';
                 navList.style.background = '';
 

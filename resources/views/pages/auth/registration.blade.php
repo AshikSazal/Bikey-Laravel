@@ -104,7 +104,10 @@
 
         function formValidate(){
             if (isFormValid()) {
-                $('#show-pop-up').css({"background-color":"#f85606","border-color":"#f85606"}).prop('disabled', false);
+                $('#show-pop-up').css({
+                    "background-color":"#f85606",
+                    "border-color":"#f85606"
+                }).prop('disabled', false);
             } else {
                 $('#show-pop-up').css({
                     "background": "#9ca3af",
