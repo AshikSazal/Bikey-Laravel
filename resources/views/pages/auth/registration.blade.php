@@ -62,61 +62,6 @@
 <script type="text/javascript" src="{{ URL::to('src/js/jquery.js') }}"></script>
 <script type="module">
     import { validate, VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_PHONE_NUMBER, VALIDATOR_MINLENGTH } from "{{ URL::to('src/js/validator.js') }}";
-    $(document).ready(function() {
-        function isFormValid() {
-            var name = $('input[name="name"]').val();
-            var phone = $('input[name="phone"]').val();
-            var email = $('input[name="email"]').val();
-            var password = $('input[name="password"]').val();
-
-            var nameIsValid = validate(name, [VALIDATOR_REQUIRE()]);
-            var phoneIsValid = validate(phone, [VALIDATOR_REQUIRE(),VALIDATOR_PHONE_NUMBER()]);
-            var emailIsValid = validate(email, [VALIDATOR_REQUIRE(),VALIDATOR_EMAIL()]);
-            var passwordIsValid = validate(password, [VALIDATOR_REQUIRE(),VALIDATOR_MINLENGTH(4)]);
-
-            if (nameIsValid && phoneIsValid && emailIsValid && passwordIsValid) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        
-        // Disable the button initially
-        // $('#show-pop-up').css({
-        //     "background": "#9ca3af",
-        //     "border-color": "#9ca3af"
-        // }).prop('disabled', true);
-        
-        // Validate the form on keyup or change in any input field
-        $('#signup-form').on('keyup change', 'input', function() {
-            if (isFormValid()) {
-                $('#show-pop-up').css({"background-color":"#f85606","border-color":"#f85606"}).prop('disabled', false);
-            } else {
-                $('#show-pop-up').css({
-                    "background": "#9ca3af",
-                    "border-color": "#9ca3af"
-                }).prop('disabled', true);
-            }
-        });
-
-        // Validate the form on form submit
-        $('#signup-form').submit(function(event) {
-            event.preventDefault(); // Prevent form submission for demonstration purpose
-
-            // You can add more advanced validation here if needed
-            if (isFormValid()) {
-                // Form is valid, you can proceed with form submission
-                // For demonstration, just alert
-                alert('Form is valid! Submitting form...');
-            } else {
-                // Form is not valid, handle it accordingly (optional)
-                alert('Form is not valid. Please fill all required fields.');
-            }
-        });
-    });
-</script>
-
-<script>
 
     const firebaseConfig = {
         apiKey: "AIzaSyDWhrPNSa5qicV64g86nuumvedGodXjWMs",
@@ -131,6 +76,48 @@
     firebase.initializeApp(firebaseConfig);
 
     document.addEventListener("DOMContentLoaded", function() {
+
+        function isFormValid() {
+            var name = $('input[name="name"]').val();
+            var phone = $('input[name="phone"]').val();
+            var email = $('input[name="email"]').val();
+            var password = $('input[name="password"]').val();
+
+            var nameIsValid = validate(name, [VALIDATOR_REQUIRE()]);
+            var phoneIsValid = validate(phone, [VALIDATOR_REQUIRE(),VALIDATOR_PHONE_NUMBER()]);
+            var emailIsValid = validate(email, [VALIDATOR_REQUIRE(),VALIDATOR_EMAIL()]);
+            var passwordIsValid = validate(password, [VALIDATOR_REQUIRE(),VALIDATOR_MINLENGTH(4)]);
+            const recaptchaToken = localStorage.getItem("recaptchaToken");
+
+            if (nameIsValid && phoneIsValid && emailIsValid && passwordIsValid && recaptchaToken) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        // Disable the button initially
+        $('#show-pop-up').css({
+            "background": "#9ca3af",
+            "border-color": "#9ca3af"
+        }).prop('disabled', true);
+
+        function formValidate(){
+            if (isFormValid()) {
+                $('#show-pop-up').css({"background-color":"#f85606","border-color":"#f85606"}).prop('disabled', false);
+            } else {
+                $('#show-pop-up').css({
+                    "background": "#9ca3af",
+                    "border-color": "#9ca3af"
+                }).prop('disabled', true);
+            }
+        }
+        
+        // Validate the form on keyup or change in any input field
+        $('#signup-form').on('keyup change', 'input', function() {
+            formValidate();
+        });
+
         const showPopUp = document.getElementById("show-pop-up");
         const popUp = document.getElementById("otp");
         var showTimer = document.getElementById("show-message");
@@ -257,13 +244,13 @@
             event.preventDefault();
             verifyCode();
             $.ajax({
-               type:'POST',
-               url:"./registration",
-               data: {
+                type:'POST',
+                url:"./registration",
+                data: {
                     first: 'hello',
                     _token: '{!! csrf_token() !!}'
                 },
-               success:function(data) {
+                success:function(data) {
                     // $(".otp-show").hide();
                     // $(".otp-show").parent().css("background-color", "white");
                     // $(".otp-close").show();
@@ -274,12 +261,6 @@
                 }
             });
         });
-
-    });
-
-</script>
-
-<script type="text/javascript">
   
     window.onload=function () {
       render();
@@ -294,6 +275,7 @@
                 size: size,
                 callback: function(response) {
                     localStorage.setItem("recaptchaToken",response)
+                    formValidate();
                 },
             }
         );
@@ -347,7 +329,7 @@
             $("#show-message").show();
         });
     }
-  
+  });
 </script>
 
 
