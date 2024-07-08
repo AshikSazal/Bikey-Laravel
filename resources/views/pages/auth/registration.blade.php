@@ -77,6 +77,28 @@
 
     document.addEventListener("DOMContentLoaded", function() {
 
+        const showPopUp = document.getElementById("show-pop-up");
+        const popUp = document.getElementById("otp");
+        var showTimer = document.getElementById("show-message");
+        const resendOTP = document.getElementById("resend-otp");
+
+        const inputs = document.querySelectorAll(".input-field input");
+        const button = document.getElementById("show-otp-button");
+        function otpButtonActive(){
+            button.classList.add("bg-sky_blue_color");
+            button.classList.remove("bg-gray-400");
+            button.classList.add("border-sky_blue_color");
+            button.classList.remove("border-gray-400");
+            button.removeAttribute("disabled");
+        }
+        function otpButtonDeactive(){
+            button.classList.remove("bg-sky_blue_color");
+            button.classList.add("bg-gray-400");
+            button.classList.remove("border-sky_blue_color");
+            button.classList.add("border-gray-400");
+            button.setAttribute("disabled", "disabled");
+        }
+
         function isFormValid() {
             var name = $('input[name="name"]').val();
             var phone = $('input[name="phone"]').val();
@@ -97,10 +119,10 @@
         }
         
         // Disable the button initially
-        $('#show-pop-up').css({
-            "background": "#9ca3af",
-            "border-color": "#9ca3af"
-        }).prop('disabled', true);
+        // $('#show-pop-up').css({
+        //     "background": "#9ca3af",
+        //     "border-color": "#9ca3af"
+        // }).prop('disabled', true);
 
         function formValidate(){
             if (isFormValid()) {
@@ -121,10 +143,6 @@
             formValidate();
         });
 
-        const showPopUp = document.getElementById("show-pop-up");
-        const popUp = document.getElementById("otp");
-        var showTimer = document.getElementById("show-message");
-
         function otpTimeCount() {
             var minute = 4;
             var second = 59;
@@ -141,7 +159,10 @@
                     minute -= 1;
                     if (minute < 0) {
                         clearInterval(countdown);
+                        otpButtonDeactive();
                         showTimer.textContent = "Your Time Has Been Expired";
+                        resendOTP.classList.remove("text-gray-400", "decoration-gray-400", "pointer-events-none");
+                        resendOTP.classList.add("text-orange_color", "decoration-orange_color");
                         return;
                     }
                     second = 59;
@@ -190,9 +211,7 @@
                 popUp.style.width = '100%';
                 popUp.style.height = '100%';
 
-                // OTP input
-                const inputs = document.querySelectorAll(".input-field input");
-                const button = document.getElementById("show-otp-button");
+                // OTP input            
                 inputs.forEach((input, index1) => {
                     input.addEventListener("keyup",(e)=>{
                         const currentInput = input;
@@ -225,17 +244,9 @@
                         });
 
                         if (allFilled) {
-                            button.classList.add("bg-sky_blue_color");
-                            button.classList.remove("bg-gray-400");
-                            button.classList.add("border-sky_blue_color");
-                            button.classList.remove("border-gray-400");
-                            button.removeAttribute("disabled");
+                            otpButtonActive();
                         } else {
-                            button.classList.remove("bg-sky_blue_color");
-                            button.classList.add("bg-gray-400");
-                            button.classList.remove("border-sky_blue_color");
-                            button.classList.add("border-gray-400");
-                            button.setAttribute("disabled", "disabled");
+                            otpButtonDeactive();
                         }
                     });
                 });
