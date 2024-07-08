@@ -99,7 +99,7 @@
             button.setAttribute("disabled", "disabled");
         }
 
-        function isFormValid() {
+        function isFormValid(recaptchaToken) {
             var name = $('input[name="name"]').val();
             var phone = $('input[name="phone"]').val();
             var email = $('input[name="email"]').val();
@@ -109,7 +109,6 @@
             var phoneIsValid = validate(phone, [VALIDATOR_REQUIRE(),VALIDATOR_PHONE_NUMBER()]);
             var emailIsValid = validate(email, [VALIDATOR_REQUIRE(),VALIDATOR_EMAIL()]);
             var passwordIsValid = validate(password, [VALIDATOR_REQUIRE(),VALIDATOR_MINLENGTH(4)]);
-            const recaptchaToken = localStorage.getItem("recaptchaToken");
 
             if (nameIsValid && phoneIsValid && emailIsValid && passwordIsValid && recaptchaToken) {
                 return true;
@@ -117,15 +116,58 @@
                 return false;
             }
         }
+
+        function phoneSendAuth() {
+            const number = "+88"+$('input[name="phone"]').val().trim();
+            firebase.auth().signInWithPhoneNumber(number,window.recaptchaVerifier).then(function (confirmationResult) {
+                
+                window.confirmationResult=confirmationResult;
+                localStorage.setItem("firebaseVerificationId", confirmationResult.verificationId);
+    
+                $("#show-message").text("Message Sent Successfully.");
+                $("#show-message").show();
+                
+            }).catch(function (error) {
+                $("#show-message").text(error.message);
+                $("#show-message").show();
+            });  
+        }
+
+        function verifyCode(){
+            const inputs = document.querySelectorAll(".input-field input");
+            let otpNumber = "";
+            inputs.forEach((input) => {
+                otpNumber += input.value;
+            });
+            const firebaseVerificationId = localStorage.getItem("firebaseVerificationId");
+            const phoneCredential = firebase.auth.PhoneAuthProvider.credential(firebaseVerificationId,otpNumber)
+            firebase.auth().signInWithCredential(phoneCredential)
+            .then(function(result) {
+                var user = result.user;
+                console.log(user);
+                $("#show-message").text("Your registration has been successful.");
+                $("#show-message").show();
+                
+                // Optionally, clear localStorage after successful verification
+                localStorage.removeItem("firebaseVerificationId");
+            })
+            .catch(function(error) {
+                $(".otp-show").hide();
+                $(".otp-show").parent().css("background-color", "white");
+                $(".otp-close").show();
+                $("#show-message").text(error.message);
+                $("#show-message").show();
+            });
+        }
         
         // Disable the button initially
-        // $('#show-pop-up').css({
-        //     "background": "#9ca3af",
-        //     "border-color": "#9ca3af"
-        // }).prop('disabled', true);
+        $('#show-pop-up').css({
+            "background": "#9ca3af",
+            "border-color": "#9ca3af"
+        }).prop('disabled', true);
 
-        function formValidate(){
-            if (isFormValid()) {
+        function formValidate(recaptchaToken=null){
+            if (isFormValid(recaptchaToken)) {
                 $('#show-pop-up').css({
                     "background-color":"#f85606",
                     "border-color":"#f85606"
@@ -180,8 +222,17 @@
             return;
         }
 
-        const firebaseVerificationId = localStorage.getItem("firebaseVerificationId");
-        if(firebaseVerificationId){
+        showPopUp.addEventListener("click", function(event) {
+            event.preventDefault();
+            const firebaseVerificationId = localStorage.getItem("firebaseVerificationId");
+            if(firebaseVerificationId){
+                $("#show-message").text("Already send a OTP code. Please enter the OTP code");
+                $("#show-message").show();
+            }else{
+                phoneSendAuth();
+                otpTimeCount();
+            }
+
             popUp.style.display = "flex";
             popUp.style.position = 'fixed';
             document.body.style.overflow = 'hidden';
@@ -190,69 +241,48 @@
             popUp.style.left = '0';
             popUp.style.width = '100%';
             popUp.style.height = '100%';
-        }else{
-            showPopUp.addEventListener("click", function(event) {
-                event.preventDefault();
-                const firebaseVerificationId = localStorage.getItem("firebaseVerificationId");
-                if(firebaseVerificationId){
-                    $("#show-message").text("Already send a OTP code. Please enter the OTP code");
-                    $("#show-message").show();
-                }else{
-                    // phoneSendAuth();
-                    otpTimeCount();
-                }
 
-                popUp.style.display = "flex";
-                popUp.style.position = 'fixed';
-                document.body.style.overflow = 'hidden';
-                popUp.style.background = 'rgba(0, 0, 0, 0.8)';
-                popUp.style.top = '0';
-                popUp.style.left = '0';
-                popUp.style.width = '100%';
-                popUp.style.height = '100%';
-
-                // OTP input            
-                inputs.forEach((input, index1) => {
-                    input.addEventListener("keyup",(e)=>{
-                        const currentInput = input;
-                        const nextInput = input.nextElementSibling;
-                        const prevInput = input.previousElementSibling;
-        
-                        if(currentInput.value.length>1){
-                            currentInput.value = "";
-                            return;
-                        }
-                        if (nextInput && nextInput.hasAttribute("disabled") && currentInput.value !== "") {
-                            nextInput.removeAttribute("disabled");
-                            nextInput.focus();
-                        }
-                        if(e.key === "Backspace"){
-                            inputs.forEach((input, index2)=>{
-                                if(index1 <= index2 && prevInput){
-                                    input.setAttribute("disabled",true);
-                                    input.value="";
-                                    prevInput.focus();
-                                }
-                            })
-                        }
-                        
-                        let allFilled = true;
-                        inputs.forEach((input) => {
-                            if (input.value === "") {
-                                allFilled = false;
+            // OTP input            
+            inputs.forEach((input, index1) => {
+                input.addEventListener("keyup",(e)=>{
+                    const currentInput = input;
+                    const nextInput = input.nextElementSibling;
+                    const prevInput = input.previousElementSibling;
+    
+                    if(currentInput.value.length>1){
+                        currentInput.value = "";
+                        return;
+                    }
+                    if (nextInput && nextInput.hasAttribute("disabled") && currentInput.value !== "") {
+                        nextInput.removeAttribute("disabled");
+                        nextInput.focus();
+                    }
+                    if(e.key === "Backspace"){
+                        inputs.forEach((input, index2)=>{
+                            if(index1 <= index2 && prevInput){
+                                input.setAttribute("disabled",true);
+                                input.value="";
+                                prevInput.focus();
                             }
-                        });
-
-                        if (allFilled) {
-                            otpButtonActive();
-                        } else {
-                            otpButtonDeactive();
+                        })
+                    }
+                    
+                    let allFilled = true;
+                    inputs.forEach((input) => {
+                        if (input.value === "") {
+                            allFilled = false;
                         }
                     });
+
+                    if (allFilled) {
+                        otpButtonActive();
+                    } else {
+                        otpButtonDeactive();
+                    }
                 });
-                window.addEventListener("load", () => inputs[0].focus());
             });
-        }
+            window.addEventListener("load", () => inputs[0].focus());
+        });
 
         $('#verify-otp').on('submit',function(event){
             event.preventDefault();
@@ -276,73 +306,26 @@
             });
         });
   
-    window.onload=function () {
-      render();
-    };
-  
-    function render() {
-        const firebaseVerificationId = localStorage.getItem("firebaseVerificationId");
-        const size="normal";
-        if(firebaseVerificationId)
-            size="invisible";
-        window.recaptchaVerifier=new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-                size: size,
-                callback: function(response) {
-                    localStorage.setItem("recaptchaToken",response)
-                    formValidate();
-                },
-            }
-        );
-        localStorage.setItem("recaptchaVerifier",window.recaptchaVerifier);
-        recaptchaVerifier.render();
-    }
-    function phoneSendAuth() {
-        
-        var number = "+8801797908210"
-        // var number = "+8801576497909"
-        // var number = "+8801797908210"
-        const recaptchaVerifier = localStorage.getItem("recaptchaVerifier")
-        firebase.auth().signInWithPhoneNumber(number,window.recaptchaVerifier).then(function (confirmationResult) {
-              
-            window.confirmationResult=confirmationResult;
-            localStorage.setItem("firebaseVerificationId", confirmationResult.verificationId);
-  
-            $("#show-message").text("Message Sent Successfully.");
-            $("#show-message").show();
-              
-        }).catch(function (error) {
-            $("#show-message").text(error.message);
-            $("#show-message").show();
-        });  
-    }
-
-    function verifyCode(){
-        const inputs = document.querySelectorAll(".input-field input");
-        let otpNumber = "";
-        inputs.forEach((input) => {
-            otpNumber += input.value;
-        });
-        const firebaseVerificationId = localStorage.getItem("firebaseVerificationId");
-        const phoneCredential = firebase.auth.PhoneAuthProvider.credential(firebaseVerificationId,otpNumber)
-        firebase.auth().signInWithCredential(phoneCredential)
-        .then(function(result) {
-            var user = result.user;
-            console.log(user);
-            $("#show-message").text("Your registration has been successful.");
-            $("#show-message").show();
-            
-            // Optionally, clear localStorage after successful verification
-            localStorage.removeItem("firebaseVerificationId");
-            localStorage.removeItem("recaptchaToken");
-        })
-        .catch(function(error) {
-            $(".otp-show").hide();
-            $(".otp-show").parent().css("background-color", "white");
-            $(".otp-close").show();
-            $("#show-message").text(error.message);
-            $("#show-message").show();
-        });
-    }
+        window.onload=function () {
+        render();
+        };
+    
+        function render() {
+            const firebaseVerificationId = localStorage.getItem("firebaseVerificationId");
+            const size="normal";
+            if(firebaseVerificationId)
+                size="invisible";
+            window.recaptchaVerifier=new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+                    size: size,
+                    callback: function(response) {
+                        formValidate(response);
+                    },
+                }
+            );
+            localStorage.setItem("recaptchaVerifier",window.recaptchaVerifier);
+            recaptchaVerifier.render();
+        }
+    
   });
 </script>
 
