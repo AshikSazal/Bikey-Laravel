@@ -128,7 +128,7 @@
             });  
         }
 
-        function verifyCode(){
+        function verifyOTPCode(){
             const inputs = document.querySelectorAll(".input-field input");
             let otpNumber = "";
             inputs.forEach((input) => {
@@ -283,9 +283,13 @@
             window.addEventListener("load", () => inputs[0].focus());
         });
 
-        $('#verify-otp').on('submit',function(event){
+        $('#show-otp-button').on('submit',function(event){
             event.preventDefault();
-            verifyCode();
+            verifyOTPCode();
+        });
+
+        $('#signup-form').on('submit',function(event){
+            event.preventDefault();
             $.ajax({
                 type:'POST',
                 url:"./registration",
@@ -305,10 +309,6 @@
             });
         });
   
-        window.onload=function () {
-        render();
-        };
-    
         function render() {
             const firebaseVerificationId = localStorage.getItem("firebaseVerificationId");
             const size="normal";
@@ -324,7 +324,10 @@
             localStorage.setItem("recaptchaVerifier",window.recaptchaVerifier);
             recaptchaVerifier.render();
         }
-    
+
+        window.onload=function () {
+            render();
+        };
   });
 </script>
 
