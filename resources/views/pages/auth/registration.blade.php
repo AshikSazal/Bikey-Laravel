@@ -120,13 +120,8 @@
         function phoneSendAuth() {
             const number = "+88"+$('input[name="phone"]').val().trim();
             firebase.auth().signInWithPhoneNumber(number,window.recaptchaVerifier).then(function (confirmationResult) {
-                
                 window.confirmationResult=confirmationResult;
                 localStorage.setItem("firebaseVerificationId", confirmationResult.verificationId);
-    
-                $("#show-message").text("Message Sent Successfully.");
-                $("#show-message").show();
-                
             }).catch(function (error) {
                 $("#show-message").text(error.message);
                 $("#show-message").show();
@@ -144,12 +139,19 @@
             firebase.auth().signInWithCredential(phoneCredential)
             .then(function(result) {
                 var user = result.user;
-                console.log(user);
                 $("#show-message").text("Your registration has been successful.");
                 $("#show-message").show();
                 
                 // Optionally, clear localStorage after successful verification
                 localStorage.removeItem("firebaseVerificationId");
+                popUp.style.display = "hidden";
+                popUp.style.position = '';
+                document.body.style.overflow = '';
+                popUp.style.background = '';
+                popUp.style.top = '';
+                popUp.style.left = '';
+                popUp.style.width = '';
+                popUp.style.height = '';
             })
             .catch(function(error) {
                 $(".otp-show").hide();
@@ -210,7 +212,6 @@
                     second = 59;
                 }
                 showTimer.textContent = minute + ":" + second;
-                
             }, 1000);
             
             $('#verify-otp').on('click',function(){
@@ -226,8 +227,7 @@
             event.preventDefault();
             const firebaseVerificationId = localStorage.getItem("firebaseVerificationId");
             if(firebaseVerificationId){
-                $("#show-message").text("Already send a OTP code. Please enter the OTP code");
-                $("#show-message").show();
+                otpTimeCount();
             }else{
                 phoneSendAuth();
                 otpTimeCount();
@@ -264,9 +264,8 @@
                                 input.value="";
                                 prevInput.focus();
                             }
-                        })
+                        });
                     }
-                    
                     let allFilled = true;
                     inputs.forEach((input) => {
                         if (input.value === "") {
