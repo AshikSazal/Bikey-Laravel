@@ -229,7 +229,7 @@
             if(firebaseVerificationId){
                 otpTimeCount();
             }else{
-                phoneSendAuth();
+                // phoneSendAuth();
                 otpTimeCount();
             }
 
