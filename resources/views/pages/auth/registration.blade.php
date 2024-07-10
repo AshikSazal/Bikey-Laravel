@@ -4,7 +4,7 @@
     <div class="h-screen mt-[90px]">
         <div class="w-full flex justify-center items-center h-full">
             <x-card class="bg-sky_blue_color w-screen ss:w-2/3 md:w-1/3">
-                <form id="signup-form">
+                <form id="signup-form" action="{{route('user.registration')}}" method="POST">
                     @csrf
                     <x-input type="text" name="name" placeholder="Enter Your Name" />
                     <x-input type="text" name="phone" placeholder="Enter Your Phone Number" />
@@ -44,10 +44,11 @@
                         <input class="h-[45px] w-[42px] rounded-md ouline-none text-xl items-center text-center border border-gray-300 focus:shadow-md" type="number" disabled />
                     </div>
                     <div class="grid justify-center items-center mt-4">
-                        <button type="submit" class="relative border-gray-400 px-4 py-[6px] rounded-full text-white group overflow-hidden border-2 bg-gray-400" id="show-otp-button" disabled>
+                        {{-- <button type="submit" class="relative border-gray-400 px-4 py-[6px] rounded-full text-white group overflow-hidden border-2 bg-gray-400" id="show-otp-button" disabled>
                             <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-in-out origin-center"></span>
                             <span class="group-hover:text-sky_blue_color relative transition-colors duration-500 ease-in-out">Verify OTP</span>
-                        </button>
+                        </button> --}}
+                        <x-button type="submit" class="sky_blue_color" id="show-otp-button">Verify OTP</x-button>
                     </div>
                     <a id="resend-otp" href="" class="flex justify-center mt-4 underline text-gray-400 decoration-gray-400 pointer-events-none">Resend OTP</a>
                 </form>
@@ -84,19 +85,30 @@
 
         const inputs = document.querySelectorAll(".input-field input");
         const button = document.getElementById("show-otp-button");
+
+        var userName, userEmail, userPhone, userPassword;
+
         function otpButtonActive(){
-            button.classList.add("bg-sky_blue_color");
-            button.classList.remove("bg-gray-400");
-            button.classList.add("border-sky_blue_color");
-            button.classList.remove("border-gray-400");
-            button.removeAttribute("disabled");
+            // button.classList.add("bg-sky_blue_color");
+            // button.classList.remove("bg-gray-400");
+            // button.classList.add("border-sky_blue_color");
+            // button.classList.remove("border-gray-400");
+            // button.removeAttribute("disabled");
+            $('#show-otp-button').css({
+                "background-color":"#1ca3e4",
+                "border-color":"#1ca3e4"
+            }).prop('disabled', false);
         }
         function otpButtonDeactive(){
-            button.classList.remove("bg-sky_blue_color");
-            button.classList.add("bg-gray-400");
-            button.classList.remove("border-sky_blue_color");
-            button.classList.add("border-gray-400");
-            button.setAttribute("disabled", "disabled");
+            // button.classList.remove("bg-sky_blue_color");
+            // button.classList.add("bg-gray-400");
+            // button.classList.remove("border-sky_blue_color");
+            // button.classList.add("border-gray-400");
+            // button.setAttribute("disabled", "disabled");
+            $('#show-otp-button').css({
+                "background-color":"#9ca3af",
+                "border-color":"#9ca3af"
+            }).prop('disabled', true);
         }
 
         function isFormValid(recaptchaToken) {
@@ -111,6 +123,10 @@
             var passwordIsValid = validate(password, [VALIDATOR_REQUIRE(),VALIDATOR_MINLENGTH(4)]);
 
             if (nameIsValid && phoneIsValid && emailIsValid && passwordIsValid && recaptchaToken) {
+                userName=name;
+                userEmail=email;
+                userPhone=phone;
+                userPassword=password;
                 return true;
             } else {
                 return false;
@@ -161,9 +177,26 @@
                 $("#show-message").show();
             });
         }
+
+        function deactiveOTPResendButton(){
+            resendOTP.classList.remove("text-orange_color", "decoration-orange_color");
+            resendOTP.classList.add("text-gray-400", "decoration-gray-400", "pointer-events-none");
+        }
+
+        function activeOTPResendButton(){
+            resendOTP.classList.remove("text-gray-400", "decoration-gray-400", "pointer-events-none");
+            resendOTP.classList.add("text-orange_color", "decoration-orange_color");
+        }
         
         // Disable the button initially
-        $('#show-pop-up').css({
+        // $('#show-pop-up').css({
+        //     "background": "#9ca3af",
+        //     "border-color": "#9ca3af"
+        // }).prop('disabled', true);
+
+
+        // Disable the resend OTP button initially
+        $('#show-otp-button').css({
             "background": "#9ca3af",
             "border-color": "#9ca3af"
         }).prop('disabled', true);
@@ -188,8 +221,8 @@
         });
 
         function otpTimeCount() {
-            var minute = 4;
-            var second = 59;
+            var minute = 0;
+            var second = 10;
             showTimer.textContent = minute + ":" + second;
 
             var countdown = setInterval(function() {
@@ -205,8 +238,7 @@
                         clearInterval(countdown);
                         otpButtonDeactive();
                         showTimer.textContent = "Your Time Has Been Expired";
-                        resendOTP.classList.remove("text-gray-400", "decoration-gray-400", "pointer-events-none");
-                        resendOTP.classList.add("text-orange_color", "decoration-orange_color");
+                        activeOTPResendButton();
                         return;
                     }
                     second = 59;
@@ -214,7 +246,7 @@
                 showTimer.textContent = minute + ":" + second;
             }, 1000);
             
-            $('#verify-otp').on('click',function(){
+            $('#show-otp-button').on('click',function(){
                 clearInterval(countdown);
             });
         }
@@ -229,7 +261,7 @@
             if(firebaseVerificationId){
                 otpTimeCount();
             }else{
-                // phoneSendAuth();
+                phoneSendAuth();
                 otpTimeCount();
             }
 
@@ -288,14 +320,17 @@
             verifyOTPCode();
         });
 
-        $('#signup-form').on('submit',function(event){
+        $('#show-pop-up').on('click',function(event){
             event.preventDefault();
             $.ajax({
                 type:'POST',
                 url:"./registration",
                 data: {
-                    first: 'hello',
-                    _token: '{!! csrf_token() !!}'
+                    _token: '{!! csrf_token() !!}',
+                    name: userName,
+                    email: userEmail,
+                    phone: userPhone,
+                    password: userPassword
                 },
                 success:function(data) {
                     // $(".otp-show").hide();
@@ -307,6 +342,13 @@
                     console.error(xhr.responseText);
                 }
             });
+        });
+
+        resendOTP.addEventListener('click',function(event){
+            event.preventDefault();
+            // phoneSendAuth();
+            deactiveOTPResendButton();
+            otpTimeCount();
         });
   
         function render() {

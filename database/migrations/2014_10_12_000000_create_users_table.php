@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('phone')->unique();
-            $table->tinyInteger('verification');
+            $table->char('phone',11)->unique();
+            $table->tinyInteger('verification')->default(0);
         });
     }
 

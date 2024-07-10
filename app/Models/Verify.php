@@ -8,9 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Verify extends Model
 {
     use HasFactory;
-    protected $timestamps = false;
-    protected $fillable = [
-        'email_phone',
-        'token',
-    ];
+    public $timestamps = false;
 }

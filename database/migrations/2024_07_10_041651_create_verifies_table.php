@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('verifies', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('email_phone');
-            $table->string('token');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('code')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->timestamp('created_at')->nullable();
         });        
     }
 

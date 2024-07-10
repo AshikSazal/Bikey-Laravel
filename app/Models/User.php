@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Verify;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $timestamps = false;
+    public $timestamps = false;
 
     protected $fillable = [
         'name',
@@ -21,4 +22,9 @@ class User extends Authenticatable
         'phone',
         'verification'
     ];
+
+    public function userVerification()
+    {
+        return $this->hasOne(Verify::class);
+    }
 }
