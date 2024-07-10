@@ -111,6 +111,16 @@
             }).prop('disabled', true);
         }
 
+        function deactiveOTPResendButton(){
+            resendOTP.classList.remove("text-orange_color", "decoration-orange_color");
+            resendOTP.classList.add("text-gray-400", "decoration-gray-400", "pointer-events-none");
+        }
+
+        function activeOTPResendButton(){
+            resendOTP.classList.remove("text-gray-400", "decoration-gray-400", "pointer-events-none");
+            resendOTP.classList.add("text-orange_color", "decoration-orange_color");
+        }
+
         function isFormValid(recaptchaToken) {
             var name = $('input[name="name"]').val();
             var phone = $('input[name="phone"]').val();
@@ -134,7 +144,6 @@
         }
 
         function phoneSendAuth() {
-            console.log('hello');
             const number = "+88"+$('input[name="phone"]').val().trim();
             firebase.auth().signInWithPhoneNumber(number,window.recaptchaVerifier).then(function (confirmationResult) {
                 window.confirmationResult=confirmationResult;
@@ -156,7 +165,7 @@
             firebase.auth().signInWithCredential(phoneCredential)
             .then(function(result) {
                 var user = result.user;                
-                // Optionally, clear localStorage after successful verification
+                // Clear localStorage after successful verification
                 localStorage.removeItem("firebaseVerificationId");
                 popUp.style.display = "hidden";
                 popUp.style.position = '';
@@ -178,10 +187,12 @@
                         // $(".otp-show").hide();
                         // $(".otp-show").parent().css("background-color", "white");
                         // $(".otp-close").show();
-                        // $("#show-message").html(data.message);
-                },
-                error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
+                        $("#show-message").html(data.message);
+                    },
+                    error: function(xhr, status, error) {
+                        activeOTPResendButton();
+                        $("#show-message").text(xhr.responseJSON.error);
+                        $("#show-message").show();
                     }
                 });
             })
@@ -192,16 +203,6 @@
                 $("#show-message").text(error.message);
                 $("#show-message").show();
             });
-        }
-
-        function deactiveOTPResendButton(){
-            resendOTP.classList.remove("text-orange_color", "decoration-orange_color");
-            resendOTP.classList.add("text-gray-400", "decoration-gray-400", "pointer-events-none");
-        }
-
-        function activeOTPResendButton(){
-            resendOTP.classList.remove("text-gray-400", "decoration-gray-400", "pointer-events-none");
-            resendOTP.classList.add("text-orange_color", "decoration-orange_color");
         }
         
         // Disable the button initially
@@ -331,7 +332,7 @@
             window.addEventListener("load", () => inputs[0].focus());
         });
 
-        $('#show-otp-button').on('submit',function(event){
+        $('#show-otp-button').on('click',function(event){
             event.preventDefault();
             verifyOTPCode();
         });
@@ -353,9 +354,10 @@
                     // $(".otp-show").parent().css("background-color", "white");
                     // $(".otp-close").show();
                     // $("#show-message").html(data.message);
-               },
+                },
                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
+                    $("#show-message").text(xhr.responseJSON.error);
+                    $("#show-message").show();
                 }
             });
         });
