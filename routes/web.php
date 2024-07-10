@@ -28,3 +28,4 @@ Route::get('/registration',function(){
 
 Route::post('/registration',[UserController::class,'registration'])->name('user.registration');
 Route::post('/login',[UserController::class,'login'])->name('user.login');
+Route::post('/verifyOTP',[UserController::class,'verifyOTP'])->name('user.verify');

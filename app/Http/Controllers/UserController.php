@@ -19,4 +19,11 @@ class UserController extends Controller
 
         return ['flag'=>1];
     }
+
+    function verifyOTP(Request $request)
+    {
+        $user = User::where('phone', $request->phone)->first();
+        $user->verification=1;
+        $user->save();
+    }
 }

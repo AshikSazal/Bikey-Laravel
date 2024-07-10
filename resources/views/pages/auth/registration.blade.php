@@ -134,6 +134,7 @@
         }
 
         function phoneSendAuth() {
+            console.log('hello');
             const number = "+88"+$('input[name="phone"]').val().trim();
             firebase.auth().signInWithPhoneNumber(number,window.recaptchaVerifier).then(function (confirmationResult) {
                 window.confirmationResult=confirmationResult;
@@ -154,10 +155,7 @@
             const phoneCredential = firebase.auth.PhoneAuthProvider.credential(firebaseVerificationId,otpNumber)
             firebase.auth().signInWithCredential(phoneCredential)
             .then(function(result) {
-                var user = result.user;
-                $("#show-message").text("Your registration has been successful.");
-                $("#show-message").show();
-                
+                var user = result.user;                
                 // Optionally, clear localStorage after successful verification
                 localStorage.removeItem("firebaseVerificationId");
                 popUp.style.display = "hidden";
@@ -168,6 +166,24 @@
                 popUp.style.left = '';
                 popUp.style.width = '';
                 popUp.style.height = '';
+
+                $.ajax({
+                    type:'POST',
+                    url:"/verifyOTP",
+                    data: {
+                        _token: '{!! csrf_token() !!}',
+                        phone: userPhone
+                    },
+                    success:function(data) {
+                        // $(".otp-show").hide();
+                        // $(".otp-show").parent().css("background-color", "white");
+                        // $(".otp-close").show();
+                        // $("#show-message").html(data.message);
+                },
+                error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
             })
             .catch(function(error) {
                 $(".otp-show").hide();
@@ -189,10 +205,10 @@
         }
         
         // Disable the button initially
-        // $('#show-pop-up').css({
-        //     "background": "#9ca3af",
-        //     "border-color": "#9ca3af"
-        // }).prop('disabled', true);
+        $('#show-pop-up').css({
+            "background": "#9ca3af",
+            "border-color": "#9ca3af"
+        }).prop('disabled', true);
 
 
         // Disable the resend OTP button initially
@@ -277,9 +293,9 @@
             // OTP input            
             inputs.forEach((input, index1) => {
                 input.addEventListener("keyup",(e)=>{
-                    const currentInput = input;
-                    const nextInput = input.nextElementSibling;
-                    const prevInput = input.previousElementSibling;
+                    var currentInput = input;
+                    var nextInput = input.nextElementSibling;
+                    var prevInput = input.previousElementSibling;
     
                     if(currentInput.value.length>1){
                         currentInput.value = "";
@@ -324,7 +340,7 @@
             event.preventDefault();
             $.ajax({
                 type:'POST',
-                url:"./registration",
+                url:"/registration",
                 data: {
                     _token: '{!! csrf_token() !!}',
                     name: userName,
@@ -346,18 +362,14 @@
 
         resendOTP.addEventListener('click',function(event){
             event.preventDefault();
-            // phoneSendAuth();
+            phoneSendAuth();
             deactiveOTPResendButton();
             otpTimeCount();
         });
   
         function render() {
-            const firebaseVerificationId = localStorage.getItem("firebaseVerificationId");
-            const size="normal";
-            if(firebaseVerificationId)
-                size="invisible";
             window.recaptchaVerifier=new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-                    size: size,
+                    size: 'normal',
                     callback: function(response) {
                         formValidate(response);
                     },
