@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->char('phone',11)->unique();
             $table->tinyInteger('verification')->default(0);
+            $table->rememberToken();
         });
     }
 

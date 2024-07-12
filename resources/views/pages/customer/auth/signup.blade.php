@@ -4,7 +4,7 @@
     <div class="h-screen mt-[90px]">
         <div class="w-full flex justify-center items-center h-full">
             <x-card class="bg-sky_blue_color w-screen ss:w-2/3 md:w-1/3">
-                <form id="signup-form" action="{{route('user.registration')}}" method="POST">
+                <form id="signup-form" action="{{route('user.signup')}}" method="POST">
                     @csrf
                     <x-input type="text" name="name" placeholder="Enter Your Name" />
                     <x-input type="text" name="phone" placeholder="Enter Your Phone Number" />
@@ -15,7 +15,7 @@
                         <x-button type="submit" class="orange_color" id="show-pop-up">SIGN UP</x-button>
                     </div>
                 </form>
-                <a class="text-white text-md underline" href="{{route('login')}}">Have an account?Login</a>
+                <a class="text-white text-md underline" href="{{route('user.login')}}">Have an account?Login</a>
             </x-card>
         </div>
     </div>
@@ -33,7 +33,7 @@
             <div class="flex justify-center text-red-600 px-2 text-sm" id="show-message"></div>
             <h4 class="flex flex-col items-center justify-center pb-2">Enter OTP Code</h4>
             <div class="flex justify-center">
-                <form action="{{route('user.registration')}}" method="POST" id="verify-otp">
+                <form action="{{route('user.login')}}" method="POST" id="verify-otp">
                     @csrf
                     <div class="flex gap-3 flex-row justify-center items-center input-field">
                         <input class="h-[45px] w-[42px] rounded-md ouline-none text-xl items-center text-center border border-gray-300 focus:shadow-md" type="number" />
@@ -276,10 +276,10 @@
             event.preventDefault();
             const firebaseVerificationId = localStorage.getItem("firebaseVerificationId");
             if(firebaseVerificationId){
-                otpTimeCount();
+                // otpTimeCount();
             }else{
                 phoneSendAuth();
-                otpTimeCount();
+                // otpTimeCount();
             }
 
             popUp.style.display = "flex";
@@ -366,7 +366,7 @@
             event.preventDefault();
             phoneSendAuth();
             deactiveOTPResendButton();
-            otpTimeCount();
+            // otpTimeCount();
         });
   
         function render() {

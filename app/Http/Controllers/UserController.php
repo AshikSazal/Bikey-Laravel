@@ -5,10 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Verify;
+use Illuminate\Support\Facades\Auth;
 use Exception;
 
 class UserController extends Controller
 {
+    public function getSignup()
+    {
+        return view('pages.customer.auth.signup');
+    }
+
+    public function getLogin()
+    {
+        return view('pages.customer.auth.login');
+    }
     public function registration(Request $request)
     {
         try{
@@ -22,6 +32,7 @@ class UserController extends Controller
             $user->phone = $request->phone;
             $user->password = $request->password;
             $user->save();
+            Auth::login($user);
         }catch(Exception $exp){
             return response()->json([
                 'error' => $exp->getMessage(),

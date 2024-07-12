@@ -12,7 +12,7 @@
                         <x-button type="submit" class="orange_color" id="show-pop-up">LOGIN</x-button>
                     </div>
                 </form>
-                <a class="text-white text-md underline" href="{{route('registration')}}">Create an account?</a>
+                <a class="text-white text-md underline" href="{{route('user.signup')}}">Create an account?</a>
             </x-card>
         </div>
     </div>

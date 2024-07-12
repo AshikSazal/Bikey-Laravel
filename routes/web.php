@@ -18,14 +18,10 @@ Route::get('/', function () {
     return view('pages.landing-page.landing-page');
 })->name('home');
 
-Route::get('/login',function(){
-    return view('pages.auth.login');
-})->name('login');
-Route::get('/registration',function(){
-    return view('pages.auth.registration');
-})->name('registration');
+Route::get('/signup',[UserController::class,'getSignup'])->name('user.signup');
+Route::get('/login',[UserController::class,'getLogin'])->name('user.login');
 
 
-Route::post('/registration',[UserController::class,'registration'])->name('user.registration');
+Route::post('/signup',[UserController::class,'registration'])->name('user.signup');
 Route::post('/login',[UserController::class,'login'])->name('user.login');
 Route::post('/verifyOTP',[UserController::class,'verifyOTP'])->name('user.verify');
