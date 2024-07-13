@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Customer;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Verify;
@@ -33,13 +34,13 @@ class UserController extends Controller
             $user->password = $request->password;
             $user->save();
             Auth::login($user);
+            return ['status'=>1];
         }catch(Exception $exp){
             return response()->json([
                 'error' => $exp->getMessage(),
             ]);
         }
 
-        return ['flag'=>1];
     }
 
     function verifyOTP(Request $request)
@@ -51,7 +52,7 @@ class UserController extends Controller
             }
             $user->verification=1;
             $user->save();
-            return ['message'=>$request->phone];
+            return ['status'=>1];
         }catch(Exception $exp){
             return response()->json([
                 'error' => $exp->getMessage(),

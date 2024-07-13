@@ -65,13 +65,13 @@
     import { validate, VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_PHONE_NUMBER, VALIDATOR_MINLENGTH } from "{{ URL::to('src/js/validator.js') }}";
 
     const firebaseConfig = {
-        apiKey: "AIzaSyDWhrPNSa5qicV64g86nuumvedGodXjWMs",
-        authDomain: "otp-laravel-bb4ff.firebaseapp.com",
-        projectId: "otp-laravel-bb4ff",
-        storageBucket: "otp-laravel-bb4ff.appspot.com",
-        messagingSenderId: "805078416753",
-        appId: "1:805078416753:web:7e9d0c38eff735c0fb0ad0",
-        measurementId: "G-C141Y9N90N"
+        apiKey: '{{ env("FIREBASE_API_KEY") }}',
+        authDomain: '{{ env("FIREBASE_AUTH_DOMAIN") }}',
+        projectId: '{{ env("FIREBASE_PROJECT_ID") }}',
+        storageBucket: '{{ env("FIREBASE_STORAGE_BUCKET") }}',
+        messagingSenderId: '{{ env("FIREBASE_MESSAGING_SENDER_ID") }}',
+        appId: '{{ env("FIREBASE_APP_ID") }}',
+        measurementId: '{{ env("FIREBASE_MEASUREMENT_ID") }}'
     };
 
     firebase.initializeApp(firebaseConfig);
