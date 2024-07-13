@@ -187,7 +187,9 @@
                         // $(".otp-show").hide();
                         // $(".otp-show").parent().css("background-color", "white");
                         // $(".otp-close").show();
-                        $("#show-message").html(data.message);
+                        // $("#show-message").html(data.message);
+                        window.location.href = {{ route('home') }};
+                        
                     },
                     error: function(xhr, status, error) {
                         activeOTPResendButton();

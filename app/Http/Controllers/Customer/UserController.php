@@ -20,9 +20,15 @@ class UserController extends Controller
     {
         return view('pages.customer.auth.login');
     }
-    public function registration(Request $request)
+    public function signup(Request $request)
     {
         try{
+            $this->validate($request,[
+                'name'=>'required',
+                'phone'=>'required|digits:11',
+                'email'=>'email|required|unique:users',
+                'password'=>'required|min:4'
+            ]);
             $user = User::where('phone', $request->phone)->first();
             if($user){
                 throw new Exception("User found");
@@ -34,6 +40,7 @@ class UserController extends Controller
             $user->password = $request->password;
             $user->save();
             Auth::login($user);
+            
             return ['status'=>1];
         }catch(Exception $exp){
             return response()->json([
@@ -41,6 +48,27 @@ class UserController extends Controller
             ]);
         }
 
+    }
+
+    public function login(Request $request)
+    {
+
+        try{
+            if (filter_var($request->email_phone, FILTER_VALIDATE_EMAIL)) {
+                if (auth()->guard('user')->attempt(['email' => $request->email_phone, 'password' => $request->password])) {
+                    return redirect()->route('home');
+                }
+            } else {
+                if (auth()->guard('user')->attempt(['phone' => $request->email_phone, 'password' => $request->password])) {
+                    return redirect()->route('home');
+                }
+            }
+            throw new Exception("Invalid Credential");
+        }catch(Exception $exp){
+            return response()->json([
+                'error' => $exp->getMessage(),
+            ],404);
+        } 
     }
 
     function verifyOTP(Request $request)
@@ -58,5 +86,10 @@ class UserController extends Controller
                 'error' => $exp->getMessage(),
             ],404);
         }
+    }
+
+    public function logout()
+    {
+        auth()->guard('user')->logout();
     }
 }
