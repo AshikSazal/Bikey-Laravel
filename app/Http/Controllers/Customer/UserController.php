@@ -39,7 +39,8 @@ class UserController extends Controller
             $user->phone = $request->phone;
             $user->password = $request->password;
             $user->save();
-            Auth::login($user);
+            // Auth::login($user);
+            auth()->guard('user')->login($user);
             
             return ['status'=>1];
         }catch(Exception $exp){

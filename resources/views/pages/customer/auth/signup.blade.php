@@ -65,15 +65,14 @@
     import { validate, VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_PHONE_NUMBER, VALIDATOR_MINLENGTH } from "{{ URL::to('src/js/validator.js') }}";
 
     const firebaseConfig = {
-        apiKey: '{{ env("FIREBASE_API_KEY") }}',
-        authDomain: '{{ env("FIREBASE_AUTH_DOMAIN") }}',
-        projectId: '{{ env("FIREBASE_PROJECT_ID") }}',
-        storageBucket: '{{ env("FIREBASE_STORAGE_BUCKET") }}',
-        messagingSenderId: '{{ env("FIREBASE_MESSAGING_SENDER_ID") }}',
-        appId: '{{ env("FIREBASE_APP_ID") }}',
-        measurementId: '{{ env("FIREBASE_MEASUREMENT_ID") }}'
+        apiKey: "{{ env('FIREBASE_API_KEY') }}",
+        authDomain: "{{ env('FIREBASE_AUTH_DOMAIN') }}",
+        projectId: "{{ env('FIREBASE_PROJECT_ID') }}",
+        storageBucket: "{{ env('FIREBASE_STORAGE_BUCKET') }}",
+        messagingSenderId: "{{ env('FIREBASE_MESSAGING_SENDER_ID') }}",
+        appId: "{{ env('FIREBASE_APP_ID') }}",
+        measurementId: "{{ env('FIREBASE_MEASUREMENT_ID') }}"
     };
-
     firebase.initializeApp(firebaseConfig);
 
     document.addEventListener("DOMContentLoaded", function() {
@@ -188,7 +187,7 @@
                         // $(".otp-show").parent().css("background-color", "white");
                         // $(".otp-close").show();
                         // $("#show-message").html(data.message);
-                        window.location.href = {{ route('home') }};
+                        window.location.href = "{{ route('home') }}";
                         
                     },
                     error: function(xhr, status, error) {
@@ -343,7 +342,7 @@
             event.preventDefault();
             $.ajax({
                 type:'POST',
-                url:"/registration",
+                url:"/signup",
                 data: {
                     _token: '{!! csrf_token() !!}',
                     name: userName,
