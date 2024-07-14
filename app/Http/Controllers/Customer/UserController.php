@@ -48,12 +48,10 @@ class UserController extends Controller
                 'error' => $exp->getMessage(),
             ]);
         }
-
     }
 
     public function login(Request $request)
     {
-
         try{
             if (filter_var($request->email_phone, FILTER_VALIDATE_EMAIL)) {
                 if (auth()->guard('user')->attempt(['email' => $request->email_phone, 'password' => $request->password])) {
@@ -64,7 +62,7 @@ class UserController extends Controller
                     return redirect()->route('home');
                 }
             }
-            throw new Exception("Invalid Credential");
+            throw new Exception("Invalid Email & Password");
         }catch(Exception $exp){
             return response()->json([
                 'error' => $exp->getMessage(),

@@ -20,7 +20,7 @@
         </div>
     </div>
     <div id="otp" class="hidden z-20 relative justify-center items-center bg-white py-[30px] px-[65px]">
-        <div class="absolute bg-white w-[450px] h-[300px] rounded-md">
+        <div class="absolute bg-white w-[450px] rounded-md">
             <div class="flex justify-center py-2">
                 <header class="relative h-[65px] w-[65px] bg-sky_blue_color text-white flex flex-col justify-center items-center rounded-full">
                     <svg class="otp-show" fill="#fff" width="40px" height="40px" viewBox="0 0 36 36" version="1.1"  preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -50,7 +50,7 @@
                         </button> --}}
                         <x-button type="submit" class="sky_blue_color" id="show-otp-button">Verify OTP</x-button>
                     </div>
-                    <a id="resend-otp" href="" class="flex justify-center mt-4 underline text-gray-400 decoration-gray-400 pointer-events-none">Resend OTP</a>
+                    <a id="resend-otp" href="" class="flex justify-center my-4 underline text-gray-400 decoration-gray-400 pointer-events-none">Resend OTP</a>
                 </form>
             </div>
         </div>
@@ -192,8 +192,9 @@
                         
                     },
                     error: function(xhr, status, error) {
-                        activeOTPResendButton();
-                        $("#show-message").text(xhr.responseJSON.error);
+                        // activeOTPResendButton();
+                        // $("#show-message").text(xhr.responseJSON.error);
+                        $("#show-message").text("Invalid OTP Number");
                         $("#show-message").show();
                     }
                 });
@@ -293,13 +294,8 @@
 
         showPopUp.addEventListener("click", function(event) {
             event.preventDefault();
-            const firebaseVerificationId = localStorage.getItem("firebaseVerificationId");
-            if(firebaseVerificationId){
-                // otpTimeCount();
-            }else{
-                phoneSendAuth();
-                // otpTimeCount();
-            }
+            phoneSendAuth();
+            // otpTimeCount();
 
             popUp.style.display = "flex";
             popUp.style.position = 'fixed';
