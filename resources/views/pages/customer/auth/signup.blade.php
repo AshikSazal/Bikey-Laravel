@@ -120,11 +120,12 @@
             resendOTP.classList.add("text-orange_color", "decoration-orange_color");
         }
 
-        function isFormValid(recaptchaToken) {
+        function isFormValid() {
             var name = $('input[name="name"]').val();
             var phone = $('input[name="phone"]').val();
             var email = $('input[name="email"]').val();
             var password = $('input[name="password"]').val();
+            const recaptchaToken = localStorage.getItem("recaptchaToken");
 
             var nameIsValid = validate(name, [VALIDATOR_REQUIRE()]);
             var phoneIsValid = validate(phone, [VALIDATOR_REQUIRE(),VALIDATOR_PHONE_NUMBER()]);
@@ -163,7 +164,7 @@
             const phoneCredential = firebase.auth.PhoneAuthProvider.credential(firebaseVerificationId,otpNumber)
             firebase.auth().signInWithCredential(phoneCredential)
             .then(function(result) {
-                var user = result.user;                
+                var user = result.user;
                 // Clear localStorage after successful verification
                 localStorage.removeItem("firebaseVerificationId");
                 popUp.style.display = "hidden";
@@ -219,15 +220,15 @@
             "border-color": "#9ca3af"
         }).prop('disabled', true);
 
-        function formValidate(recaptchaToken=null){
-            if (isFormValid(recaptchaToken)) {
+        function formValidate(){
+            if (isFormValid()) {
                 $('#show-pop-up').css({
                     "background-color":"#f85606",
                     "border-color":"#f85606"
                 }).prop('disabled', false);
             } else {
                 $('#show-pop-up').css({
-                    "background": "#9ca3af",
+                    "background-color": "#9ca3af",
                     "border-color": "#9ca3af"
                 }).prop('disabled', true);
             }
@@ -237,6 +238,23 @@
         $('#signup-form').on('keyup change', 'input', function() {
             formValidate();
         });
+
+        function removeRecaptchaToken(){
+            var minute = 1;
+            var second = 58;
+            var countDown = setInterval(function(){
+                second -= 1;
+                if(second<0){
+                    minute -= 1;
+                    if(minute<0){
+                        clearInterval(countDown);
+                        localStorage.removeItem("recaptchaToken");
+                        formValidate();
+                        return;
+                    }
+                }
+            },1000);
+        }
 
         function otpTimeCount() {
             var minute = 0;
@@ -374,7 +392,9 @@
             window.recaptchaVerifier=new firebase.auth.RecaptchaVerifier('recaptcha-container', {
                     size: 'normal',
                     callback: function(response) {
-                        formValidate(response);
+                        localStorage.setItem("recaptchaToken",response);
+                        removeRecaptchaToken();
+                        formValidate();
                     },
                 }
             );
