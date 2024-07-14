@@ -53,12 +53,12 @@ class UserController extends Controller
     public function login(Request $request)
     {
         try{
-            if (filter_var($request->email_phone, FILTER_VALIDATE_EMAIL)) {
-                if (auth()->guard('user')->attempt(['email' => $request->email_phone, 'password' => $request->password])) {
+            if (filter_var($request->emailPhone, FILTER_VALIDATE_EMAIL)) {
+                if (auth()->guard('user')->attempt(['email' => $request->emailPhone, 'password' => $request->password])) {
                     return redirect()->route('home');
                 }
             } else {
-                if (auth()->guard('user')->attempt(['phone' => $request->email_phone, 'password' => $request->password])) {
+                if (auth()->guard('user')->attempt(['phone' => $request->emailPhone, 'password' => $request->password])) {
                     return redirect()->route('home');
                 }
             }
