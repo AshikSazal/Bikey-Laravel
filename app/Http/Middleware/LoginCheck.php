@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Exception;
 use Illuminate\Http\Request;
@@ -18,12 +19,25 @@ class LoginCheck
     public function handle(Request $request, Closure $next, $guard = null): Response
     {
         try{
-            if (!Auth::guard($guard)->user()) {
-                throw new Exception('Please signup first');
+            if (filter_var($request->emailPhone, FILTER_VALIDATE_EMAIL)) {
+                $user = User::where('email',$request->emailPhone)->first();
+                if(!$user)
+                    throw new Exception('Please signup first');
+                elseif($user->verification!=1)
+                    throw new Exception('Please verify your account');
+            } else {
+                $user = User::where('email',$request->emailPhone)->first();
+                if(!$user)
+                    throw new Exception('Please signup first');
+                elseif($user->verification!=1)
+                    throw new Exception('Please verify your account');
             }
-            if (Auth::guard($guard)->user()->verification != 1) {
-                throw new Exception('Please verify your account');
-            }
+            // if (!Auth::guard($guard)->user()) {
+            //     throw new Exception('Please signup first');
+            // }
+            // if (Auth::guard($guard)->user()->verification != 1) {
+            //     throw new Exception('Please verify your account');
+            // }
         }catch(Exception $exp){
             return response()->json([
                 'error' => $exp->getMessage(),

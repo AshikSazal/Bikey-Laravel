@@ -30,16 +30,16 @@
         const showError = document.getElementById('open-pop-up');
 
         function isFormValid() {
-            var emailPhone = $('input[name="email_phone"]').val();
-            var password = $('input[name="password"]').val();
+            var email = $('input[name="email_phone"]').val();
+            var pass = $('input[name="password"]').val();
 
-            var phoneIsValid = validate(emailPhone, [VALIDATOR_REQUIRE(),VALIDATOR_PHONE_NUMBER()]);
-            var emailIsValid = validate(emailPhone, [VALIDATOR_REQUIRE(),VALIDATOR_EMAIL()]);
-            var passwordIsValid = validate(password, [VALIDATOR_REQUIRE(),VALIDATOR_MINLENGTH(4)]);
+            var phoneIsValid = validate(email, [VALIDATOR_REQUIRE(),VALIDATOR_PHONE_NUMBER()]);
+            var emailIsValid = validate(email, [VALIDATOR_REQUIRE(),VALIDATOR_EMAIL()]);
+            var passwordIsValid = validate(pass, [VALIDATOR_REQUIRE(),VALIDATOR_MINLENGTH(4)]);
 
             if ((emailIsValid || phoneIsValid) && passwordIsValid) {
-                emailPhone=emailPhone;
-                userPassword=password;
+                emailPhone=email;
+                userPassword=pass;
                 return true;
             } else {
                 return false;
@@ -66,6 +66,7 @@
 
         $('#login-btn').on('click',function(event){
             event.preventDefault();
+            console.log(emailPhone, userPassword);
             
             $.ajax({
                 type:"POST",
