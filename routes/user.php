@@ -15,3 +15,5 @@ Route::post('/signup',[UserController::class,'signup'])->name('user.signup');
 // login.check:user in here 'user' is the parameter of that middleware as a guard
 Route::post('/login',[UserController::class,'login'])->middleware('login.check:user')->name('user.login');
 Route::post('/verifyOTP',[UserController::class,'verifyOTP'])->name('user.verify');
+
+Route::post('/logout',[UserController::class,'logout'])->middleware('auth.check:user')->name('user.logout');

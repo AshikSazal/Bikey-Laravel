@@ -25,6 +25,23 @@
                 </a>
             </div>          
         </div>
+        <div class="relative" id="user-icon">
+            <div class="flex items-center justify-center">
+                <svg class="text-sky_blue_color hover:text-opacity-75 transition-opacity duration-300" height="40" width="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path fill="currentColor" d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"/>
+                </svg>
+            </div>
+            <div id="user-profile" class="absolute hidden bg-white rounded-lg right-0 mt-2 shadow-lg border">
+                <ul class="list-none">
+                    <li class="bg-sky_blue_color hover:bg-orange_color hover:underline">
+                        <a href="#" class="block px-4 py-2 text-white">PROFILE</a>
+                    </li>
+                    <li class="bg-sky_blue_color hover:bg-orange_color hover:underline">
+                        <a href="{{ route('user.logout') }}" class="block px-4 py-2 text-white">LOGOUT</a>
+                    </li>
+                </ul>
+            </div>            
+        </div>
         <div class="md:hidden col-span-1 flex justify-center md:justify-end items-center">
             <button class="list-header">
                 <svg height="40" width="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
@@ -69,8 +86,19 @@
         const listHeader = document.querySelector('.list-header');
         const listItems = document.querySelectorAll('.box-list li');
         const box = document.getElementById("box");
+
+        const userIcon = document.getElementById('user-icon');
+        const userProfile = document.getElementById('user-profile');
+
         let menuOpen = false;
         let timeout;
+
+        userIcon.addEventListener('mouseenter',function(){
+            userProfile.classList.remove("hidden")
+        })
+        userIcon.addEventListener('mouseleave',function(){
+            userProfile.classList.add("hidden")
+        })
         
         listHeader.addEventListener('click', function() {
             if (window.innerWidth <= 1060) {

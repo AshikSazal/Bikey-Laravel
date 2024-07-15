@@ -79,7 +79,8 @@ class UserController extends Controller
             }
             $user->verification=1;
             $user->save();
-            return ['status'=>1];
+            Auth::guard('user')->login($user);
+            return redirect()->route('home');
         }catch(Exception $exp){
             return response()->json([
                 'error' => $exp->getMessage(),
@@ -90,5 +91,6 @@ class UserController extends Controller
     public function logout()
     {
         Auth::guard('user')->logout();
+        return redirect()->route('user.login');
     }
 }
