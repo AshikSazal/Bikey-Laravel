@@ -26,7 +26,7 @@ class LoginCheck
                 elseif($user->verification!=1)
                     throw new Exception('Please verify your account');
             } else {
-                $user = User::where('email',$request->emailPhone)->first();
+                $user = User::where('phone',$request->emailPhone)->first();
                 if(!$user)
                     throw new Exception('Please signup first');
                 elseif($user->verification!=1)
