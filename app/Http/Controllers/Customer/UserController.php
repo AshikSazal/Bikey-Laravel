@@ -40,7 +40,7 @@ class UserController extends Controller
             $user->password = bcrypt($request->password);
             $user->save();
             // Auth::login($user);
-            auth()->guard('user')->login($user);
+            // Auth::guard('user')->login($user);
             
             return ['status'=>1];
         }catch(Exception $exp){
@@ -54,11 +54,11 @@ class UserController extends Controller
     {
         try{
             if (filter_var($request->emailPhone, FILTER_VALIDATE_EMAIL)) {
-                if (auth()->guard('user')->attempt(['email' => $request->emailPhone, 'password' => $request->password])) {
+                if (Auth::guard('user')->attempt(['email' => $request->emailPhone, 'password' => $request->password])) {
                     return redirect()->route('home');
                 }
             } else {
-                if (auth()->guard('user')->attempt(['phone' => $request->emailPhone, 'password' => $request->password])) {
+                if (Auth::guard('user')->attempt(['phone' => $request->emailPhone, 'password' => $request->password])) {
                     return redirect()->route('home');
                 }
             }
@@ -89,6 +89,6 @@ class UserController extends Controller
 
     public function logout()
     {
-        auth()->guard('user')->logout();
+        Auth::guard('user')->logout();
     }
 }

@@ -16,5 +16,6 @@
     @include('header-footer.footer')
 
     @yield('scripts')
+    @stack('pop-up-close-scripts')
 </body>
 </html>

@@ -294,7 +294,7 @@
 
         showPopUp.addEventListener("click", function(event) {
             event.preventDefault();
-            phoneSendAuth();
+            // phoneSendAuth();
             // otpTimeCount();
 
             popUp.style.display = "flex";

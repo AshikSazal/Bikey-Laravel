@@ -27,7 +27,7 @@
 
     document.addEventListener("DOMContentLoaded", function() {
         var emailPhone, userPassword;
-        const showError = document.getElementById('pop-up');
+        const showError = document.getElementById('open-pop-up');
 
         function isFormValid() {
             var emailPhone = $('input[name="email_phone"]').val();
@@ -36,14 +36,13 @@
             var phoneIsValid = validate(emailPhone, [VALIDATOR_REQUIRE(),VALIDATOR_PHONE_NUMBER()]);
             var emailIsValid = validate(emailPhone, [VALIDATOR_REQUIRE(),VALIDATOR_EMAIL()]);
             var passwordIsValid = validate(password, [VALIDATOR_REQUIRE(),VALIDATOR_MINLENGTH(4)]);
-            console.log(password)
 
             if ((emailIsValid || phoneIsValid) && passwordIsValid) {
                 emailPhone=emailPhone;
                 userPassword=password;
                 return true;
             } else {
-                return true;
+                return false;
             }
         }
 
@@ -81,7 +80,7 @@
                 },
                 error: function(xhr, status, error){
                     showError.style.display = "flex";
-                    showError.style.position = 'fixed';
+                    showError.classList.add("z-20","bg-black", "bg-opacity-80");
                     document.body.style.overflow = 'hidden';
                     $('#show-error-message').text(xhr.responseJSON.error);
                     $("#show-error-message").show();
