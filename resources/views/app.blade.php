@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
     <link rel="icon" href="./images/logo.png" type="image/png">
-    @vite(['resources/css/app.css','resources/css/header.css','resources/css/chat.css','resources/css/landing-page.css','resources/css/input.css'])
+    @vite(['resources/css/app.css','resources/css/header.css','resources/css/chat.css','resources/css/landing-page.css','resources/css/input.css','resources/css/loading.css'])
     <title>Bikey</title>
 </head>
 <body>

@@ -97,12 +97,14 @@
         const userIcon = document.getElementById('user-icon');
         const userProfile = document.getElementById('user-profile');
 
-        userIcon.addEventListener('mouseenter',function(){
-            userProfile.classList.remove("hidden")
-        })
-        userIcon.addEventListener('mouseleave',function(){
-            userProfile.classList.add("hidden")
-        })
+        if(userIcon){
+            userIcon.addEventListener('mouseenter',function(){
+                userProfile.classList.remove("hidden")
+            });
+            userIcon.addEventListener('mouseleave',function(){
+                userProfile.classList.add("hidden")
+            });
+        }
         
         listHeader.addEventListener('click', function() {
             if (window.innerWidth <= 1060) {
