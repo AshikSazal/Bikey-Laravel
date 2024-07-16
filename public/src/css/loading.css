@@ -1,6 +1,6 @@
 #loading-container {
     position: fixed;
-    display: flex;
+    display: none;
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -26,7 +26,7 @@
     }
     50% {
         transform: rotate(180deg);
-        box-shadow: 1px 5px 2px #18b201;
+        box-shadow: 1px 5px 2px #21d805;
     }
     100% {
         transform: rotate(360deg);
