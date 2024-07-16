@@ -16,23 +16,25 @@
                 </a>
             </div>
             @if (Auth::guard('user')->check())
-                <div class="relative mr-2" id="user-icon">
-                    <div class="flex justify-end mt-2 cursor-pointer">
-                        <svg class="text-sky_blue_color hover:text-opacity-75 transition-opacity duration-300" height="40" width="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                            <path fill="currentColor" d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"/>
-                        </svg>
+                <div class="relative">
+                    <div class="absolute right-0" id="user-icon">
+                        <div class="mt-2 cursor-pointer">
+                            <svg class="text-sky_blue_color hover:text-opacity-75 transition-opacity duration-300" height="40" width="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <path fill="currentColor" d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"/>
+                            </svg>
+                        </div>
+                        <div id="user-profile" class="absolute hidden bg-white right-0 pt-2 shadow-lg">
+                            <ul class="list-none">
+                                <li class="bg-sky_blue_color hover:bg-orange_color hover:underline">
+                                    <a href="#" class="block px-4 py-2 text-white">PROFILE</a>
+                                </li>
+                                <li class="bg-sky_blue_color hover:bg-orange_color hover:underline">
+                                    <a href="{{ route('user.logout') }}" class="block px-4 py-2 text-white">LOGOUT</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div id="user-profile" class="absolute hidden bg-white right-0 mt-2 shadow-lg">
-                        <ul class="list-none">
-                            <li class="bg-sky_blue_color hover:bg-orange_color hover:underline">
-                                <a href="#" class="block px-4 py-2 text-white">PROFILE</a>
-                            </li>
-                            <li class="bg-sky_blue_color hover:bg-orange_color hover:underline">
-                                <a href="{{ route('user.logout') }}" class="block px-4 py-2 text-white">LOGOUT</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>           
+                </div>
             @else
                 <div class="ms:hidden md:flex md:justify-end lg:justify-center sm:justify-start">
                     <a href="./login" class="relative flex items-center text-white bg-sky_blue_color border-2 border-sky_blue_color px-8 py-3 space-x-3 rounded-full overflow-hidden group">
@@ -89,12 +91,11 @@
         const listHeader = document.querySelector('.list-header');
         const listItems = document.querySelectorAll('.box-list li');
         const box = document.getElementById("box");
+        let menuOpen = false;
+        let timeout;
 
         const userIcon = document.getElementById('user-icon');
         const userProfile = document.getElementById('user-profile');
-
-        let menuOpen = false;
-        let timeout;
 
         userIcon.addEventListener('mouseenter',function(){
             userProfile.classList.remove("hidden")
