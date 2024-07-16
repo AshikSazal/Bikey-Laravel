@@ -79,34 +79,16 @@
                 },
                 beforeSend: function(){
                     loading.style.display="flex";
-                    loading.classList.remove("-z-20");
-                    loading.classList.add("z-20");
-                    loading.style.position = 'fixed';
                     document.body.style.overflow = 'hidden';
-                    loading.style.background = 'rgba(0, 0, 0, 0.8)';
-                    loading.style.width = '100%';
-                    loading.style.height = '100%';
                 },
                 success: function(){
                     loading.style.display="none";
-                    loading.classList.add("-z-20");
-                    loading.classList.remove("z-20");
-                    loading.style.position = '';
                     document.body.style.overflow = '';
-                    loading.style.background = '';
-                    loading.style.width = '';
-                    loading.style.height = '';
                     window.location.href = "{{ route('home') }}";
                 },
                 error: function(xhr, status, error){
                     loading.style.display="none";
-                    loading.classList.add("-z-20");
-                    loading.classList.remove("z-20");
-                    loading.style.position = '';
                     document.body.style.overflow = '';
-                    loading.style.background = '';
-                    loading.style.width = '';
-                    loading.style.height = '';
                     
                     showError.style.display = "flex";
                     showError.classList.add("z-20","bg-black", "bg-opacity-80");
