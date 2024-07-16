@@ -23,12 +23,12 @@
                                 <path fill="currentColor" d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"/>
                             </svg>
                         </div>
-                        <div id="user-profile" class="absolute hidden bg-white right-0 pt-2 shadow-lg">
-                            <ul class="list-none">
-                                <li class="bg-sky_blue_color hover:bg-orange_color hover:underline">
+                        <div id="user-profile" class="absolute hidden right-0 pt-2 shadow-lg">
+                            <ul class="list-none bg-sky_blue_color">
+                                <li class="hover:bg-orange_color hover:underline">
                                     <a href="#" class="block px-6 py-2 text-white">PROFILE</a>
                                 </li>
-                                <li class="bg-sky_blue_color hover:bg-orange_color hover:underline">
+                                <li class="hover:bg-orange_color hover:underline">
                                     <a href="{{ route('user.logout') }}" class="block px-6 py-2 text-white">LOGOUT</a>
                                 </li>
                             </ul>
@@ -37,7 +37,7 @@
                 </div>
             @else
                 <div class="ms:hidden md:flex md:justify-end lg:justify-center sm:justify-start">
-                    <a href="./login" class="relative flex items-center text-white bg-sky_blue_color border-2 border-sky_blue_color px-8 py-3 space-x-3 rounded-full overflow-hidden group">
+                    <a href="{{route('user.login')}}" class="relative flex items-center text-white bg-sky_blue_color border-2 border-sky_blue_color px-8 py-3 space-x-3 rounded-full overflow-hidden group">
                         <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-in-out origin-center"></span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-6 relative z-10 transition-colors duration-500 ease-in-out group-hover:text-sky_blue_color">
                             <path fill="currentColor" d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z" />
