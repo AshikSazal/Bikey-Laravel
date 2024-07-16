@@ -26,10 +26,10 @@
                         <div id="user-profile" class="absolute hidden bg-white right-0 pt-2 shadow-lg">
                             <ul class="list-none">
                                 <li class="bg-sky_blue_color hover:bg-orange_color hover:underline">
-                                    <a href="#" class="block px-4 py-2 text-white">PROFILE</a>
+                                    <a href="#" class="block px-6 py-2 text-white">PROFILE</a>
                                 </li>
                                 <li class="bg-sky_blue_color hover:bg-orange_color hover:underline">
-                                    <a href="{{ route('user.logout') }}" class="block px-4 py-2 text-white">LOGOUT</a>
+                                    <a href="{{ route('user.logout') }}" class="block px-6 py-2 text-white">LOGOUT</a>
                                 </li>
                             </ul>
                         </div>
