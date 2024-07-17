@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Customer\UserController;
 
-Route::get('/signup',[UserController::class,'getSignup'])->name('user.signup');
-Route::get('/login',[UserController::class,'getLogin'])->name('user.login');
+Route::get('/signup',[UserController::class,'getSignup'])->middleware('guest:user')->name('user.signup');
+Route::get('/login',[UserController::class,'getLogin'])->middleware('guest:user')->name('user.login');
 
 
 Route::post('/signup',[UserController::class,'signup'])->name('user.signup');

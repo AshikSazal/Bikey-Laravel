@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Verify;
 use Illuminate\Support\Facades\Auth;
 use Exception;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
