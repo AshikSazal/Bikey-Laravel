@@ -404,5 +404,4 @@
   });
 </script>
 
-
 @endsection

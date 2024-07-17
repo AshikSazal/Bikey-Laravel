@@ -19,8 +19,8 @@
             const closePopUp = document.getElementById('close-pop-up');
             const openPopUp = document.getElementById('open-pop-up');
             closePopUp.addEventListener('click',function(){
-                openPopUp.style.display = "hidden";
-                openPopUp.classList.remove("bg-black", "bg-opacity-80","z-20");
+                openPopUp.style.display = "none";
+                openPopUp.classList.remove("z-20","bg-black", "bg-opacity-80");
                 openPopUp.classList.add("-z-20");
                 document.body.style.overflow = '';
             });

@@ -88,7 +88,7 @@
                 },
                 error: function(xhr, status, error){
                     loading.style.display="none";
-                    document.body.style.overflow = '';
+                    // document.body.style.overflow = '';
                     
                     showError.style.display = "flex";
                     showError.classList.add("z-20","bg-black", "bg-opacity-80");
