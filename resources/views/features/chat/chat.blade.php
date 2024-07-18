@@ -41,7 +41,7 @@
             </button>
         </div>
     </div>
-    <div id="show-chat-box" class="shadow-md bg-gray-300 bg-opacity-50 rounded-xl overflow-hidden">
+    <div id="show-chat-box" class="shadow-xl bg-white rounded-xl overflow-hidden">
         <div class="bg-[#1c1b20] flex justify-between p-2 h-10 w-full">
             <div class="flex items-center">
                 <svg fill="#fff" height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 472.615 472.615" xml:space="preserve">
@@ -54,10 +54,15 @@
                 <svg fill="#fff" height="30px" width="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
             </div>
         </div>
-        <div class="absolute bottom-16 w-screen">
-            <div id="chat-input" class="absolute inline-block rounded-lg">
-                <form action="">
-                    <input type="text" placeholder="Type a message..." class="w-full py-3 px-4 border-none rounded-lg focus:outline-none caret-orange">
+        <div class="absolute bottom-16 w-full">
+            <div id="chat-input" class="absolute inline-block rounded-lg w-full px-2">
+                <form action="" class="flex items-center">
+                    <input type="text" placeholder="Type a message..." class="w-full shadow-2xl py-3 px-4 border-2 border-gray-300 rounded-lg focus:outline-none caret-orange">
+                    <button class="absolute top-1 right-1 px-6 py-[6px] rounded-full group overflow-hidden">
+                        <svg width="30px" height="30px" viewBox="0 -0.5 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="si-glyph si-glyph-paper-plane" fill="#000000" transform="rotate(45)">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"/><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/><g id="SVGRepo_iconCarrier"> <title>924</title> <defs> </defs> <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <path d="M17,1.042 L11.436,14.954 L7.958,11.477 L8.653,13.563 L7.03,14.958 L7.03,11.563 L14.984,3.375 L6.047,9.969 L1,8.694 L17,1.042 Z" fill="#434343" class="si-glyph-fill"></path></g></g>
+                        </svg>
+                    </button>
                 </form>
             </div>
         </div>
