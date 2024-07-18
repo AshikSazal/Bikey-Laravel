@@ -48,4 +48,9 @@
       animation: slideOut 0.5s forwards;
   }
   
-  
+
+/* Live chatting */
+#show-chat-box{
+    width: 300px;
+    height: 400px;
+}
