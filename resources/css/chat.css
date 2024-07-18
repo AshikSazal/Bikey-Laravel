@@ -47,8 +47,3 @@
     opacity: 0;
     animation: slideOut 0.5s forwards;
 }
-
-
-#message-input {
-    transition: height 0.3s ease;
-  }
