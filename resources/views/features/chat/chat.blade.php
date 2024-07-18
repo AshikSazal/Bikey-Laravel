@@ -41,7 +41,7 @@
             </button>
         </div>
     </div>
-    <div id="show-chat-box" class="shadow-xl bg-white rounded-xl overflow-hidden">
+    <div id="show-chat-box" class="shadow-xl hidden bg-white rounded-xl overflow-hidden">
         <div class="bg-[#1c1b20] flex justify-between p-2 h-10 w-full">
             <div class="flex items-center">
                 <svg fill="#fff" height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 472.615 472.615" xml:space="preserve">
@@ -56,12 +56,10 @@
         </div>
         <div class="absolute bottom-16 w-full">
             <div id="chat-input" class="absolute inline-block rounded-lg w-full px-2">
-                <form action="" class="flex items-center">
-                    <input type="text" placeholder="Type a message..." class="w-full shadow-2xl py-3 px-4 border-2 border-gray-300 rounded-lg focus:outline-none caret-orange">
-                    <button class="absolute top-1 right-1 px-6 py-[6px] rounded-full group overflow-hidden">
-                        <svg width="30px" height="30px" viewBox="0 -0.5 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="si-glyph si-glyph-paper-plane" fill="#000000" transform="rotate(45)">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"/><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/><g id="SVGRepo_iconCarrier"> <title>924</title> <defs> </defs> <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <path d="M17,1.042 L11.436,14.954 L7.958,11.477 L8.653,13.563 L7.03,14.958 L7.03,11.563 L14.984,3.375 L6.047,9.969 L1,8.694 L17,1.042 Z" fill="#434343" class="si-glyph-fill"></path></g></g>
-                        </svg>
+                <form action="" class="flex items-center border-2 border-gray-300 rounded-lg overflow-hidden">
+                    <input type="text" placeholder="Type a message..." class="w-full shadow-2xl py-3 pl-2 mr-14 focus:outline-none caret-orange">
+                    <button  id="message-send-btn" class="absolute top-1 right-1 px-6 py-[6px] rounded-full group overflow-hidden hidden">
+                        <svg height="30" width="30" transform="rotate(55)" fill="#f85606" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480l0-83.6c0-4 1.5-7.8 4.2-10.8L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/></svg>
                     </button>
                 </form>
             </div>
@@ -79,9 +77,12 @@
         const chatList = document.getElementById("chat-list");
         const showChatProcess = document.getElementById("showChatProcess");
         const directMessage = document.getElementById("direct-message");
+        const showChatBox = document.getElementById("show-chat-box");
+        const chatSystem = document.getElementById("chat-system");
+
         const showError = document.getElementById('open-pop-up');
         const showErrorMessage = document.getElementById("show-error-message");
-        const chatSystem = document.getElementById("chat-system");
+        const messageSend = document.getElementById("message-send-btn");
 
         showChatProcess.addEventListener("click", function() {
             if (!rotated) {
@@ -108,6 +109,17 @@
             directMessage.addEventListener("click", function() {
                 if ("{{ Auth::guard('user')->check() }}") {
                     chatSystem.style.display = 'none';
+                    showChatBox.style.display = "flex";
+                    showChatBox.style.overflow = "hidden";
+                    showChatBox.style.width = "0";
+                    showChatBox.style.height = "0";
+
+                    const timer = setTimeout(() => {
+                        showChatBox.style.transition = "width 0.5s ease, height 0.5s ease";
+                        showChatBox.style.width = "300px";
+                        showChatBox.style.height = "400px";
+                        messageSend.style.display = "flex";
+                    }, 50);
                 } else {
                     showErrorMessage.innerText = "Please Login First";
                     showError.style.display = "flex";

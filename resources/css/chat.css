@@ -1,56 +1,49 @@
 .rotate-180 {
     transform: rotate(180deg);
     transition: transform 0.5s ease;
-  }
-  .rotate-0 {
+}
+.rotate-0 {
     transform: rotate(0deg);
     transition: transform 0.5s ease;
-  }
-  
-  #cross-icon {
-    display: none;
-  }
-  
-  #chat-list {
-    display: none;
-  }
-  
-  @keyframes slideIn {
-      0% {
-          opacity: 0;
-          transform: translateY(30px);
-      }
-      100% {
-          opacity: 1;
-          transform: translateY(0px);
-      }
-  }
-  
-  .chat-item-slide-in {
-      opacity: 1;
-      animation: slideIn 0.5s forwards;
-  }
-  
-  @keyframes slideOut {
-      0% {
-          opacity: 1;
-          transform: translateY(0px);
-      }
-      100% {
-          opacity: 0;
-          transform: translateY(30px);
-          display: none;
-      }
-  }
-  
-  .chat-item-slide-out {
-      opacity: 0;
-      animation: slideOut 0.5s forwards;
-  }
-  
+}
 
-/* Live chatting */
-#show-chat-box{
-    width: 300px;
-    height: 400px;
+#cross-icon {
+    display: none;
+}
+
+#chat-list {
+    display: none;
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+.chat-item-slide-in {
+    opacity: 1;
+    animation: slideIn 0.5s forwards;
+}
+
+@keyframes slideOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(30px);
+        display: none;
+    }
+}
+
+.chat-item-slide-out {
+    opacity: 0;
+    animation: slideOut 0.5s forwards;
 }
