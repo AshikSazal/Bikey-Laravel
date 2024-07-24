@@ -143,6 +143,12 @@
             }
         }
 
+        function emptyInputField(){
+            $('input[name="name"]').val("");
+            $('input[name="phone"]').val("");
+            $('input[name="email"]').val("");
+        }
+
         function phoneSendAuth() {
             const number = "+88"+$('input[name="phone"]').val().trim();
             firebase.auth().signInWithPhoneNumber(number,window.recaptchaVerifier).then(function (confirmationResult) {
@@ -401,12 +407,6 @@
         window.onload=function () {
             render();
         };
-
-        function emptyInputField(){
-            $('input[name="name"]').val("");
-            $('input[name="phone"]').val("");
-            $('input[name="email"]').val("");
-        }
 
         // Empty the input field when reload the page
         window.addEventListener('load', function() {

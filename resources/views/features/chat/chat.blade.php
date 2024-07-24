@@ -108,11 +108,6 @@
             messageInputTextarea.value = '';
         }
 
-        // Empty the input field when reload the page
-        window.addEventListener('load', function() {
-            emptyInputField();
-        });
-
         const showError = document.getElementById('open-pop-up');
         const showErrorMessage = document.getElementById("show-error-message");
         const messageSend = document.getElementById("message-send-btn");
@@ -233,6 +228,11 @@
             } else {
                 chatButton.style.backgroundColor = "#f85606";
             }
+        });
+
+        // Empty the input field when reload the page
+        window.addEventListener('load', function() {
+            emptyInputField();
         });
     })
 </script>
