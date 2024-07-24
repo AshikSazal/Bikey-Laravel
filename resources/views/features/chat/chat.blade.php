@@ -32,32 +32,33 @@
             </button>
         </div>
     </div>
-    <div id="show-chat-box" class="shadow-xl hidden bg-white rounded-xl overflow-hidden">
-        <div class="bg-[#1c1b20] flex justify-between p-2 h-10 w-full">
-            <div class="flex items-center">
+    <div id="show-chat-box" class="shadow-xl hidden bg-white rounded-lg overflow-hidden flex-col">
+        <div class="bg-[#1c1b20] flex justify-between w-full h-10">
+            <div class="flex items-center pl-2">
                 <svg fill="#fff" height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 472.615 472.615" xml:space="preserve">
                     <g><g><path d="M186.318,5.058c-47.359,0-85.869,38.41-85.869,85.567c0,47.258,38.51,85.667,85.869,85.667 c47.358,0,85.869-38.41,85.869-85.667C272.187,43.468,233.676,5.058,186.318,5.058z" /></g></g>
                     <g><g><path d="M289.581,192.179l-18.501-5.429l-85.064,84.864l-85.165-84.864l-18.501,5.429C33.081,206.96,0,251.302,0,302.683v104.571 h231.224V276.51h137.737C359.675,236.813,329.623,204.14,289.581,192.179z" /></g></g>
                     <g><g><path d="M251.338,296.624v140.768h146.933l54.165,30.165v-30.165h20.18V296.624H251.338z M412.212,397.168H311.663v-20.11h100.549 V397.168z M442.377,356.949H281.499v-20.11h160.878V356.949z" /></g></g>
                 </svg>
             </div>
-            <div id="close-chat-box" class="flex items-center cursor-pointer">
-                <svg fill="#fff" height="30px" width="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+            <div id="close-chat-box" class="flex items-center pr-2">
+                <svg class="cursor-pointer text-[#fff] hover:text-orange_color" height="30px" width="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
             </div>
         </div>
-        <div class="absolute bottom-16 w-full shadow-inner shadow-gray-200">
-            <div class="box-border border border-black overflow-hidden"></div>
-            <div class="w-full bg-gray-200 pt-2">
-                <div id="chat-input" class="absolute inline-block w-full px-2 bg-gray-200 rounded-b-xl">
-                    <form action="" class="flex items-center border-2 border-gray-300 rounded-lg bg-gray-200 overflow-hidden">
+        <div class="absolute bottom-0 w-full shadow-inner shadow-gray-200 rounded-lg">
+            <div class="box-border border border-black"></div>
+            <div class="w-full bg-gray-200 pt-2 rounded-lg">
+                <div id="chat-input" class="inline-block w-full px-2 bg-gray-200 rounded-b-xl">
+                    <form action="" class="flex items-center border-2 border-gray-300 rounded-lg bg-gray-200 overflow-hidden justify-center">
                     <input type="text" id="message-input" placeholder="Type a message..." class="w-full shadow-2xl py-3 pl-2 mr-14 focus:outline-none caret-orange">
-                        <button  id="message-send-btn" class="absolute top-1 right-0 px-6 py-[6px] rounded-full group overflow-hidden">
-                        <svg height="30" width="30" transform="rotate(55)" fill="#f85606" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480l0-83.6c0-4 1.5-7.8 4.2-10.8L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/></svg>
-                    </button>
-                </form>
+                    {{-- <textarea style="scrollbar-width: none;" name="message" id="message-input-textarea" rows="2" class="w-full shadow-2xl py-2 pl-2 mr-14 focus:outline-none caret-orange resize-none"></textarea> --}}
+                        <button  id="message-send-btn" class="absolute right-6 flex flex-col justify-center" disabled>
+                            <svg class="text-red-400" height="30" width="30" transform="rotate(55)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480l0-83.6c0-4 1.5-7.8 4.2-10.8L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/></svg>
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
     </div>
     <x-error />
 </div>
@@ -74,6 +75,10 @@
         const showChatBox = document.getElementById("show-chat-box");
         const chatSystem = document.getElementById("chat-system");
         const closeChatBox = document.getElementById("close-chat-box");
+
+        const messageInput = document.getElementById("message-input");
+        // const messageInputTextarea = document.getElementById("message-input-textarea");
+        console.log( messageInput.clientWidth,messageInput.scrollWidth)
 
         const showError = document.getElementById('open-pop-up');
         const showErrorMessage = document.getElementById("show-error-message");
@@ -99,6 +104,17 @@
                 rotated = false;
             }
         });
+
+        // chatSystem.style.display = 'none';
+        // showChatBox.style.display = "flex";
+        // showChatBox.style.overflow = "hidden";
+        // showChatBox.style.width = "0";
+        // showChatBox.style.height = "0";
+
+        // chatSystem.style.display="none";
+        // showChatBox.style.width = "300px";
+        // showChatBox.style.height = "400px";
+        // messageSend.style.display = "flex";
 
         if (directMessage) {
             directMessage.addEventListener("click", function() {

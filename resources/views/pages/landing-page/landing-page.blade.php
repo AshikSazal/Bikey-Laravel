@@ -72,14 +72,14 @@
         </div>
         <div class="grid sm:grid-cols-5 ms:grid-cols-1 pt-10 ms:gap-y-10">
             <div class="sm:col-span-2 flex justify-center items-center text-2xl">
-                <h1>Get Latest Update & <br class="sm:block hidden"> Offers from BIKEY</h1>
+                <h1>Get Latest Update & <br class="sm:block hidden">Offers from BIKEY</h1>
             </div>
             <div class="relative sm:col-span-3 border-b-[150px] border-b-sky_blue_color border-l-[65px] border-l-transparent">
                 <div class="absolute w-[90%] inline-block mt-[50px] rounded-full">
                     <input type="text" placeholder="Enter your email" class="w-full py-3 px-4 border-none rounded-full focus:outline-none caret-orange_color">
                     <button class="absolute bg-orange_color top-1 right-1 px-3 py-[6px] rounded-full text-white group border-orange_color overflow-hidden border-2">
                         <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-in-out origin-center"></span>
-                        <span class="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-orange_color">SUBMIT</span>
+                        <span class="relative transition-colors duration-500 ease-in-out group-hover:text-orange_color">SUBMIT</span>
                     </button>
                 </div>                 
             </div>
