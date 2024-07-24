@@ -147,6 +147,7 @@
             $('input[name="name"]').val("");
             $('input[name="phone"]').val("");
             $('input[name="email"]').val("");
+            localStorage.removeItem("recaptchaToken");
         }
 
         function phoneSendAuth() {
