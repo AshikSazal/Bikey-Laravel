@@ -97,7 +97,16 @@
                     $("#show-error-message").show();
                 }
             });
-        })
+        });
+
+        function emptyInputField(){
+            $('input[name="email_phone"]').val("");
+        }
+        
+        // Empty the input field when reload the page
+        window.addEventListener('load', function() {
+            emptyInputField();
+        });
     });
 </script>
 
