@@ -1,7 +1,7 @@
 @props(['text', 'href', 'flag'])
 
 @if ($flag==1)
-    <a href="{{ $href }}" class="text-2xl relative group hover:text-sky_blue_color flex justify-center">
+    <a href="{{ $href }}" class="text-xl relative group hover:text-sky_blue_color flex justify-center">
         {{ $text }}
         <span class="absolute bottom-0 left-1/2 bg-sky_blue_color h-0.5 w-0 transition-width transition-left duration-500 ease-in-out group-hover:w-full group-hover:left-0"></span>
     </a>

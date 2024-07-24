@@ -2,10 +2,10 @@
     <nav class="grid grid-cols-5 md:grid-cols-5 p-4 shadow fixed w-full z-10 bg-white">
         <div class="flex items-center col-span-2 md:col-span-1"><img src="./images/logo.png" alt="" height="150" width="150"></div>
         <div class="ms:hidden md:grid md:grid-cols-4 gap-2 items-center relative md:col-span-2">
-            @include('components.landing-page.nav', ['text' => 'Home', 'href' => route("home"),'flag'=>1])
-            @include('components.landing-page.nav', ['text' => 'Brand', 'href' => '#','flag'=>1])
-            @include('components.landing-page.nav', ['text' => 'About', 'href' => '#','flag'=>1])
-            @include('components.landing-page.nav', ['text' => 'Contact', 'href' => '#','flag'=>1])
+            @include('components.landing-page.nav', ['text' => 'HOME', 'href' => route("home"),'flag'=>1])
+            @include('components.landing-page.nav', ['text' => 'BRAND', 'href' => '#','flag'=>1])
+            @include('components.landing-page.nav', ['text' => 'ABOUT', 'href' => '#','flag'=>1])
+            @include('components.landing-page.nav', ['text' => 'CONTACT', 'href' => '#','flag'=>1])
         </div>
         
         <div class="col-span-2 grid grid-cols-2 md:col-span-2">
@@ -16,7 +16,7 @@
                 </a>
             </div>
             @if (Auth::guard('user')->check())
-                <div class="relative">
+                <div class="ms:hidden md:flex relative">
                     <div class="absolute right-0" id="user-icon">
                         <div class="mt-2 cursor-pointer">
                             <svg class="text-sky_blue_color hover:text-opacity-75 transition-opacity duration-300" height="40" width="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -29,7 +29,7 @@
                                     <a href="#" class="block px-6 py-2 text-white">PROFILE</a>
                                 </li>
                                 <li class="hover:bg-orange_color hover:underline">
-                                    <a href="{{ route('user.logout') }}" class="block px-6 py-2 text-white">LOGOUT</a>
+                                    <a id="logout" href="{{ route('user.logout') }}" class="block px-6 py-2 text-white">LOGOUT</a>
                                 </li>
                             </ul>
                         </div>
@@ -60,30 +60,53 @@
                 <button class="border-4 border-sky_blue_color rounded-full mb-2"><svg height="40" width="40" class="text-sky_blue_color" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg></button>
             </li>
             <li class="bg-sky_blue_color">
-                @include('components.landing-page.nav', ['text' => 'Home', 'href' => route("home"),'flag'=>2])
+                @include('components.landing-page.nav', ['text' => 'HOME', 'href' => route("home"),'flag'=>2])
             </li>
             <li class="bg-sky_blue_color">
-                @include('components.landing-page.nav', ['text' => 'Brand', 'href' => '#','flag'=>2])
+                @include('components.landing-page.nav', ['text' => 'BRAND', 'href' => '#','flag'=>2])
             </li>
             <li class="bg-sky_blue_color">
-                @include('components.landing-page.nav', ['text' => 'About', 'href' => '#','flag'=>2])
+                @include('components.landing-page.nav', ['text' => 'ABOUT', 'href' => '#','flag'=>2])
             </li>
             <li class="bg-sky_blue_color">
-                @include('components.landing-page.nav', ['text' => 'Contact', 'href' => '#','flag'=>2])
+                @include('components.landing-page.nav', ['text' => 'CONTACT', 'href' => '#','flag'=>2])
             </li>
+            @if (Auth::guard('user')->check())
             <li>
-                <a href="{{route('user.login')}}" class="relative mt-4 flex items-center justify-center text-sky_blue_color bg-white border-2 border-sky_blue_color py-3 space-x-3 rounded-full overflow-hidden group">
+                    <a href="#" class="relative mt-4 flex items-center justify-center text-sky_blue_color bg-white border-2 border-sky_blue_color py-3 space-x-3 rounded-full overflow-hidden group">
                     <span class="absolute inset-0 bg-sky_blue_color transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-in-out origin-center"></span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-6 relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
                         <path fill="currentColor" d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z" />
                     </svg>
-                    <span class="relative z-10 text-lg transition-colors duration-500 ease-in-out group-hover:text-white">Login</span>
+                        <span class="relative z-10 text-lg transition-colors duration-500 ease-in-out group-hover:text-white">PROFILE</span>
+                    </a>
+                </li>
+                <li>
+                    <a id="pop-logout" href="{{ route('user.logout') }}" class="relative flex items-center justify-center text-sky_blue_color bg-white border-2 border-sky_blue_color py-3 space-x-3 rounded-full overflow-hidden group">
+                        <span class="absolute inset-0 bg-sky_blue_color transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-in-out origin-center"></span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-6 relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
+                            <path fill="currentColor" d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z" />
+                        </svg>
+                        <span class="relative z-10 text-lg transition-colors duration-500 ease-in-out group-hover:text-white">LOGOUT</span>
+                    </a>
+                </li>
+            @else
+                <li>
+                    <a id="login" href="{{route('user.login')}}" class="relative mt-4 flex items-center justify-center text-sky_blue_color bg-white border-2 border-sky_blue_color py-3 space-x-3 rounded-full overflow-hidden group">
+                        <span class="absolute inset-0 bg-sky_blue_color transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-in-out origin-center"></span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-6 relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
+                            <path fill="currentColor" d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z" />
+                        </svg>
+                        <span class="relative z-10 text-lg transition-colors duration-500 ease-in-out group-hover:text-white">LOGIN</span>
                 </a>
             </li>
+            @endif
         </ul>
     </div>        
+    <x-error />
+    <x-loading />      
 </header>
-
+<script type="text/javascript" src="{{ URL::to('src/js/jquery.js') }}"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const navList = document.querySelector('.navbar-list');
@@ -91,6 +114,11 @@
         const listHeader = document.querySelector('.list-header');
         const listItems = document.querySelectorAll('.box-list li');
         const box = document.getElementById("box");
+        const loading = document.getElementById("loading-container");
+        
+        const logout = document.getElementById("logout");
+        const popLogout = document.getElementById("pop-logout");
+        
         let menuOpen = false;
         let timeout;
 
@@ -103,6 +131,60 @@
             });
             userIcon.addEventListener('mouseleave',function(){
                 userProfile.classList.add("hidden")
+            });
+        }
+        
+        // This logout button for two logout button
+        function allLogout(){
+            $.ajax({
+                type:"GET",
+                url: "{{route('user.logout')}}",
+                data: {
+                    _token: '{!! csrf_token() !!}',
+                },
+                beforeSend: function(){
+                    box.classList.remove("z-20");
+                    box.classList.add("-z-20");
+                    document.body.style.overflow = '';
+                    navList.style.background = '';
+                    listItems.forEach(function(item, index) {
+                        item.style.transition = '';
+                        item.style.transform = '';
+                    });
+                    navList.style.height = '';
+                    navList.style.width = '';
+                    navList.style.display = 'none';
+                    menuOpen = false;
+                    loading.style.display="flex";
+                },
+                success: function(){
+                    // loading.style.display="none";
+                    // document.body.style.overflow = '';
+                    window.location.href = "{{ route('user.login') }}";
+                },
+                error: function(xhr, status, error){
+                    loading.style.display="none";
+                    // document.body.style.overflow = '';
+                    
+                    showError.style.display = "flex";
+                    showError.classList.add("z-20","bg-black", "bg-opacity-80");
+                    document.body.style.overflow = 'hidden';
+                    $('#show-error-message').text(xhr.responseJSON.error);
+                    $("#show-error-message").show();
+                }
+            });
+        }
+
+        if(logout){
+            logout.addEventListener('click',function(event){
+                event.preventDefault();
+                allLogout();
+            });
+        }
+        if(popLogout){
+            popLogout.addEventListener('click',function(event){
+                event.preventDefault();
+                allLogout();
             });
         }
         
