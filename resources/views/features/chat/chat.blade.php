@@ -133,17 +133,6 @@
             }
         });
 
-        // chatSystem.style.display = 'none';
-        // showChatBox.style.display = "flex";
-        // showChatBox.style.overflow = "hidden";
-        // showChatBox.style.width = "0";
-        // showChatBox.style.height = "0";
-
-        // chatSystem.style.display="none";
-        // showChatBox.style.width = "300px";
-        // showChatBox.style.height = "400px";
-        // messageSend.style.display = "flex";
-
         if (directMessage) {
             directMessage.addEventListener("click", function() {
                 if ("{{ Auth::guard('user')->check() }}") {
