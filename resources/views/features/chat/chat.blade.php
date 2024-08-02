@@ -45,8 +45,10 @@
                 <svg class="cursor-pointer text-[#fff] hover:text-orange_color" height="30px" width="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
             </div>
         </div>
-        <div class="absolute right-0 bottom-20">
-            <div class="pr-2 pb-2">Hello world</div>
+        <div style="scrollbar-width: none;" class="absolute bottom-20 mt-10 overflow-y-scroll resize-none h-[280px]">
+            <div class="mb-4">
+                
+            </div>
         </div>
         <div class="absolute bottom-0 w-full shadow-inner shadow-gray-200 rounded-b-lg">
             <div class="box-border border border-black"></div>
@@ -151,14 +153,14 @@
             }
         });
 
-        // chatSystem.style.display = 'none';
-        // showChatBox.style.display = "flex";
-        // showChatBox.style.overflow = "hidden";
-        // showChatBox.style.width = "0";
-        // showChatBox.style.height = "0";
-        // showChatBox.style.width = "300px";
-        // showChatBox.style.height = "400px";
-        // messageSend.style.display = "flex";
+        chatSystem.style.display = 'none';
+        showChatBox.style.display = "flex";
+        showChatBox.style.overflow = "hidden";
+        showChatBox.style.width = "0";
+        showChatBox.style.height = "0";
+        showChatBox.style.width = "300px";
+        showChatBox.style.height = "400px";
+        messageSend.style.display = "flex";
 
         if (directMessage) {
             directMessage.addEventListener("click", function() {
