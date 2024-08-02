@@ -12,7 +12,7 @@
 ## Laravel Websockets
 To install the websockets install the below command
 ```
-composer require beyondcode/laravel-websockets --with-all-dependencies
+composer require beyondcode/laravel-websockets
 ```
 Publish the migration file
 ```
@@ -30,7 +30,7 @@ To start the websocket server
 ```
 http://localhost:8000/laravel-websockets
 ```
-If seen `Unhandled promise rejection with TypeError: React\Http\Io\ClientRequestStream::closeError()` Then have to change the react/promise version. To fix this run the below command
+If seen <code style="color: #619deb;">Unhandled promise rejection with TypeError: React\Http\Io\ClientRequestStream::closeError()</code> Error. Then have to change the react/promise version. To fix this run the below command
 ```
 composer require react/promise:^2.7
 ```

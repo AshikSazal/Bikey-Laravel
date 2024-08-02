@@ -45,7 +45,10 @@
                 <svg class="cursor-pointer text-[#fff] hover:text-orange_color" height="30px" width="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
             </div>
         </div>
-        <div class="absolute bottom-0 w-full shadow-inner shadow-gray-200 rounded-lg">
+        <div class="absolute right-0 bottom-20">
+            <div class="pr-2 pb-2">Hello world</div>
+        </div>
+        <div class="absolute bottom-0 w-full shadow-inner shadow-gray-200 rounded-b-lg">
             <div class="box-border border border-black"></div>
             <div class="w-full bg-gray-200 pt-2 rounded-lg">
                 <div id="chat-input" class="inline-block w-full px-2 bg-gray-200 rounded-b-xl">
@@ -53,7 +56,7 @@
                     <input type="text" id="message-input" placeholder="Type a message..." class="w-full shadow-2xl py-3 pl-2 mr-14 focus:outline-none caret-orange">
                     <textarea style="scrollbar-width: none;" name="message" id="message-input-textarea" rows="2" class="hidden w-full shadow-2xl py-2 pl-2 mr-14 focus:outline-none caret-orange resize-none"></textarea>
                         <button  id="message-send-btn" class="absolute right-6 flex flex-col justify-center" disabled>
-                            <svg class="text-red-400" height="30" width="30" transform="rotate(55)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480l0-83.6c0-4 1.5-7.8 4.2-10.8L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/></svg>
+                            <svg id="message-send-icon" class="text-red-400" height="30" width="30" transform="rotate(55)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480l0-83.6c0-4 1.5-7.8 4.2-10.8L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/></svg>
                         </button>
                     </form>
                 </div>
@@ -75,12 +78,30 @@
         const showChatBox = document.getElementById("show-chat-box");
         const chatSystem = document.getElementById("chat-system");
         const closeChatBox = document.getElementById("close-chat-box");
-
+        
         const messageInput = document.getElementById("message-input");
         const messageInputTextarea = document.getElementById("message-input-textarea");
+        const messageSendIcon = document.getElementById("message-send-icon");
+        const showError = document.getElementById('open-pop-up');
+        const showErrorMessage = document.getElementById("show-error-message");
+        const messageSend = document.getElementById("message-send-btn");
         let messageSize;
+
+        function messageSendButton(msgBtn){
+            if(msgBtn.value.length>0){
+                messageSendIcon.classList.remove("text-red-400");
+                messageSendIcon.classList.add("text-orange_color");
+                messageSend.disabled = false;
+            }else{
+                messageSendIcon.classList.add("text-red-400");
+                messageSendIcon.classList.remove("text-orange_color");
+                messageSend.disabled = true;
+            }
+        }
+
         if(messageInput){
             messageInput.addEventListener('input',function(){
+                messageSendButton(messageInput);
                 if(messageInput.clientWidth < messageInput.scrollWidth){
                     messageInputTextarea.value = messageInput.value;
                     messageSize=messageInput.value.length;
@@ -93,6 +114,7 @@
 
         if(messageInputTextarea){
             messageInputTextarea.addEventListener('input',function(){
+                messageSendButton(messageInputTextarea);
                 if(messageSize > messageInputTextarea.value.length){
                     messageInput.value = messageInputTextarea.value;
                     messageSize=messageInputTextarea.value.length;
@@ -107,10 +129,6 @@
             messageInput.value = '';
             messageInputTextarea.value = '';
         }
-
-        const showError = document.getElementById('open-pop-up');
-        const showErrorMessage = document.getElementById("show-error-message");
-        const messageSend = document.getElementById("message-send-btn");
 
         showChatProcess.addEventListener("click", function() {
             if (!rotated) {
@@ -132,6 +150,15 @@
                 rotated = false;
             }
         });
+
+        chatSystem.style.display = 'none';
+        showChatBox.style.display = "flex";
+        showChatBox.style.overflow = "hidden";
+        showChatBox.style.width = "0";
+        showChatBox.style.height = "0";
+        showChatBox.style.width = "300px";
+        showChatBox.style.height = "400px";
+        messageSend.style.display = "flex";
 
         if (directMessage) {
             directMessage.addEventListener("click", function() {

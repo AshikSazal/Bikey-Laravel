@@ -22,7 +22,6 @@
 
 @section('scripts')
 
-<script type="text/javascript" src="{{ URL::to('src/js/jquery.js') }}"></script>
 <script type="module">
     import { validate, VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_PHONE_NUMBER, VALIDATOR_MINLENGTH } from "{{ URL::to('src/js/validator.js') }}";
 
