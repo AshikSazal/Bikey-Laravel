@@ -3,3 +3,4 @@ php artisan make:component Button
 npm install firebase
 php artisan make:component Error
 php artisan make:middleware UserLoginCheck
+composer require beyondcode/laravel-websockets --with-all-dependencies
