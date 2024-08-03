@@ -12,6 +12,10 @@
     <script type="text/javascript" src="{{ URL::to('src/js/firebase.js') }}"></script>
     <script type="text/javascript" src="{{ URL::to('src/js/jquery.js') }}"></script>
     @vite(['resources/css/app.css', 'resources/css/header.css', 'resources/css/chat.css', 'resources/css/landing-page.css', 'resources/css/input.css', 'resources/js/chat.js'])
+    <script>
+        var sender_id = @json(auth()->guard('user')->id);
+        ver receiver_id;
+    </script>
     <title>Bikey</title>
 </head>
 
