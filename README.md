@@ -34,3 +34,4 @@ If seen <code style="color: #619deb;">Unhandled promise rejection with TypeError
 ```
 composer require react/promise:^2.7
 ```
+Uncomment this line <code style="color: #619deb;">App\Providers\BroadcastServiceProvider::class</code> from this <code style="color: #619deb;">config\app.php</code> location

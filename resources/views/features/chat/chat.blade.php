@@ -47,19 +47,15 @@
         </div>
         <div style="scrollbar-width: none;" {{-- class="absolute bottom-20 mt-10 overflow-y-scroll resize-none h-[280px]" --}}>
             <div class="mb-4" id="show-message">
-                <div class="flex items-center">
-                    <span class="bg-sky_blue_color rounded-full p-2">Hello World</span>
-                    <svg height="25" width="25" class="text-orange_color -ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512">
-                        <path fill="currentColor" d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"/>
-                    </svg>
-                </div>
+                
             </div>
         </div>
         <div class="absolute bottom-0 w-full shadow-inner shadow-gray-200 rounded-b-lg">
             <div class="box-border border border-black"></div>
             <div class="w-full bg-gray-200 pt-2 rounded-lg">
                 <div id="chat-input" class="inline-block w-full px-2 bg-gray-200 rounded-b-xl">
-                    <form id="message-send-form" action="" class="flex items-center border-2 border-gray-300 rounded-lg bg-gray-200 overflow-hidden justify-center">
+                    <form id="message-send-form" method="POST" class="flex items-center border-2 border-gray-300 rounded-lg bg-gray-200 overflow-hidden justify-center" action="{{route('user.save.message')}}">
+                        @csrf
                         <input type="text" id="message-input" placeholder="Type a message..." class="w-full shadow-2xl py-3 pl-2 mr-14 focus:outline-none caret-orange">
                         <textarea style="scrollbar-width: none;" name="message" id="message-input-textarea" rows="2" class="hidden w-full shadow-2xl py-2 pl-2 mr-14 focus:outline-none caret-orange resize-none"></textarea>
                         <button  id="message-send-btn" class="absolute right-6 flex flex-col justify-center" disabled>
@@ -257,5 +253,5 @@
         window.addEventListener('load', function() {
             emptyInputField();
         });
-    })
+    });
 </script>

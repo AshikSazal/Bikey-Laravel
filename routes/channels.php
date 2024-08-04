@@ -13,11 +13,20 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
-});
+// Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
+//     return (int) $user->id === (int) $id;
+// });
 
 // This channel will send the message
 Broadcast::channel('broadcast-message',function($user){
-    return $user;
+    try{
+        if (!$user) {
+            throw new Exception('Please login first');
+        }
+        return $user;
+    }catch(Exception $exp){
+        return response()->json([
+            'error' => $exp->getMessage(),
+        ],404);
+    }
 });
