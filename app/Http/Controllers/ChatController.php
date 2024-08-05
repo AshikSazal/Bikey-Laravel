@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Events\MessageSentEvent;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Chat;
 use Exception;
 
@@ -23,9 +22,8 @@ class ChatController extends Controller
                 "receiver_id"=>$request->receiver_id,
                 "message"=>$request->message
             ]);
-            $chat->save();
             event(new MessageSentEvent($chat));
-            return ['chat'=>$chat];
+            return response()->json(['chat' =>$chat]);
         }catch(Exception $exp){
             return response()->json([
                 'error' => $exp->getMessage(),

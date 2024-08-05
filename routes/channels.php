@@ -17,11 +17,12 @@ use Illuminate\Support\Facades\Broadcast;
 //     return (int) $user->id === (int) $id;
 // });
 
+
 // This channel will send the message
 Broadcast::channel('broadcast-message',function($user){
     try{
         if (!$user) {
-            throw new Exception('Please login first');
+            throw new Exception('Please Login First');
         }
         return $user;
     }catch(Exception $exp){

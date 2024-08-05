@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="./images/logo.png" type="image/png">
+    <link rel="stylesheet" href="./src/css/error.css">
     <title>404</title>
 </head>
 <body>

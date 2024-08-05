@@ -20,4 +20,4 @@ Route::post('/verifyOTP',[UserController::class,'verifyOTP'])->name('user.verify
 Route::get('/logout',[UserController::class,'logout'])->middleware('auth.check:user')->name('user.logout');
 
 // Messaging
-Route::post('/save-message',[ChatController::class,'saveMessage'])->middleware('auth.check:user')->name('user.save.message');
+Route::post('/save-message',[ChatController::class,'saveMessage'])->middleware('auth')->name('user.save.message');
