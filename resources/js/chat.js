@@ -34,9 +34,9 @@ $(document).ready(function(){
                 $('#show-error-message').text(xhr.responseJSON.error);
                 $("#show-error-message").show();
             }
-        })
-    })
-})
+        });
+    });
+});
 
 // // send message to the user
 Echo.private('broadcast-message')

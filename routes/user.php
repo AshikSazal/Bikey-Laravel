@@ -3,6 +3,7 @@
 use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Customer\UserController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/signup',[UserController::class,'getSignup'])->middleware('guest:user')->name('user.signup');
 Route::get('/login',[UserController::class,'getLogin'])->middleware('guest:user')->name('user.login');
@@ -20,4 +21,7 @@ Route::post('/verifyOTP',[UserController::class,'verifyOTP'])->name('user.verify
 Route::get('/logout',[UserController::class,'logout'])->middleware('auth.check:user')->name('user.logout');
 
 // Messaging
-Route::post('/save-message',[ChatController::class,'saveMessage'])->middleware('auth')->name('user.save.message');
+Route::post('/save-message',[ChatController::class,'saveMessage'])->middleware('auth.check:user')->name('user.save.message');
+Route::post('/broadcasting/auth', function () {
+    return Auth::user();
+})->middleware('auth.check:user');
