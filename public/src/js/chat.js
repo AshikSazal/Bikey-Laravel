@@ -38,25 +38,37 @@ $(document).ready(function(){
     });
 });
 
-// // send message to the user
-Echo.private('broadcast-message')
+// send message to the user
+Echo.channel('broadcast-message')
 .listen('MessageSentEvent',(data)=>{
-    console.log(data)
+    // console.log(data)
     // if(sender_id == data.chat.receiver_id && receiver_id == data.chat.sender_id){
         // const html = `
         //     <div class="distance-user-chat" id='`+data.chat.id+`-chat'>
         //         <h5><span>`+data.chat.message+`</span></h5>
         //     </div>
         // `;
-        // const html = `
-        //             <div class="flex items-center">
-        //                 <span class="bg-sky_blue_color rounded-full p-2">${data.chat.message}</span>
-        //                 <svg height="25" width="25" class="text-orange_color -ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512">
-        //                     <path fill="currentColor" d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"/>
-        //                 </svg>
-        //             </div>
-        //         `;
-        // $("#show-message").append(html);
+        const html = `
+                    <div class="flex items-center">
+                        <span class="bg-sky_blue_color rounded-full p-2">${data.chat.message}</span>
+                        <svg height="25" width="25" class="text-orange_color -ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512">
+                            <path fill="currentColor" d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"/>
+                        </svg>
+                    </div>
+                `;
+        $("#show-message").append(html);
         // scrollChat();
     // }
 });
+
+// User online or offline checking
+// Echo.join("broadcast-message")
+// .here((users)=>{
+//     console.log(users);
+// }).joining((user)=>{
+//     console.log(user);
+// }).leaving((user)=>{
+//     console.log(user);
+// }).listen('MessageSentEvent',(e)=>{
+//     console.log("Hello world"+e);
+// })

@@ -31,7 +31,7 @@ class MessageSentEvent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('broadcast-message'),
+            new Channel('broadcast-message'),
         ];
     }
 }

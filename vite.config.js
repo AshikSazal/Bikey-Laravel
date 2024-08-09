@@ -5,13 +5,12 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                "resources/css/app.css",
-                "resources/css/chat.css",
-                "resources/css/header.css",
-                "resources/css/input.css",
-                "resources/css/landing-page.css",
-                "resources/js/app.js",
-                "resources/js/chat.js",
+                'resources/css/app.css', 
+                'resources/css/header.css', 
+                'resources/css/chat.css', 
+                'resources/css/landing-page.css', 
+                'resources/css/input.css',
+                'resources/js/app.js'
             ],
             refresh: true,
         }),
