@@ -17,11 +17,16 @@ class ChatController extends Controller
                 'receiver_id'=>'required',
                 'message'=>'required'
             ]);
-            $chat = Chat::create([
-                "sender_id"=>$request->sender_id,
-                "receiver_id"=>$request->receiver_id,
-                "message"=>$request->message
-            ]);
+            // $chat = Chat::create([
+            //     "sender_id"=>$request->sender_id,
+            //     "receiver_id"=>$request->receiver_id,
+            //     "message"=>$request->message
+            // ]);
+            $chat = [
+                'sender_id'=>$request->sender_id,
+                'receiver_id'=>$request->receiver_id,
+                'message'=>$request->message
+            ];
             event(new MessageSentEvent($chat));
             return response()->json(['chat' =>$chat]);
         }catch(Exception $exp){

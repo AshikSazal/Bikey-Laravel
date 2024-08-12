@@ -1,17 +1,23 @@
-php artisan make:component Input
-php artisan make:component Button
-npm install firebase
-php artisan make:component Error
-php artisan make:middleware UserLoginCheck
-composer require beyondcode/laravel-websockets --with-all-dependencies
+composer require laravel/breeze
+composer require beyondcode/laravel-websockets
 composer require react/promise:^2.7
 php artisan vendor:publish --provider="BeyondCode\LaravelWebSockets\WebSocketsServiceProvider" --tag="migrations"
 php artisan migrate
 php artisan vendor:publish --provider="BeyondCode\LaravelWebSockets\WebSocketsServiceProvider" --tag="config"
-PUSHER_APP_ID, PUSHER_APP_KEY, PUSHER_APP_SECRET, PUSHER_HOST, PUSHER_PORT, PUSHER_SCHEME, BROADCAST_DRIVER in .env
-npm install --save-dev laravel-echo pusher-js
-Uncomment this line (App\Providers\BroadcastServiceProvider::class) from this location (config\app.php)
-php artisan make:model Chat -m
-php artisan make:event MessageSentEvent
+PUSHER_APP_ID, PUSHER_APP_KEY, PUSHER_APP_SECRET, PUSHER_HOST, PUSHER_PORT, PUSHER_SCHEME in .env
+php artisan make:migration create_chats_table
+php artisan migrate
+php artisan breeze:install blade
+npm install
+php artisan make:controller UserController
 php artisan make:event UserStatusEvent
-php artisan make:controller ChatController
+Add broadcast on this file(routes\channels.php)
+php artisan make:model Chat
+php artisan make:event MessageEvent
+php artisan make:event MessageDeleteEvent
+php artisan make:event MessageUpdateEvent
+php artisan make:migration create_groups_table
+php artisan make:model Group
+php artisan make:model Member -m
+php artisan make:model GroupChat -m
+php artisan make:event GroupMessageEvent
