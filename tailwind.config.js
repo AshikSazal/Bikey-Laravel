@@ -19,7 +19,8 @@ module.exports = {
         orange_color: "#f85606",
         box_bg: "#d4ecff",
         dark_blue_color: "#183883",
-        light_sky_blue_color: "#ADDEF5"
+        light_sky_blue_color: "#ADDEF5",
+        gray_color: "#efefef",
       },
       boxShadow:{
         box_shadow: "0 0 10px rgba(255,255,255, 0.5)"

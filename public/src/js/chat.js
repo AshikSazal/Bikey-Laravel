@@ -1,3 +1,24 @@
+// scroll div to the bottom
+function scrollChat(){
+    console.log($("#show-message").offset().top);
+    console.log($("#show-message")[0].scrollHeight);
+    $("#show-message").animate({
+        scrollTop: $("#show-message").offset().top + $("#show-message")[0].scrollHeight
+    },0);
+}
+
+// Show modification icon
+function showModification(){
+    $(".show-modify").hover(
+        function() {
+            $(this).find('.show-modify-icon').removeClass("hidden").addClass("block");
+        },
+        function() {
+            $(this).find('.show-modify-icon').removeClass("block").addClass("hidden");
+        }
+    );
+}
+
 $(document).ready(function(){
     // Load old chats
     function loadOldChats(){
@@ -7,30 +28,28 @@ $(document).ready(function(){
             type: "POST",
             data: { sender_id: sender_id, receiver_id: receiver_id},
             success: function(res){
-                const chats = res.data;console.log(chats);
+                const chats = res.data;
                 let html='';
-                let top=0;
                 for(let i=0;i<chats.length;i++){
-                    let margin = '';
-                    let svg='';
+                    let svg = '', textColor = 'text-black', background="#efefef", justify='';
                     if(chats[i].sender_id == sender_id){
-                        margin = 'right-0';
-                        svg=`<svg height="20" width="20" class="text-orange_color -ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512" data-id="${chats[i].id}">
+                        background = '#1ca3e4';
+                        textColor = 'text-white';
+                        justify = 'justify-end';
+                        svg=`<svg height="20" width="20" class="text-sky_blue_color -ml-2 cursor-pointer hidden show-modify-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512" data-id="${chats[i].id}">
                                 <path fill="currentColor" d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"/>
                             </svg>`;
-                    }else{
-                        margin = 'left-0';
                     }
                     html += `
-                        <div style="top: ${top}px;" class="flex absolute items-center ${margin}" id="${chats[i].id}-chat">
+                        <div class="flex items-center ${justify} show-modify mb-2" id="${chats[i].id}-chat">
                             ${svg}
-                            <span class="bg-sky_blue_color rounded-full px-2">${chats[i].message}</span>
+                            <span style="background: ${background};" class="${textColor} rounded-md px-3 py-2">${chats[i].message}</span>
                         </div>
                     `;
-                    top+=30;
                 }
                 $("#show-message").append(html);
-                // scrollChat();
+                scrollChat();
+                showModification();
             },
             error: function(xhr, status, error){
                 const showError = document.getElementById('open-pop-up');
@@ -48,6 +67,9 @@ $(document).ready(function(){
         loadOldChats();
     // })
 
+    
+    
+
     // Message send
     $("#chat-form").submit(function(event){
         event.preventDefault();
@@ -64,14 +86,16 @@ $(document).ready(function(){
             success: function(res){
                 const chat = res.chat;
                 const html = `
-                    <div class="flex items-center">
-                        <span class="bg-sky_blue_color rounded-full p-2">${chat.message}</span>
-                        <svg height="25" width="25" class="text-orange_color -ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512">
-                            <path fill="currentColor" d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"/>
+                    <div class="flex items-center justify-end show-modify mb-2">
+                        <svg height="20" width="20" class="text-sky_blue_color -ml-2 cursor-pointer show-modify-icon hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512" data-id="26">
+                            <path fill="currentColor" d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"></path>
                         </svg>
+                        <span style="background: #1ca3e4;" class="text-white rounded-md px-3 py-2">${chat.message}</span>
                     </div>
                 `;
                 $("#show-message").append(html);
+                scrollChat();
+                showModification();
             },
             error: function(xhr, status, error){
                 const showError = document.getElementById('open-pop-up');
@@ -89,8 +113,7 @@ $(document).ready(function(){
 // send message to the user
 Echo.private('broadcast-message')
 .listen('MessageSentEvent',(data)=>{
-    // console.log(data)
-    // if(sender_id == data.chat.receiver_id && receiver_id == data.chat.sender_id){
+    if(sender_id == data.message.receiver_id && receiver_id == data.message.sender_id){
         // const html = `
         //     <div class="distance-user-chat" id='`+data.chat.id+`-chat'>
         //         <h5><span>`+data.chat.message+`</span></h5>
@@ -105,8 +128,9 @@ Echo.private('broadcast-message')
                     </div>
                 `;
         $("#show-message").append(html);
-        // scrollChat();
-    // }
+        scrollChat();
+        showModification();
+    }
 });
 
 // User online or offline checking
