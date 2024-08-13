@@ -18,7 +18,7 @@
     <script src="{{asset('src/js/chat.js')}}"></script>
     <script>
         var sender_id = @json(Auth::guard('user')->check() ? Auth::guard('user')->user()->id : (Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : null));
-        var receiver_id;
+        var receiver_id=99999;
     </script>
     <title>Bikey</title>
 </head>

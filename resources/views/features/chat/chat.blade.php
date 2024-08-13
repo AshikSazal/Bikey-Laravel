@@ -45,8 +45,8 @@
                 <svg class="cursor-pointer text-[#fff] hover:text-orange_color" height="30px" width="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
             </div>
         </div>
-        <div style="scrollbar-width: none;" {{-- class="absolute bottom-20 mt-10 overflow-y-scroll resize-none h-[280px]" --}}>
-            <div class="mb-4" id="show-message">
+        <div style="scrollbar-width: none;" class="overflow-y-scroll resize-none h-[280px] p-4">
+            <div class="relative mb-4" id="show-message">
                 
             </div>
         </div>
@@ -54,7 +54,7 @@
             <div class="box-border border border-black"></div>
             <div class="w-full bg-gray-200 pt-2 rounded-lg">
                 <div id="chat-input" class="inline-block w-full px-2 bg-gray-200 rounded-b-xl">
-                    <form id="message-send-form" method="POST" class="flex items-center border-2 border-gray-300 rounded-lg bg-gray-200 overflow-hidden justify-center" action="{{route('user.save.message')}}">
+                    <form id="chat-form" method="POST" class="flex items-center border-2 border-gray-300 rounded-lg bg-gray-200 overflow-hidden justify-center" action="{{route('user.save.message')}}">
                         @csrf
                         <input type="text" id="message-input" placeholder="Type a message..." class="w-full shadow-2xl py-3 pl-2 mr-14 focus:outline-none caret-orange">
                         <textarea style="scrollbar-width: none;" name="message" id="message-input-textarea" rows="2" class="hidden w-full shadow-2xl py-2 pl-2 mr-14 focus:outline-none caret-orange resize-none"></textarea>
