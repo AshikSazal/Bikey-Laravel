@@ -114,11 +114,6 @@ $(document).ready(function(){
 Echo.private('broadcast-message')
 .listen('MessageSentEvent',(data)=>{
     if(sender_id == data.message.receiver_id && receiver_id == data.message.sender_id){
-        // const html = `
-        //     <div class="distance-user-chat" id='`+data.chat.id+`-chat'>
-        //         <h5><span>`+data.chat.message+`</span></h5>
-        //     </div>
-        // `;
         const html = `
                     <div class="flex items-center">
                         <span class="bg-sky_blue_color rounded-full p-2">${data.message.message}</span>
