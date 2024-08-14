@@ -159,7 +159,7 @@ Echo.private('broadcast-message')
         `;
         $("#show-message").append(html);
         scrollChat();
-        showModification();
+        // showModification();
     }
 });
 
