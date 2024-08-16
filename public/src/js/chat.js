@@ -18,8 +18,14 @@ function showModification(){
 
     $(".show-modify-icon").on('click', function(event) {
         event.stopPropagation(); // Prevent the click event from bubbling up to the document
-        let chatId = $(this).data('id');
-        $(`.chat-modify-menu[data-id="${chatId}"]`).toggleClass('hidden');
+        const chatId = $(this).data('id');
+        const currentMenu = $(`.chat-modify-menu[data-id="${chatId}"]`);
+
+        // Hide all menus except the one associated with the clicked icon
+        $('.chat-modify-menu').not(currentMenu).addClass('hidden');
+
+        // Toggle visibility of the current menu
+        currentMenu.toggleClass('hidden');
     });
     // Hide the menu when clicking outside of it
     $(document).on('click', function(event) {
@@ -57,15 +63,15 @@ $(document).ready(function(){
                     html += `
                         <div style="${margin}" class="flex items-center ${justify} show-modify mb-2" id="${chats[i].id}-chat">
                             ${svg}
-                            <span style="background: ${background}; max-width:90%;" class="${textColor} text-justify rounded-md px-3 py-2">${chats[i].message}</span>
-                            <div class="chat-modify-menu absolute right-0 top-full mt-2 w-32 bg-white border border-gray-300 rounded-lg shadow-lg hidden" data-id="${chats[i].id}">
+                            <span style="background: ${background}; max-width:90%;" class="${textColor} text-justify rounded-md px-3 py-2 live">${chats[i].message}</span>
+                            <div class="chat-modify-menu absolute right-0 mt-2 w-32 bg-white border border-gray-300 rounded-lg shadow-lg hidden" data-id="${chats[i].id}">
                                 <ul class="list-none p-2">
-                                    <li>
-                                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Edit</a>
+                                    <li class="cursor-pointer hover:text-sky_blue_color hover:underline">
+                                        <button class="block px-4 py-2 text-gray-700">EDIT</button>
                                     </li>
                                     <li><hr></li>
-                                    <li>
-                                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Delete</a>
+                                    <li class="cursor-pointer hover:text-sky_blue_color hover:underline">
+                                        <button class="block px-4 py-2 text-gray-700">DELETE</button>
                                     </li>
                                 </ul>
                             </div>
@@ -75,7 +81,6 @@ $(document).ready(function(){
                 $("#show-message").append(html);
                 scrollChat();
                 showModification();
-                
             },
             error: function(xhr, status, error){
                 const showError = document.getElementById('open-pop-up');
@@ -118,14 +123,14 @@ $(document).ready(function(){
                             <path fill="currentColor" d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"></path>
                         </svg>
                         <span style="background: #e5e7eb; max-width:90%;" class="text-white text-justify rounded-md px-3 py-2">${chat.message}</span>
-                        <div class="chat-modify-menu absolute right-0 top-full mt-2 w-32 bg-white border border-gray-300 rounded-lg shadow-lg hidden" data-id="${chats[i].id}">
+                        <div class="chat-modify-menu absolute right-0 mt-2 w-32 bg-white border border-gray-300 rounded-lg shadow-lg hidden" data-id="${chats[i].id}">
                             <ul class="list-none p-2">
-                                <li>
-                                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Edit</a>
+                                <li class="cursor-pointer hover:text-sky_blue_color hover:underline">
+                                    <button class="block px-4 py-2 text-gray-700 ">EDIT</button>
                                 </li>
                                 <li><hr></li>
-                                <li>
-                                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Delete</a>
+                                <li class="cursor-pointer hover:text-sky_blue_color hover:underline">
+                                    <button class="block px-4 py-2 text-gray-700">DELETE</button>
                                 </li>
                             </ul>
                         </div>
