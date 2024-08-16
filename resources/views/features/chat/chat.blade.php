@@ -56,6 +56,7 @@
                 <div id="chat-input" class="inline-block w-full px-2 bg-gray-200 rounded-b-xl">
                     <form id="chat-form" method="POST" class="flex items-center border-2 border-gray-300 rounded-lg bg-gray-200 overflow-hidden justify-center" action="{{route('user.save.message')}}">
                         @csrf
+                        <input type="hidden" name="id" id="live-chat-id">
                         <input type="text" id="message-input" placeholder="Type a message..." class="w-full shadow-2xl py-3 pl-2 mr-14 focus:outline-none caret-orange">
                         <textarea style="scrollbar-width: none;" name="message" id="message-input-textarea" rows="2" class="hidden w-full shadow-2xl py-2 pl-2 mr-14 focus:outline-none caret-orange resize-none"></textarea>
                         <button  id="message-send-btn" class="absolute right-6 flex flex-col justify-center" disabled>
@@ -88,10 +89,10 @@
         const showError = document.getElementById('open-pop-up');
         const showErrorMessage = document.getElementById("show-error-message");
         const messageSend = document.getElementById("message-send-btn");
-        let messageSize;
+        let messageSize=0;
 
-        function messageSendButton(msgBtn){
-            if(msgBtn.value.length>0){
+        function messageSendButton(msgVal){
+            if(msgVal.value.length>0){
                 messageSendIcon.classList.remove("text-red-400");
                 messageSendIcon.classList.add("text-orange_color");
                 messageSend.disabled = false;
@@ -102,32 +103,40 @@
             }
         }
 
+        function convertInputToTextare(){
+            messageInputTextarea.value = messageInput.value;
+            
+            messageInputTextarea.style.display="block";
+            messageInput.style.display="none";
+            messageInputTextarea.focus();
+        }
+        function convertTextareaToInput(){
+            messageInput.value = messageInputTextarea.value;
+            messageSize=messageInputTextarea.value.length;
+            messageInput.style.display="block";
+            messageInputTextarea.style.display="none";
+            messageInput.focus();
+        }
+
         if(messageInput){
             messageInput.addEventListener('input',function(){
                 messageSendButton(messageInput);
+                messageSize=messageInput.value.length;
                 if(messageInput.clientWidth < messageInput.scrollWidth){
-                    messageInputTextarea.value = messageInput.value;
-                    messageSize=messageInput.value.length;
-                    messageInputTextarea.style.display="block";
-                    messageInput.style.display="none";
-                    messageInputTextarea.focus();
+                    convertInputToTextare();
                 }
-            });         
+            });
         }
 
         if(messageInputTextarea){
             messageInputTextarea.addEventListener('input',function(){
                 messageSendButton(messageInputTextarea);
                 if(messageSize > messageInputTextarea.value.length){
-                    messageInput.value = messageInputTextarea.value;
-                    messageSize=messageInputTextarea.value.length;
-                    messageInput.style.display="block";
-                    messageInputTextarea.style.display="none";
-                    messageInput.focus();
+                    convertTextareaToInput();
                 }
             });
         }
-
+        
         function emptyInputField(){
             messageInput.value = '';
             messageInputTextarea.value = '';
