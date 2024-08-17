@@ -19,6 +19,7 @@
     <script>
         var sender_id = @json(Auth::guard('user')->check() ? Auth::guard('user')->user()->id : (Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : null));
         var receiver_id=99999;
+        var messageSize;
     </script>
     <title>Bikey</title>
 </head>

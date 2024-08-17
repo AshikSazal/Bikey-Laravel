@@ -89,7 +89,6 @@
         const showError = document.getElementById('open-pop-up');
         const showErrorMessage = document.getElementById("show-error-message");
         const messageSend = document.getElementById("message-send-btn");
-        let messageSize=0;
 
         function messageSendButton(msgVal){
             if(msgVal.value.length>0){
@@ -105,7 +104,6 @@
 
         function convertInputToTextare(){
             messageInputTextarea.value = messageInput.value;
-            
             messageInputTextarea.style.display="block";
             messageInput.style.display="none";
             messageInputTextarea.focus();

@@ -65,9 +65,25 @@ $(document).ready(function(){
         const chatId = $(this).attr('data-id');
         const message = $(this).attr('data-message');
         $("#live-chat-id").val(chatId);
+        // const tempInputField = "<input id='temp-input-id' name='temp-input' class='w-full shadow-2xl py-2 pl-2 mr-14' />";
         $('#message-input').val(message);
         $('#message-input-textarea').val(message);
+        
         if($('#message-input').get(0).clientWidth < $('#message-input').get(0).scrollWidth){
+            var tempInputField = $('#message-input').clone();
+            tempInputField.attr('id', 'temp-input-id');
+            const clientWidth = $('#message-input').get(0).clientWidth;
+            $('#chat-form').append(tempInputField);
+            $('#temp-input-id').css({ visibility: 'hidden', position: 'absolute', width: 'auto', height:'auto', whiteSpace: 'nowrap' });
+            var tempText = '';
+            for(let i=0;i<message.length;i++){
+                tempText += message[i];
+                $('#temp-input-id').val(tempText);
+                if(clientWidth < $('#temp-input-id').get(0).scrollWidth){
+                    messageSize=tempText.length;
+                    break;
+                }
+            }
             convertToTextare();
         }else{
             convertToInput();
