@@ -41,3 +41,15 @@ Broadcast::channel('broadcast-message',function($user){
         ],404);
     }
 });
+Broadcast::channel('delete-message',function($user){
+    try{
+        if (!$user) {
+            throw new Exception('Please Login First');
+        }
+        return $user;
+    }catch(Exception $exp){
+        return response()->json([
+            'error' => $exp->getMessage(),
+        ],404);
+    }
+});

@@ -60,8 +60,10 @@ function convertToInput(){
 
 $(document).ready(function(){
 
-    // Get the clicked menu information
-    $(document).on('click',".chat-modify-menu",function(){
+    // Update the message
+    $(document).on('click',".message-update",function(event){
+        event.preventDefault();
+
         const chatId = $(this).attr('data-id');
         const message = $(this).attr('data-message');
         $("#live-chat-id").val(chatId);
@@ -69,6 +71,7 @@ $(document).ready(function(){
         $('#message-input').val(message);
         $('#message-input-textarea').val(message);
         
+        console.log($('#message-input').get(0).clientWidth +"="+ $('#message-input').get(0).scrollWidth)
         if($('#message-input').get(0).clientWidth < $('#message-input').get(0).scrollWidth){
             var tempInputField = $('#message-input').clone();
             tempInputField.attr('id', 'temp-input-id');
@@ -81,10 +84,11 @@ $(document).ready(function(){
                 $('#temp-input-id').val(tempText);
                 if(clientWidth < $('#temp-input-id').get(0).scrollWidth){
                     messageSize=tempText.length;
+                    convertToTextare();
                     break;
                 }
             }
-            convertToTextare();
+            tempInputField.remove();
         }else{
             convertToInput();
         }
@@ -92,6 +96,31 @@ $(document).ready(function(){
         $('#message-send-btn').prop('disabled', false);
         $('.chat-modify-menu').addClass('hidden');
     });
+
+    // Delete the message
+    $(document).on('click',".message-delete",function(event){
+        event.preventDefault();
+        const chatId = $(this).attr('data-id');
+        $('.chat-modify-menu').addClass('hidden');
+        $.ajax({
+            headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
+            url: '/delete-chat',
+            type: 'POST',
+            data: {id: chatId},
+            success: function(res){
+                $("#"+chatId+"-chat").remove();
+            },
+            error: function(xhr, status, error){
+                const showError = document.getElementById('open-pop-up');
+                
+                showError.style.display = "flex";
+                showError.classList.add("z-20","bg-black", "bg-opacity-80");
+                document.body.style.overflow = 'hidden';
+                $('#show-error-message').text(xhr.responseJSON.error);
+                $("#show-error-message").show();
+            }
+        })
+    })
 
     // Load old chats
     function loadOldChats(){
@@ -118,13 +147,13 @@ $(document).ready(function(){
                         <div style="${margin}" class="flex items-center ${justify} show-modify mb-2" id="${chats[i].id}-chat">
                             ${svg}
                             <span style="background: ${background}; max-width:90%;" class="${textColor} text-justify rounded-md px-3 py-2 live">${chats[i].message}</span>
-                            <div class="chat-modify-menu absolute right-0 mt-2 w-32 bg-white border border-gray-300 rounded-lg shadow-lg hidden" data-id="${chats[i].id}" data-message="${chats[i].message}">
+                            <div class="chat-modify-menu absolute right-0 mt-2 w-32 bg-white border border-gray-300 rounded-lg shadow-lg hidden" data-id="${chats[i].id}">
                                 <ul class="list-none p-2">
-                                    <li class="cursor-pointer hover:text-sky_blue_color hover:underline">
+                                    <li class="message-update cursor-pointer hover:text-sky_blue_color hover:underline" data-id="${chats[i].id}" data-message="${chats[i].message}">
                                         <button class="block px-4 py-2 text-gray-700">EDIT</button>
                                     </li>
                                     <li><hr></li>
-                                    <li class="cursor-pointer hover:text-sky_blue_color hover:underline">
+                                    <li class="message-delete cursor-pointer hover:text-sky_blue_color hover:underline" data-id="${chats[i].id}">
                                         <button class="block px-4 py-2 text-gray-700">DELETE</button>
                                     </li>
                                 </ul>
@@ -152,9 +181,6 @@ $(document).ready(function(){
         loadOldChats();
     // })
 
-    
-    
-
     // Message send
     $("#chat-form").submit(function(event){
         event.preventDefault();
@@ -176,14 +202,14 @@ $(document).ready(function(){
                         <svg height="20" width="20" class="text-sky_blue_color -ml-2 cursor-pointer show-modify-icon hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512" data-id="26">
                             <path fill="currentColor" d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"></path>
                         </svg>
-                        <span style="background: #e5e7eb; max-width:90%;" class="text-white text-justify rounded-md px-3 py-2">${chat.message}</span>
-                        <div class="chat-modify-menu absolute right-0 mt-2 w-32 bg-white border border-gray-300 rounded-lg shadow-lg hidden" data-id="${chat.id}" data-message="${chat.message}">
+                        <span style="background: #1ca3e4; max-width:90%;" class="text-white text-justify rounded-md px-3 py-2">${chat.message}</span>
+                        <div class="chat-modify-menu absolute right-0 mt-2 w-32 bg-white border border-gray-300 rounded-lg shadow-lg hidden" data-id="${chat.id}">
                             <ul class="list-none p-2">
-                                <li class="cursor-pointer hover:text-sky_blue_color hover:underline">
+                                <li class="message-update cursor-pointer hover:text-sky_blue_color hover:underline" data-id="${chat.id}" data-message="${chat.message}">
                                     <button class="block px-4 py-2 text-gray-700 ">EDIT</button>
                                 </li>
                                 <li><hr></li>
-                                <li class="cursor-pointer hover:text-sky_blue_color hover:underline">
+                                <li class="message-delete cursor-pointer hover:text-sky_blue_color hover:underline" data-id="${chat.id}">
                                     <button class="block px-4 py-2 text-gray-700">DELETE</button>
                                 </li>
                             </ul>
@@ -210,6 +236,7 @@ $(document).ready(function(){
 // send message to the user
 Echo.private('broadcast-message')
 .listen('MessageSentEvent',(data)=>{
+    console.log(data)
     if(sender_id == data.message.receiver_id && receiver_id == data.message.sender_id){
         const html = `
             <div style="margin-right: 20px;" class="flex items-center"  id="${data.message.id}-chat">
@@ -221,6 +248,14 @@ Echo.private('broadcast-message')
         // showModification();
     }
 });
+
+// Delete chat message listen
+// This will delete from friend message
+Echo.private('delete-message')
+.listen('MessageDeleteEvent',(data)=>{
+    console.log(data);
+    $('#'+data.id+"-chat").remove();
+})
 
 // User online or offline checking
 Echo.join("status-update")

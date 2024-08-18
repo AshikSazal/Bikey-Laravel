@@ -54,7 +54,7 @@
             <div class="box-border border border-black"></div>
             <div class="w-full bg-gray-200 pt-2 rounded-lg">
                 <div id="chat-input" class="inline-block w-full px-2 bg-gray-200 rounded-b-xl">
-                    <form id="chat-form" method="POST" class="flex items-center border-2 border-gray-300 rounded-lg bg-gray-200 overflow-hidden justify-center" action="{{route('user.save.message')}}">
+                    <form id="chat-form" method="POST" class="flex items-center border-2 border-gray-300 rounded-lg bg-gray-200 overflow-hidden justify-center" action="{{route('save.message')}}">
                         @csrf
                         <input type="hidden" name="id" id="live-chat-id">
                         <input type="text" id="message-input" placeholder="Type a message..." class="w-full shadow-2xl py-3 pl-2 mr-14 focus:outline-none caret-orange">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageDeleteEvent;
 use App\Events\MessageSentEvent;
 use Illuminate\Http\Request;
 use App\Models\Chat;
@@ -24,6 +25,19 @@ class ChatController extends Controller
             ]);
             event(new MessageSentEvent($chat));
             return response()->json(['chat' =>$chat]);
+        }catch(Exception $exp){
+            return response()->json([
+                'error' => $exp->getMessage(),
+            ],404);
+        }
+    }
+
+    public function deleteChat(Request $request)
+    {
+        try{
+            Chat::where('id', $request->id)->delete();
+            event(new MessageDeleteEvent($request->id));
+            return response()->json(['chat' =>'']);
         }catch(Exception $exp){
             return response()->json([
                 'error' => $exp->getMessage(),
