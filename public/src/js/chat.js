@@ -66,12 +66,15 @@ $(document).ready(function(){
 
         const chatId = $(this).attr('data-id');
         const message = $(this).attr('data-message');
-        $("#live-chat-id").val(chatId);
+        var updateInputId = $('#message-input').clone();
+        updateInputId.attr('id', 'update-input-id');
+        updateInputId.val(chatId);
+        updateInputId.css({ visibility: 'hidden', position: 'absolute', width: 'auto', height:'auto', whiteSpace: 'nowrap' });
+        $('#chat-form').append(updateInputId);
         // const tempInputField = "<input id='temp-input-id' name='temp-input' class='w-full shadow-2xl py-2 pl-2 mr-14' />";
         $('#message-input').val(message);
         $('#message-input-textarea').val(message);
         
-        console.log($('#message-input').get(0).clientWidth +"="+ $('#message-input').get(0).scrollWidth)
         if($('#message-input').get(0).clientWidth < $('#message-input').get(0).scrollWidth){
             var tempInputField = $('#message-input').clone();
             tempInputField.attr('id', 'temp-input-id');
@@ -185,40 +188,56 @@ $(document).ready(function(){
     $("#chat-form").submit(function(event){
         event.preventDefault();
         const message = $("#message-input").val();
+        const updateChatId = $('#update-input-id').val();
+        if(updateChatId){
+            data={
+                updateChatId: updateChatId,
+                message: message
+            }
+        }else{
+            data={
+                sender_id: sender_id, 
+                receiver_id: receiver_id, 
+                message: message
+            }
+        }
         $.ajax({
             headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
             url: '/save-chat',
             type: 'POST',
-            data: {
-                sender_id: sender_id, 
-                receiver_id: receiver_id, 
-                message: message
-            },
+            data: data,
             success: function(res){
                 $("#message-input").val("");
+                $('#update-input-id').remove();
                 const chat = res.chat;
-                const html = `
-                    <div style="margin-left: 20px;" class="flex items-center justify-end show-modify mb-2" id="${chat.id}-chat">
-                        <svg height="20" width="20" class="text-sky_blue_color -ml-2 cursor-pointer show-modify-icon hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512" data-id="26">
-                            <path fill="currentColor" d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"></path>
-                        </svg>
-                        <span style="background: #1ca3e4; max-width:90%;" class="text-white text-justify rounded-md px-3 py-2">${chat.message}</span>
-                        <div class="chat-modify-menu absolute right-0 mt-2 w-32 bg-white border border-gray-300 rounded-lg shadow-lg hidden" data-id="${chat.id}">
-                            <ul class="list-none p-2">
-                                <li class="message-update cursor-pointer hover:text-sky_blue_color hover:underline" data-id="${chat.id}" data-message="${chat.message}">
-                                    <button class="block px-4 py-2 text-gray-700 ">EDIT</button>
-                                </li>
-                                <li><hr></li>
-                                <li class="message-delete cursor-pointer hover:text-sky_blue_color hover:underline" data-id="${chat.id}">
-                                    <button class="block px-4 py-2 text-gray-700">DELETE</button>
-                                </li>
-                            </ul>
+                if(res.flag==1){
+                    const html = `
+                        <div style="margin-left: 20px;" class="flex items-center justify-end show-modify mb-2" id="${chat.id}-chat">
+                            <svg height="20" width="20" class="text-sky_blue_color -ml-2 cursor-pointer show-modify-icon hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512" data-id="26">
+                                <path fill="currentColor" d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"></path>
+                            </svg>
+                            <span style="background: #1ca3e4; max-width:90%;" class="text-white text-justify rounded-md px-3 py-2">${chat.message}</span>
+                            <div class="chat-modify-menu absolute right-0 mt-2 w-32 bg-white border border-gray-300 rounded-lg shadow-lg hidden" data-id="${chat.id}">
+                                <ul class="list-none p-2">
+                                    <li class="message-update cursor-pointer hover:text-sky_blue_color hover:underline" data-id="${chat.id}" data-message="${chat.message}">
+                                        <button class="block px-4 py-2 text-gray-700 ">EDIT</button>
+                                    </li>
+                                    <li><hr></li>
+                                    <li class="message-delete cursor-pointer hover:text-sky_blue_color hover:underline" data-id="${chat.id}">
+                                        <button class="block px-4 py-2 text-gray-700">DELETE</button>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                `;
-                $("#show-message").append(html);
-                scrollChat();
-                showModification();
+                    `;
+                    $("#show-message").append(html);
+                    scrollChat();
+                    showModification();
+                }else{
+                    $("#"+chat.id+"-chat").find('span').text(chat.message);
+                    $("#"+chat.id+"-chat").find('.message-update').attr('data-message',chat.message);
+                    scrollChat();
+                }
             },
             error: function(xhr, status, error){
                 const showError = document.getElementById('open-pop-up');
@@ -253,8 +272,14 @@ Echo.private('broadcast-message')
 // This will delete from friend message
 Echo.private('delete-message')
 .listen('MessageDeleteEvent',(data)=>{
-    console.log(data);
     $('#'+data.id+"-chat").remove();
+});
+
+// Update chat message listen
+// This will update from friend message
+Echo.private('update-message')
+.listen('MessageUpdateEvent',(data)=>{
+    $("#"+data.chat.id+"-chat").find("span").text(data.chat.message);
 })
 
 // User online or offline checking

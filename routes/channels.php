@@ -29,6 +29,7 @@ Broadcast::channel('status-update',function($user){
         ],404);
     }
 });
+
 Broadcast::channel('broadcast-message',function($user){
     try{
         if (!$user) {
@@ -41,7 +42,21 @@ Broadcast::channel('broadcast-message',function($user){
         ],404);
     }
 });
+
 Broadcast::channel('delete-message',function($user){
+    try{
+        if (!$user) {
+            throw new Exception('Please Login First');
+        }
+        return $user;
+    }catch(Exception $exp){
+        return response()->json([
+            'error' => $exp->getMessage(),
+        ],404);
+    }
+});
+
+Broadcast::channel('update-message',function($user){
     try{
         if (!$user) {
             throw new Exception('Please Login First');

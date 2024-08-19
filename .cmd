@@ -16,8 +16,3 @@ php artisan make:model Chat
 php artisan make:event MessageEvent
 php artisan make:event MessageDeleteEvent
 php artisan make:event MessageUpdateEvent
-php artisan make:migration create_groups_table
-php artisan make:model Group
-php artisan make:model Member -m
-php artisan make:model GroupChat -m
-php artisan make:event GroupMessageEvent
