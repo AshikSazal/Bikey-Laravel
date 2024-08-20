@@ -4,7 +4,7 @@
         <div class="ms:hidden md:grid md:grid-cols-4 gap-2 items-center relative md:col-span-2">
             @include('components.landing-page.nav', ['text' => 'HOME', 'href' => route("home"),'flag'=>1])
             @include('components.landing-page.nav', ['text' => 'BRAND', 'href' => '#','flag'=>1])
-            @include('components.landing-page.nav', ['text' => 'ABOUT', 'href' => '#','flag'=>1])
+            @include('components.landing-page.nav', ['text' => 'ABOUT', 'href' => route("about"),'flag'=>1])
             @include('components.landing-page.nav', ['text' => 'CONTACT', 'href' => '#','flag'=>1])
         </div>
         
@@ -66,7 +66,7 @@
                 @include('components.landing-page.nav', ['text' => 'BRAND', 'href' => '#','flag'=>2])
             </li>
             <li class="bg-sky_blue_color">
-                @include('components.landing-page.nav', ['text' => 'ABOUT', 'href' => '#','flag'=>2])
+                @include('components.landing-page.nav', ['text' => 'ABOUT', 'href' => route("about"),'flag'=>2])
             </li>
             <li class="bg-sky_blue_color">
                 @include('components.landing-page.nav', ['text' => 'CONTACT', 'href' => '#','flag'=>2])

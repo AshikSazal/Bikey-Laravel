@@ -43,6 +43,10 @@ Route::get('/', function () {
     return view('pages.landing-page.landing-page');
 })->name('home');
 
+Route::get('/about', function () {
+    return view('pages.about');
+})->name('about');
+
 
 
 require __DIR__.'/user.php';
