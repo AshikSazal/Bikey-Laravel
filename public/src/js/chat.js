@@ -180,9 +180,9 @@ $(document).ready(function(){
         });
     }
 
-    // $("direct-message").click(function(){
+    $("#direct-message").click(function(){
         loadOldChats();
-    // })
+    })
 
     // Message send
     $("#chat-form").submit(function(event){

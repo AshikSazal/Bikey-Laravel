@@ -20,7 +20,7 @@ class AuthCheck
     {
         try{
             if (!Auth::guard($guard)->user()) {
-                throw new Exception('Please login first');
+                throw new Exception('Please Login First');
             }
         }catch(Exception $exp){
             return response()->json([
