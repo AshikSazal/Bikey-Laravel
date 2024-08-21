@@ -5,7 +5,7 @@
             @include('components.landing-page.nav', ['text' => 'HOME', 'href' => route("home"),'flag'=>1])
             @include('components.landing-page.nav', ['text' => 'BRAND', 'href' => '#','flag'=>1])
             @include('components.landing-page.nav', ['text' => 'ABOUT', 'href' => route("about"),'flag'=>1])
-            @include('components.landing-page.nav', ['text' => 'CONTACT', 'href' => '#','flag'=>1])
+            @include('components.landing-page.nav', ['text' => 'CONTACT', 'href' => route("contact"),'flag'=>1])
         </div>
         
         <div class="col-span-2 grid grid-cols-2 md:col-span-2">
@@ -69,7 +69,7 @@
                 @include('components.landing-page.nav', ['text' => 'ABOUT', 'href' => route("about"),'flag'=>2])
             </li>
             <li class="bg-sky_blue_color">
-                @include('components.landing-page.nav', ['text' => 'CONTACT', 'href' => '#','flag'=>2])
+                @include('components.landing-page.nav', ['text' => 'CONTACT', 'href' => route("contact"),'flag'=>2])
             </li>
             @if (Auth::guard('user')->check())
             <li>
