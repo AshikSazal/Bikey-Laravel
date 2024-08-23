@@ -15,7 +15,10 @@
                         <x-button type="submit" class="orange_color" id="show-pop-up">SIGN UP</x-button>
                     </div>
                 </form>
-                <a class="text-white text-md underline" href="{{route('user.login')}}">Have an account?Login</a>
+                <div class="flex justify-between">
+                    <a class="text-white text-md underline" href="{{route('user.login')}}">Have an account?Login</a>
+                    <a class="text-md text-black underline" href="{{route('user.reset.password')}}">Forget Password?Reset</a>
+                </div>
             </x-card>
         </div>
     </div>

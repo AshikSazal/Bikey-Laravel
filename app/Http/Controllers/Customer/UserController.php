@@ -21,6 +21,10 @@ class UserController extends Controller
     {
         return view('pages.customer.auth.login');
     }
+    public function getResetPassword()
+    {
+        return view('pages.customer.auth.reset-password');
+    }
     public function signup(Request $request)
     {
         try{
