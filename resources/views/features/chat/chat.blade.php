@@ -231,12 +231,7 @@
             const computedStyle = window.getComputedStyle(pixel);
             return computedStyle.backgroundColor;
         }
-
-        const chatIconColorChange = document.getElementById("chatWidget");
-
-        const chatButton = document.querySelector("#showChatProcess button");
-
-        document.addEventListener("scroll", function() {
+        function chatMessageIconColor(){
             const getPos = getPosition(chatIconColorChange);
             // const iconColor = getBackgroundColorAtPoint(
             //     getPos.centerX,
@@ -253,11 +248,20 @@
             } else {
                 chatButton.style.backgroundColor = "#f85606";
             }
+        }
+
+        const chatIconColorChange = document.getElementById("chatWidget");
+
+        const chatButton = document.querySelector("#showChatProcess button");
+
+        document.addEventListener("scroll", function() {
+            chatMessageIconColor();
         });
 
         // Empty the input field when reload the page
         window.addEventListener('load', function() {
             emptyInputField();
+            chatMessageIconColor();
         });
     });
 </script>
