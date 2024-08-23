@@ -20,6 +20,7 @@
 @section('scripts')
 <script type="module">
     import { validate, VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_MINLENGTH } from "{{ URL::to('src/js/validator.js') }}";
+
     document.addEventListener("DOMContentLoaded", function() {
         var email, userPassword;
 
@@ -27,7 +28,7 @@
             const userEmail = $('input[name="email"]').val();
             console.log(userEmail);
 
-            var emailIsValid = validate(email, [VALIDATOR_REQUIRE(),VALIDATOR_EMAIL()]);
+            var emailIsValid = validate(userEmail, [VALIDATOR_REQUIRE(),VALIDATOR_EMAIL()]);
 
             if(emailIsValid) {
                 email=userEmail;
