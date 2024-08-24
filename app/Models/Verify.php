@@ -9,4 +9,8 @@ class Verify extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $fillable = [
+        'user_id',
+        'code'
+    ];
 }

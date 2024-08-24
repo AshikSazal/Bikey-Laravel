@@ -16,3 +16,4 @@ php artisan make:model Chat
 php artisan make:event MessageEvent
 php artisan make:event MessageDeleteEvent
 php artisan make:event MessageUpdateEvent
+php artisan make:mail SendVerificationMail

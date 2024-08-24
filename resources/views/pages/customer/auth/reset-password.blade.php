@@ -11,24 +11,25 @@
                     <x-button type="submit" class="orange_color" id="reset-password-email-button">SUBMIT</x-button>
                 </div>
             </form>
-            {{-- <form id="reset-password-code-form" method="POST" action="{{route('reset.password.code')}}" class="flex flex-col items-center">
+            <form id="reset-password-code-form" method="POST" action="{{route('reset.password.code')}}" class="flex-col items-center hidden">
                 @csrf
                 <h1 class="text-[#f9f871] text-center text-lg md:text-xl font-semibold mb-6">A verification code send to your mail. Please enter the code below</h1>
                 <input name="code" class="h-[45px] w-[100px] rounded-md ouline-none text-xl items-center text-center border border-gray-300 focus:shadow-md" type="text" />
                 <div class="grid justify-center items-center mt-6 mb-4">
                     <x-button type="submit" class="orange_color" id="reset-password-code-button">SUBMIT</x-button>
                 </div>
-            </form> --}}
-            {{-- <form id="reset-password-form" method="POST" action="{{route('reset.password')}}">
+            </form>
+            <form id="reset-password-form" method="POST" action="{{route('reset.password')}}" class="hidden">
                 @csrf
                 <x-input type="password" name="password" placeholder="Enter Your Password" />
                 <div class="grid justify-center items-center mt-6 mb-4">
                     <x-button type="submit" class="orange_color" id="reset-password-button">SUBMIT</x-button>
                 </div>
-            </form> --}}
+            </form>
         </x-card>
     </div>
     <x-error />
+    <x-loading />
 </div>
 @endsection
 
@@ -38,9 +39,13 @@
 
     document.addEventListener("DOMContentLoaded", function() {
         var email, code, password;
+        const showError = document.getElementById('open-pop-up');
+        const loading = document.getElementById("loading-container");
         
         function emptyInputField(){
             $('input[name="email"]').val("");
+            $('input[name="code"]').val("");
+            $('input[name="password"]').val("");
         }
 
         function isEmailFormValid() {
@@ -103,6 +108,40 @@
         });
         $('#reset-password-form').on('keyup change','input',function(){
             formValidate(isPasswordFormValid,'#reset-password-button');
+        });
+
+        $("#reset-password-email-form").submit(function(event){
+            event.preventDefault();
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
+                type: "POST",
+                url: "/reset-password-email",
+                data: { email: email},
+                beforeSend: function(){
+                    loading.style.display="flex";
+                    document.body.style.overflow = 'hidden';
+                },
+                success: function(res) {
+                    loading.style.display="none";
+                    document.body.style.overflow = '';
+                    $('#reset-password-email-form').css({
+                        "display":"none"
+                    });
+                    $('#reset-password-code-form').css({
+                        "display":"flex"
+                    });
+                },
+                error: function(xhr, status, error){
+                    loading.style.display="none";             
+                    // document.body.style.overflow = '';
+
+                    showError.style.display = "flex";
+                    showError.classList.add("z-20","bg-black", "bg-opacity-80");
+                    document.body.style.overflow = 'hidden';
+                    $('#show-error-message').text(xhr.responseJSON.error);
+                    $("#show-error-message").show();
+                }
+            });
         });
         
         // Empty the input field when reload the page

@@ -21,9 +21,9 @@ Route::post('/verifyOTP',[UserController::class,'verifyOTP'])->name('user.verify
 
 Route::get('/logout',[UserController::class,'logout'])->middleware('auth.check:user')->name('user.logout');
 
-Route::post('/reset-password-email',[UserController::class,'resetPasswordEmail'])->middleware('auth.check:user')->name('reset.password.email');
-Route::post('/reset-password-code',[UserController::class,'resetPasswordCode'])->middleware('auth.check:user')->name('reset.password.code');
-Route::post('/reset-password',[UserController::class,'resetPassword'])->middleware('auth.check:user')->name('reset.password');
+Route::post('/reset-password-email',[UserController::class,'resetPasswordEmail'])->middleware('guest:user')->name('reset.password.email');
+Route::post('/reset-password-code',[UserController::class,'resetPasswordCode'])->middleware('guest:user')->name('reset.password.code');
+Route::post('/reset-password',[UserController::class,'resetPassword'])->middleware('guest:user')->name('reset.password');
 
 // Messaging
 // Route::post('/save-message',[ChatController::class,'saveMessage'])->middleware('auth.check:user')->name('user.save.message');

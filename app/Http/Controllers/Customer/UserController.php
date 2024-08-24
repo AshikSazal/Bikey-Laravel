@@ -8,7 +8,9 @@ use App\Models\User;
 use App\Models\Verify;
 use Illuminate\Support\Facades\Auth;
 use Exception;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use App\Mail\SendVerificationMail;
 
 class UserController extends Controller
 {
@@ -24,6 +26,21 @@ class UserController extends Controller
     public function getResetPassword()
     {
         return view('pages.customer.auth.reset-password');
+    }
+
+    function generateRandomString($length = 4) {
+        // Define the characters to choose from: digits and letters
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+    
+        // Generate the random string
+        for ($i = 0; $i < $length; $i++) {
+            $randomIndex = random_int(0, $charactersLength - 1);
+            $randomString .= $characters[$randomIndex];
+        }
+    
+        return $randomString;
     }
     public function signup(Request $request)
     {
@@ -97,5 +114,28 @@ class UserController extends Controller
     {
         Auth::guard('user')->logout();
         return redirect()->route('user.login');
+    }
+
+    public function resetPasswordEmail(Request $request)
+    {
+        try{
+            $user = User::where('email', $request->email)->first();
+            if(!$user){
+                throw new Exception("User Not found");
+            }
+            $code = new Verify();
+            $code->code = $this->generateRandomString();
+            // Mail::to($user->email)->send(new SendVerificationMail($code));
+            if($user->userVerification()->exists()){
+                $user->userVerification()->update(['code' => $code->code]);
+            }else{
+                $user->userVerification()->save($code);
+            }
+            return response()->json(['user'=>$user,'code'=>$code]);
+        }catch(Exception $exp){
+            return response()->json([
+                'error' => $exp->getMessage(),
+            ],404);
+        }
     }
 }
