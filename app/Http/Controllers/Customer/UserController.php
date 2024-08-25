@@ -116,6 +116,7 @@ class UserController extends Controller
         return redirect()->route('user.login');
     }
 
+    // Send verification code for reset password
     public function resetPasswordEmail(Request $request)
     {
         try{
@@ -136,6 +137,48 @@ class UserController extends Controller
             return response()->json([
                 'error' => $exp->getMessage(),
             ],404);
+        }
+    }
+
+    // Check verification code
+    public function resetPasswordCode(Request $request)
+    {
+        try{
+            // It has problem for case sensitive
+            // $user = User::with(['userVerification' => function($query) use ($request) {
+            //     $query->where('code', $request->code);
+            // }])->where('email', $request->email)->first();
+            $user = User::with('userVerification')->where('email', $request->email)->first();
+
+            if(!$user){
+                throw new Exception("User Not found");
+            }
+            if($user->userVerification->code !== $request->code){
+                throw new Exception("Invalid Code");
+            }
+            return response()->json(['data'=>$user]);
+        }catch(Exception $exp){
+            return response()->json([
+                'error'=>$exp->getMessage()
+            ],404);
+        }
+    }
+
+    // Reset the password
+    public function resetPassword(Request $request)
+    {
+        try{
+            $user = User::with('userVerification')->where('email', $request->email)->first();
+
+            if(!$user){
+                throw new Exception("User Not found");
+            }
+            $user->userVerification->delete();
+            $user->password = bcrypt($request->password);
+            $user->save();
+            return response()->json(['data'=>$user]);
+        }catch(Exception $exp){
+            return response()->json(['error'=>$exp->getMessage()],404);
         }
     }
 }

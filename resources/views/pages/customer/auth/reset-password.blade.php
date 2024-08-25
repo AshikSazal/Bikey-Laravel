@@ -143,6 +143,70 @@
                 }
             });
         });
+
+        $("#reset-password-code-form").submit(function(event){
+            event.preventDefault();
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
+                type: "POST",
+                url: "/reset-password-code",
+                data: { email: email, code: code },
+                beforeSend: function(){
+                    loading.style.display="flex";
+                    document.body.style.overflow = 'hidden';
+                },
+                success: function(res) {
+                    loading.style.display="none";
+                    document.body.style.overflow = '';
+                    $('#reset-password-code-form').css({
+                        "display":"none"
+                    });
+                    $('#reset-password-form').css({
+                        "display":"flex"
+                    });
+                },
+                error: function(xhr, status, error){
+                    loading.style.display="none";             
+                    // document.body.style.overflow = '';
+
+                    showError.style.display = "flex";
+                    showError.classList.add("z-20","bg-black", "bg-opacity-80");
+                    document.body.style.overflow = 'hidden';
+                    $('#show-error-message').text(xhr.responseJSON.error);
+                    $("#show-error-message").show();
+                }
+            });
+        });
+
+        // reset the password
+        $("#reset-password-form").submit(function(event){
+            event.preventDefault();
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
+                type: "POST",
+                url: "/reset-password",
+                data: { email: email, password: password },
+                beforeSend: function(){
+                    loading.style.display="flex";
+                    document.body.style.overflow = 'hidden';
+                },
+                success: function(res) {
+                    loading.style.display="none";
+                    document.body.style.overflow = '';
+                    window.location.href = "{{ route('user.login') }}";
+                },
+                error: function(xhr, status, error){
+                    loading.style.display="none";             
+                    // document.body.style.overflow = '';
+
+                    showError.style.display = "flex";
+                    showError.classList.add("z-20","bg-black", "bg-opacity-80");
+                    document.body.style.overflow = 'hidden';
+                    $('#show-error-message').text(xhr.responseJSON.error);
+                    $("#show-error-message").show();
+                }
+            });
+        });
         
         // Empty the input field when reload the page
         window.addEventListener('load', function() {
