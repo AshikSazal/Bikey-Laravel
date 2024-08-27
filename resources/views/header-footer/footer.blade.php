@@ -11,25 +11,25 @@
                 </h1>
                 <ul class="mt-4 text-center flex flex-col items-center">
                     <li>
-                        <a href="" class="text-xl relative group hover:text-white flex justify-center">
+                        <a href="{{route('home')}}" class="text-xl relative group hover:text-white flex justify-center">
                             Home
                             <span class="absolute bottom-0 left-1/2 bg-dark_blue_color h-0.5 w-0 transition-width transition-left duration-500 ease-in-out group-hover:w-full group-hover:left-0"></span>
                         </a>
                     </li>
                     <li>
-                        <a href="" class="text-xl relative group hover:text-white flex justify-center">
+                        <a href="{{route('brand')}}" class="text-xl relative group hover:text-white flex justify-center">
                             Brand
                             <span class="absolute bottom-0 left-1/2 bg-dark_blue_color h-0.5 w-0 transition-width transition-left duration-500 ease-in-out group-hover:w-full group-hover:left-0"></span>
                         </a>
                     </li>
                     <li>
-                        <a href="" class="text-xl relative group hover:text-white flex justify-center">
+                        <a href="{{route('about')}}" class="text-xl relative group hover:text-white flex justify-center">
                             About
                             <span class="absolute bottom-0 left-1/2 bg-dark_blue_color h-0.5 w-0 transition-width transition-left duration-500 ease-in-out group-hover:w-full group-hover:left-0"></span>
                         </a>
                     </li>
                     <li>
-                        <a href="" class="text-xl relative group hover:text-white flex justify-center">
+                        <a href="{{route('contact')}}" class="text-xl relative group hover:text-white flex justify-center">
                             Contact
                             <span class="absolute bottom-0 left-1/2 bg-dark_blue_color h-0.5 w-0 transition-width transition-left duration-500 ease-in-out group-hover:w-full group-hover:left-0"></span>
                         </a>

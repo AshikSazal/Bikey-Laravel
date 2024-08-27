@@ -49,6 +49,9 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('pages.contact');
 })->name('contact');
+Route::get('/brand', function () {
+    return view('pages.brand');
+})->name('brand');
 
 
 
