@@ -12,25 +12,25 @@
                 <ul class="mt-4 text-center flex flex-col items-center">
                     <li>
                         <a href="{{route('home')}}" class="text-xl relative group hover:text-white flex justify-center">
-                            Home
+                            HOME
                             <span class="absolute bottom-0 left-1/2 bg-dark_blue_color h-0.5 w-0 transition-width transition-left duration-500 ease-in-out group-hover:w-full group-hover:left-0"></span>
                         </a>
                     </li>
                     <li>
                         <a href="{{route('brand')}}" class="text-xl relative group hover:text-white flex justify-center">
-                            Brand
+                            BRAND
                             <span class="absolute bottom-0 left-1/2 bg-dark_blue_color h-0.5 w-0 transition-width transition-left duration-500 ease-in-out group-hover:w-full group-hover:left-0"></span>
                         </a>
                     </li>
                     <li>
                         <a href="{{route('about')}}" class="text-xl relative group hover:text-white flex justify-center">
-                            About
+                            ABOUT
                             <span class="absolute bottom-0 left-1/2 bg-dark_blue_color h-0.5 w-0 transition-width transition-left duration-500 ease-in-out group-hover:w-full group-hover:left-0"></span>
                         </a>
                     </li>
                     <li>
                         <a href="{{route('contact')}}" class="text-xl relative group hover:text-white flex justify-center">
-                            Contact
+                            CONTACT
                             <span class="absolute bottom-0 left-1/2 bg-dark_blue_color h-0.5 w-0 transition-width transition-left duration-500 ease-in-out group-hover:w-full group-hover:left-0"></span>
                         </a>
                     </li>
