@@ -17,3 +17,6 @@ php artisan make:event MessageEvent
 php artisan make:event MessageDeleteEvent
 php artisan make:event MessageUpdateEvent
 php artisan make:mail SendVerificationMail
+php artisan make:model Product -m
+php artisan make:seeder ProductsTableSeeder
+php artisan db:seed --class=ProductsTableSeeder
