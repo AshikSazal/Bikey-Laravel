@@ -20,3 +20,4 @@ php artisan make:mail SendVerificationMail
 php artisan make:model Product -m
 php artisan make:seeder ProductsTableSeeder
 php artisan db:seed --class=ProductsTableSeeder
+php artisan make:controller ProductController

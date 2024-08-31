@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\Customer\UserController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,9 +50,7 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('pages.contact');
 })->name('contact');
-Route::get('/brand', function () {
-    return view('pages.brand');
-})->name('brand');
+Route::get('/brand', [ProductController::class,'showAllProduct'])->name('brand');
 
 
 

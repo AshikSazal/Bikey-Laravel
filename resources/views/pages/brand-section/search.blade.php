@@ -1,7 +1,11 @@
 <div class="place-items-center bg-sky_blue_color justify-evenly grid grid-cols-2 py-4">
     <div class="flex flex-row items-center col-span-1 space-x-4">
-        <h1 class="text-2xl font-bold bg-dark_blue_color text-white px-4 py-2 rounded cursor-pointer hover:underline hover:bg-white hover:text-sky_blue_color">BIKE</h1>
-        <h1 class="text-2xl font-bold bg-dark_blue_color text-white px-4 py-2 rounded cursor-pointer hover:underline hover:bg-white hover:text-sky_blue_color">ACCESSORIES</h1>
+        <h1 id="bike-category" class="text-2xl font-bold bg-dark_blue_color text-white px-4 py-2 rounded cursor-pointer hover:underline hover:bg-white hover:text-sky_blue_color" data-category="bike">
+            BIKE
+        </h1>
+        <h1 id="accessories-category" class="text-2xl font-bold bg-dark_blue_color text-white px-4 py-2 rounded cursor-pointer hover:underline hover:bg-white hover:text-sky_blue_color" data-category="accessories">
+            ACCESSORIES
+        </h1>
     </div>
     <div class="col-span-1 relative w-full mr-8 rounded-full">
         <form action="" id="search-form" class="">
