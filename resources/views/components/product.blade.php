@@ -1,5 +1,8 @@
-<x-card class="bg-sky_blue_color">
-    <div>
-        Hello world
+<x-product-card class="bg-white">
+    <div class="bg-white">
+        <img src="images/r15.png" alt="Product Image" class="w-full h-auto">
     </div>
-</x-card>
+    <div class="mt-4 p-4">
+        <h1 class="text-lg font-bold">{{$product->name}}</h1>
+    </div>
+</x-product-card>

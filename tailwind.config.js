@@ -23,7 +23,7 @@ module.exports = {
         gray_color: "#efefef",
       },
       boxShadow:{
-        box_shadow: "0 0 10px rgba(255,255,255, 0.5)"
+        box_shadow: "0 25px 50px -12px rgb(0 0 0 / 0.25);"
       }
     },
   },
