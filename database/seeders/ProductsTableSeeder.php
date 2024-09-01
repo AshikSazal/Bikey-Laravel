@@ -22,6 +22,8 @@ class ProductsTableSeeder extends Seeder
             'Bike Bell', 'Water Bottle Holder', 'Front Rack', 'Rear Rack', 'Bike Computer'
         ];
 
+        $images = ['mt15.png','r15.png','helmet.jpg'];
+
         // Generate and insert bike records
         foreach (range(1, 25) as $index) {
             $bikeName = $bikes[array_rand($bikes)];
@@ -35,8 +37,8 @@ class ProductsTableSeeder extends Seeder
                     'color' => ['Red', 'Blue', 'Green', 'Black', 'White'][array_rand(['Red', 'Blue', 'Green', 'Black', 'White'])],
                 ]),
                 'quantity' => rand(5, 20),
-                'price' => round(rand(500, 1500) / 100, 2),
-                'image' => 'images/' . strtolower(str_replace(' ', '_', $bikeName)) . '.jpg',
+                'price' => rand(200000, 500000),
+                'image' => 'images/'.$images[rand(0,1)],
                 'category' => 'bike',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -55,8 +57,8 @@ class ProductsTableSeeder extends Seeder
                     'weight' => round(rand(10, 150) / 100, 2) . 'kg',
                 ]),
                 'quantity' => rand(10, 50),
-                'price' => round(rand(10, 100) / 100, 2),
-                'image' => 'images/' . strtolower(str_replace(' ', '_', $partName)) . '.jpg',
+                'price' => rand(2000, 10000),
+                'image' => 'images/'.$images[2],
                 'category' => 'parts',
                 'created_at' => now(),
                 'updated_at' => now(),

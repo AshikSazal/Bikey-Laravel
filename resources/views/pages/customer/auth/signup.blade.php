@@ -12,7 +12,7 @@
                     <x-input type="password" name="password" placeholder="Enter Your Password" />
                     <div id="recaptcha-container" class="mt-2"></div>
                     <div class="grid justify-center items-center mt-6 mb-4">
-                        <x-button type="submit" class="orange_color" id="show-pop-up">SIGN UP</x-button>
+                        <x-button type="submit" class="orange_color" id="show-pop-up" :disabled="true">SIGN UP</x-button>
                     </div>
                 </form>
                 <div class="flex justify-between">
@@ -47,7 +47,7 @@
                         <input class="h-[45px] w-[42px] rounded-md ouline-none text-xl items-center text-center border border-gray-300 focus:shadow-md" type="number" disabled />
                     </div>
                     <div class="grid justify-center items-center mt-4">
-                        <x-button type="submit" class="sky_blue_color" id="show-otp-button">Verify OTP</x-button>
+                        <x-button type="submit" class="sky_blue_color" id="show-otp-button" :disabled="true">Verify OTP</x-button>
                     </div>
                     <a id="resend-otp" href="" class="flex justify-center my-4 underline text-gray-400 decoration-gray-400 pointer-events-none">Resend OTP</a>
                 </form>

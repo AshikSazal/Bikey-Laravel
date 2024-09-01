@@ -9,7 +9,7 @@
                     <x-input type="text" name="email_phone" placeholder="Enter Your E-Mail or Phone" />
                     <x-input type="password" name="password" placeholder="Enter Your Password" />
                     <div class="grid justify-center items-center mt-6 mb-4">
-                        <x-button type="submit" class="orange_color" id="login-btn">LOGIN</x-button>
+                        <x-button type="submit" class="orange_color" id="login-btn" :disabled="true">LOGIN</x-button>
                     </div>
                 </form>
                 <div class="flex justify-between">
