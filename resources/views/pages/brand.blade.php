@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-    <div class="mt-[90px]">
+    <div class="mt-[90px] pb-4">
         @include('pages.brand-section.search')
         <div class="p-4 flex items-center justify-center flex-col">
             <div class="grid gap-4 grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5">
@@ -16,6 +16,8 @@
                 @endif
             </div>
         </div>
-
+        <div class="flex justify-center">
+            {!! $products->onEachSide(1)->links() !!}
+        </div>
     </div>
 @endsection

@@ -21,3 +21,5 @@ php artisan make:model Product -m
 php artisan make:seeder ProductsTableSeeder
 php artisan db:seed --class=ProductsTableSeeder
 php artisan make:controller ProductController
+@REM app\Providers\AppServiceProvider.php // make changes for use of pagination for globally use
+php artisan vendor:publish --tag=laravel-pagination
