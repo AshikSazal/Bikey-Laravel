@@ -6,8 +6,8 @@
         <h1 class="text-xl underline"><a href="">{{$product->name}}</a></h1>
         <h2 class="text-sky_blue_color text-lg font-bold mt-4">ট {{$product->price}}</h2>
         <div class="flex justify-between mt-4">
-            <x-button type="submit" class="orange_color" id="buy-now" :disabled="false">BUY NOW</x-button>
-            <x-button type="submit" class="sky_blue_color" id="add-to-cart" :disabled="false">ADD TO CART</x-button>
+            <x-button type="submit" class="orange_color" id="buy-now" :disabled="false" link=true>BUY NOW</x-button>
+            <x-button type="submit" class="sky_blue_color" id="add-to-cart" :disabled="false" link=true href="route('user.addToCart',['id'=>$product->id])">ADD TO CART</x-button>
         </div>
     </div>
 </x-product-card>
