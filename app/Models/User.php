@@ -28,4 +28,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Verify::class);
     }
+
+    public function userCart()
+    {
+        return $this->hasOne(UserCart::class);
+    }
 }

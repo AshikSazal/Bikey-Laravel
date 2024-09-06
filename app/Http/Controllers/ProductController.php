@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Class\Cart;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Exception;
 
 class ProductController extends Controller
 {
@@ -15,11 +17,25 @@ class ProductController extends Controller
         return view('pages.brand',compact('products'));
     }
 
-    public function addTocart(Request $request, $id){
-        $product = Product::findOrFail($id);
-        $oldCart = Session::has('cart') ? Session::has('cart') : null;
-        $cart = new Cart($oldCart);
-        $cart->add($product, $id);
-        $request->session()->put('cart',$cart);
+    public function addTocart(Request $request){
+        try{
+            $product = Product::findOrFail($request->id);
+            $user = Auth::gurad('user')->user;
+            $oldCart = null;
+            if (Session::has($user->id.'_cart')) {
+                $oldCart = Session::get($user->id.'_cart');
+            } elseif ($user->userCart()->exists()) {
+                $oldCart = json_decode($user->userCart);
+            }
+            $cart = new Cart($oldCart);
+            $cart->add($product, $request->id);
+            Session::put($user->id.'_cart',$cart);
+            $user->userCart()->update($cart);
+            return response()->json(['cart'=>$cart]);
+        }catch(Exception $exp){
+            return response()->json([
+                'error'=>$exp->getMessage()
+            ],404);
+        }
     }
 }

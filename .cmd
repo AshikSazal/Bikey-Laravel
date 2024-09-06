@@ -24,3 +24,4 @@ php artisan make:controller ProductController
 @REM app\Providers\AppServiceProvider.php // make changes for use of pagination for globally use
 @REM This is for laravel pagination with tailwind
 php artisan vendor:publish --tag=laravel-pagination
+php artisan make:model UserCart -m

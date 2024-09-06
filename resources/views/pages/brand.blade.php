@@ -23,5 +23,14 @@
 @endsection
 
 @section('scripts')
-
+<script>
+    $(document).ready(function() {
+        $('.add-to-cart').on('click', function(event) {
+            const product_id = $(this).attr('data-product-id');
+            console.log($(this));
+            console.log('Product ID:', product_id);
+            console.log('Button text:', $(this).text());
+        });
+    });
+</script>
 @endsection
