@@ -52,6 +52,6 @@ Route::get('/contact', function () {
 })->name('contact');
 Route::get('/brand', [ProductController::class,'showAllProduct'])->name('brand');
 
-
+Route::post('/add-to-cart',[ProductController::class,'addToCart'])->middleware('login.check:user')->name('user.addToCart');
 
 require __DIR__.'/user.php';

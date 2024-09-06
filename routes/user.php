@@ -26,7 +26,7 @@ Route::post('/reset-password-email',[UserController::class,'resetPasswordEmail']
 Route::post('/reset-password-code',[UserController::class,'resetPasswordCode'])->middleware('guest:user')->name('reset.password.code');
 Route::post('/reset-password',[UserController::class,'resetPassword'])->middleware('guest:user')->name('reset.password');
 
-Route::post('/add-to-cart',[ProductController::class,'addToCart'])->middleware('login.check:user')->name('user.addToCart');
+// Route::post('/add-to-cart',[ProductController::class,'addToCart'])->middleware('login.check:user')->name('user.addToCart');
 
 // Messaging
 // Route::post('/save-message',[ChatController::class,'saveMessage'])->middleware('auth.check:user')->name('user.save.message');

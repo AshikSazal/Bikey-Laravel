@@ -35,7 +35,7 @@ class ProductController extends Controller
         }catch(Exception $exp){
             return response()->json([
                 'error'=>$exp->getMessage()
-            ],404);
+            ],$exp->getCode());
         }
     }
 }
