@@ -11,6 +11,8 @@ use Exception;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use App\Mail\SendVerificationMail;
+use App\Models\Class\Cart;
+use App\Models\Product;
 
 class UserController extends Controller
 {
@@ -26,6 +28,21 @@ class UserController extends Controller
     public function getResetPassword()
     {
         return view('pages.customer.auth.reset-password');
+    }
+    public function getCartItem()
+    {
+        $user = Auth::guard('user')->user();
+        /** @var \App\Models\User $user */
+        if ($user->userCart()->exists()) {
+            $oldCart = new Cart(null);
+            $existed_cart = json_decode($user->userCart->cart);
+            $productIds = array_keys((array) $existed_cart->items);
+            $products = Product::whereIn('id', $productIds)->get();
+            foreach ($products as $key => $product) {
+                $oldCart->add($product, $product->id);
+            }
+            Session::put($user->id.'_cart',$oldCart);
+        }
     }
 
     function generateRandomString($length = 4) {
@@ -77,10 +94,12 @@ class UserController extends Controller
         try{
             if (filter_var($request->emailPhone, FILTER_VALIDATE_EMAIL)) {
                 if (Auth::guard('user')->attempt(['email' => $request->emailPhone, 'password' => $request->password])) {
+                    $this->getCartItem();
                     return redirect()->route('home');
                 }
             } else {
                 if (Auth::guard('user')->attempt(['phone' => $request->emailPhone, 'password' => $request->password])) {
+                    $this->getCartItem();
                     return redirect()->route('home');
                 }
             }

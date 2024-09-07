@@ -23,6 +23,7 @@ class ProductController extends Controller
             $product = Product::findOrFail($id);
             $user = Auth::guard('user')->user();
             $oldCart = null;
+            /** @var \App\Models\User $user */
             if(!$user->userCart()->exists()){
                 Session::forget($user->id.'_cart');
             }
@@ -31,9 +32,10 @@ class ProductController extends Controller
             } elseif ($user->userCart()->exists()) {
                 $oldCart = new Cart(null);
                 $existed_cart = json_decode($user->userCart->cart);
-                foreach($existed_cart->items as $key => $value){
-                    $prod = Product::findOrFail($key);
-                    $oldCart->add($prod, $key);
+                $productIds = array_keys((array) $existed_cart->items);
+                $products = Product::whereIn('id', $productIds)->get();
+                foreach ($products as $key => $product) {
+                    $oldCart->add($product, $product->id);
                 }
             }
             $cart = new Cart($oldCart);

@@ -20,6 +20,8 @@ php artisan make:mail SendVerificationMail
 php artisan make:model Product -m
 php artisan make:seeder ProductsTableSeeder
 php artisan db:seed --class=ProductsTableSeeder
+php artisan make:seeder UsersTableSeeder
+php artisan db:seed --class=UsersTableSeeder
 php artisan make:controller ProductController
 @REM app\Providers\AppServiceProvider.php // make changes for use of pagination for globally use
 @REM This is for laravel pagination with tailwind
