@@ -17,20 +17,27 @@ class ProductController extends Controller
         return view('pages.brand',compact('products'));
     }
 
-    public function addTocart(Request $request){
+    public function addTocart(Request $request)
+    {
         try{
             $product = Product::findOrFail($request->id);
-            $user = Auth::gurad('user')->user;
+            $user = Auth::guard('user')->user();
             $oldCart = null;
             if (Session::has($user->id.'_cart')) {
                 $oldCart = Session::get($user->id.'_cart');
             } elseif ($user->userCart()->exists()) {
-                $oldCart = json_decode($user->userCart);
+                $oldCart = json_decode($user->userCart->cart);
             }
             $cart = new Cart($oldCart);
             $cart->add($product, $request->id);
             Session::put($user->id.'_cart',$cart);
-            $user->userCart()->update($cart);
+            if ($user->userCart()->exists()) {
+                $user->userCart->update(['cart' => json_encode($cart)]);
+            } else {
+                $user->userCart()->create([
+                    'cart' => json_encode($cart)
+                ]);
+            }
             return response()->json(['cart'=>$cart]);
         }catch(Exception $exp){
             return response()->json([
