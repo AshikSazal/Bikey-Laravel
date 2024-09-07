@@ -113,7 +113,7 @@ class UserController extends Controller
     public function logout()
     {
         $user = Auth::guard('user')->user();
-        Session::forget($user.'_cart');
+        Session::forget($user->id.'_cart');
         Auth::guard('user')->logout();
         return redirect()->route('user.login');
     }

@@ -17,25 +17,36 @@ class ProductController extends Controller
         return view('pages.brand',compact('products'));
     }
 
-    public function addTocart(Request $request)
+    public function addTocart(Request $request,$id)
     {
         try{
-            $product = Product::findOrFail($request->id);
+            $product = Product::findOrFail($id);
             $user = Auth::guard('user')->user();
             $oldCart = null;
+            if(!$user->userCart()->exists()){
+                Session::forget($user->id.'_cart');
+            }
             if (Session::has($user->id.'_cart')) {
                 $oldCart = Session::get($user->id.'_cart');
             } elseif ($user->userCart()->exists()) {
                 $oldCart = json_decode($user->userCart->cart);
             }
             $cart = new Cart($oldCart);
-            $cart->add($product, $request->id);
+            $cart->add($product, $id);
             Session::put($user->id.'_cart',$cart);
+            $finalCart = new Cart($cart);
+            foreach($finalCart->items as $key => $value){
+                if (isset($finalCart->items[$key]['item'])) {
+                    unset($finalCart->items[$key]['item']);
+                }
+            }
             if ($user->userCart()->exists()) {
-                $user->userCart->update(['cart' => json_encode($cart)]);
+                $user->userCart()->update([
+                    'cart' => json_encode($finalCart)
+                ]);
             } else {
                 $user->userCart()->create([
-                    'cart' => json_encode($cart)
+                    'cart' => json_encode($finalCart)
                 ]);
             }
             return response()->json(['cart'=>$cart]);

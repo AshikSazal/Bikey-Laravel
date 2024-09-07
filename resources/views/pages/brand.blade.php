@@ -19,6 +19,7 @@
         <div class="flex justify-center">
             {!! $products->onEachSide(1)->links() !!}
         </div>
+        <x-loading />
     </div>
 @endsection
 
@@ -27,19 +28,24 @@
     $(document).ready(function() {
         $('.add-to-cart').on('click', function(event) {
             event.preventDefault();
-            const product_id = $(this).data('product-id');
+            const showError = document.getElementById('open-pop-up');
+            const href = $(this).attr('href');
+            const idMatch = href.match(/\/add-to-cart\/(\d+)$/);
+            const product_id = idMatch ? idMatch[1] : null;
             $.ajax({
                 headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
-                type: 'POST',
-                url: '/add-to-cart',
-                data: {id: product_id},
+                type: 'GET',
+                url: `/add-to-cart/${product_id}`,
                 success: function(res) {
                     const totalCart = res.cart.totalQty;
                     $("#user-cart").text(totalCart);
                 },
                 error: function(xhr, status, error) {
-                    $("#show-message").text(xhr.responseJSON.error);
-                    $("#show-message").show();
+                    showError.style.display = "flex";
+                    showError.classList.add("z-20","bg-black", "bg-opacity-80");
+                    document.body.style.overflow = 'hidden';
+                    $('#show-error-message').text(xhr.responseJSON.error);
+                    $("#show-error-message").show();
                 }
             })
         });
