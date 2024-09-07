@@ -29,7 +29,12 @@ class ProductController extends Controller
             if (Session::has($user->id.'_cart')) {
                 $oldCart = Session::get($user->id.'_cart');
             } elseif ($user->userCart()->exists()) {
-                $oldCart = json_decode($user->userCart->cart);
+                $oldCart = new Cart(null);
+                $existed_cart = json_decode($user->userCart->cart);
+                foreach($existed_cart->items as $key => $value){
+                    $prod = Product::findOrFail($key);
+                    $oldCart->add($prod, $key);
+                }
             }
             $cart = new Cart($oldCart);
             $cart->add($product, $id);
