@@ -1,6 +1,7 @@
 composer require laravel/breeze
 composer require beyondcode/laravel-websockets
 composer require react/promise:^2.7
+composer require barryvdh/laravel-debugbar --dev
 php artisan vendor:publish --provider="BeyondCode\LaravelWebSockets\WebSocketsServiceProvider" --tag="migrations"
 php artisan migrate
 php artisan vendor:publish --provider="BeyondCode\LaravelWebSockets\WebSocketsServiceProvider" --tag="config"
