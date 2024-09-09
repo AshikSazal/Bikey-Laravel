@@ -7,14 +7,25 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 use Exception;
 
 class ProductController extends Controller
 {
     public function showAllProduct()
     {
-        $products = Product::paginate(10);
-        return view('pages.brand',compact('products'));
+        // $products = Product::paginate(10);
+        // return view('pages.brand',compact('products'));
+
+        // cache the query
+        $cacheKey = 'products_page_' . request()->get('page', 1);
+        $cacheTTL = 60; // Cache time-to-live in minutes
+
+        $products = cache()->remember($cacheKey, $cacheTTL, function () {
+            dd("Cache miss for key"); // Just checking the cache query is working or not
+            return Product::paginate(10);
+        });
+        return view('pages.brand', compact('products'));
     }
 
     public function addTocart(Request $request,$id)
