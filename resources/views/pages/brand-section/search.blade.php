@@ -34,6 +34,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         let products=[];
+        const showError = document.getElementById('open-pop-up');
         function fetchAllProducts(){
             $.ajax({
                 headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
@@ -93,16 +94,21 @@
 
         // Function to search products
         $('#search-form').on('keyup change', 'input', function() {
-            var searchProducts = [];
-            const search = $("#search-product").val();
-            if(search.length === 0){
-                $("#search-product-result").find('ul').remove();
-            }else{
-                const ul=`<ul></ul>`;
-                $("#search-product-result").append(ul);
+            const search = $("#search-product").val().trim();
+            const resultContainer = $("#search-product-result");
+
+            // Clear previous results
+            resultContainer.find('ul').remove();
+
+            if (search.length === 0) {
+                return;
             }
-            var li="";
-            var similarityMap = {};
+
+            // Create a new <ul> container
+            const ul = $('<ul></ul>');
+            resultContainer.append(ul);
+
+            const similarityMap = {};
             products.forEach(product => {
                 const similarity = similarityPercentage(search, product.name);
                 if (similarity > 0) {
@@ -112,21 +118,29 @@
                     similarityMap[similarity].push(product);
                 }
             });
-            // Convert the similarityMap to an array of [similarity, products] pairs
-            const sortedEntries = Object.entries(similarityMap).sort(([similarityA], [similarityB]) => {
-                // Sort by similarity in descending order
-                return parseFloat(similarityB) - parseFloat(similarityA);
-            });
 
-            // Flatten the sorted entries into a single products array
-            const sortedProducts = sortedEntries.reduce((acc, [similarity, products]) => {
+            // Filter and sort entries by similarity
+            const threshold = 30;
+            const sortedEntries = Object.entries(similarityMap)
+                .filter(([similarity]) => parseFloat(similarity) >= threshold)
+                .sort(([similarityA], [similarityB]) => parseFloat(similarityB) - parseFloat(similarityA));
+
+            // Flatten sorted entries into a single products array
+            const sortedProducts = sortedEntries.reduce((acc, [, products]) => {
                 return acc.concat(products);
             }, []);
-            sortedProducts.forEach(product => {
-                li += `<li class='p-2 hover:bg-orange_color hover:text-white hover:underline'>${product.name}</li><hr>`;
-            });
-            $("#search-product-result").find('ul').append(li);
+
+            
+            if (sortedProducts.length > 0) {
+                sortedProducts.forEach(product => {
+                    const li = `<a href='#'><li class='p-2 hover:bg-orange_color hover:text-white hover:underline'>${product.name}</li></a><hr class='text-sky_blue_color'>`;
+                    ul.append(li);
+                });
+            } else {
+                ul.append(`<li class='p-2'>No results found</li>`);
+            }
         });
+
         let searchOpen = $("#search-field").is(":visible");
         $("#search-field-open").on('click', function() {
             if (searchOpen) {
