@@ -12,6 +12,22 @@ use Exception;
 
 class ProductController extends Controller
 {
+    function fetchAllProducts()
+    {
+        try{
+            $cacheKey = 'all_products';
+            $cacheTTL = 60;
+            $products = cache()->remember($cacheKey, $cacheTTL, function () {
+                return Product::all();
+            });
+            return response()->json(['products'=>$products]);
+        }catch(Exception $exp){
+            return response()->json([
+                'error'=>$exp->getMessage()
+            ],$exp->getCode());
+        }
+    }
+    
     public function showAllProduct()
     {
         // $products = Product::paginate(10);
@@ -22,7 +38,7 @@ class ProductController extends Controller
         $cacheTTL = 60; // Cache time-to-live in minutes
 
         $products = cache()->remember($cacheKey, $cacheTTL, function () {
-            dd("Cache miss for key"); // Just checking the cache query is working or not
+            // dd("Cache miss for key"); // Just checking the cache query is working or not
             return Product::paginate(10);
         });
         return view('pages.brand', compact('products'));

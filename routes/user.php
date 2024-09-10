@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 Route::get('/signup',[UserController::class,'getSignup'])->middleware('guest:user')->name('user.signup');
 Route::get('/login',[UserController::class,'getLogin'])->middleware('guest:user')->name('user.login');
 Route::get('/reset-password',[UserController::class,'getResetPassword'])->middleware('guest:user')->name('user.reset.password');
+Route::get('/get-all-product',[ProductController::class,'fetchAllProducts'])->middleware('guest:user')->name('fetchAllProducts');
 
 
 Route::post('/signup',[UserController::class,'signup'])->name('user.signup');
