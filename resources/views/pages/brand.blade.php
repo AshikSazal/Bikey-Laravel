@@ -17,7 +17,8 @@
             </div>
         </div>
         <div class="flex justify-center">
-            {!! $products->onEachSide(1)->links() !!}
+            {{-- {!! $products->onEachSide(1)->links() !!} --}}
+            {{ $products->appends(request()->query())->links() }}
         </div>
         <x-loading />
     </div>

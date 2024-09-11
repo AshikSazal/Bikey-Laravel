@@ -1,12 +1,12 @@
 <div class="place-items-center bg-sky_blue_color justify-evenly grid grid-cols-4 sm:grid-cols-2 py-4">
     <div class="flex flex-row items-center sm:col-span-1 space-x-4 col-span-3">
-        <h1 id="bike-category" class="text-2xl font-bold bg-dark_blue_color text-white px-4 py-2 rounded cursor-pointer hover:underline hover:bg-white hover:text-sky_blue_color" data-category="all">
+        <h1 id="bike-category" class="text-2xl font-bold bg-dark_blue_color text-white px-4 py-2 rounded cursor-pointer hover:underline hover:bg-white hover:text-sky_blue_color category" data-category="all">
             ALL
         </h1>
-        <h1 id="bike-category" class="text-2xl font-bold bg-dark_blue_color text-white px-4 py-2 rounded cursor-pointer hover:underline hover:bg-white hover:text-sky_blue_color" data-category="bike">
+        <h1 id="bike-category" class="text-2xl font-bold bg-dark_blue_color text-white px-4 py-2 rounded cursor-pointer hover:underline hover:bg-white hover:text-sky_blue_color category" data-category="bike">
             BIKE
         </h1>
-        <h1 id="accessories-category" class="text-2xl font-bold bg-dark_blue_color text-white px-4 py-2 rounded cursor-pointer hover:underline hover:bg-white hover:text-sky_blue_color" data-category="accessories">
+        <h1 id="accessories-category" class="text-2xl font-bold bg-dark_blue_color text-white px-4 py-2 rounded cursor-pointer hover:underline hover:bg-white hover:text-sky_blue_color category" data-category="parts">
             ACCESSORIES
         </h1>
     </div>
@@ -35,6 +35,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         let products=[];
         const showError = document.getElementById('open-pop-up');
+        const categories = document.querySelectorAll(".category");
         function fetchAllProducts(){
             $.ajax({
                 headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
@@ -157,5 +158,13 @@
         });
 
         fetchAllProducts();
+
+        document.querySelectorAll('.category').forEach(element => {
+            element.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                const currentPage = new URLSearchParams(window.location.search).get('page') || 1;
+                window.location.href = `{{ route('brand') }}?category=${category}&page=${currentPage}`;
+            });
+        });
     });
 </script>

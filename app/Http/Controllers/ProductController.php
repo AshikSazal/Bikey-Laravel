@@ -28,19 +28,24 @@ class ProductController extends Controller
         }
     }
     
-    public function showAllProduct()
+    public function showAllProduct(Request $request)
     {
-        // $products = Product::paginate(10);
-        // return view('pages.brand',compact('products'));
+        $category = $request->get('category', 'all'); // Default to 'all'
+        $currentPage = $request->get('page', 1);
 
-        // cache the query
-        $cacheKey = 'products_page_' . request()->get('page', 1);
+        $cacheKey = "products_page_{$currentPage}_category_{$category}";
         $cacheTTL = 60; // Cache time-to-live in minutes
 
-        $products = cache()->remember($cacheKey, $cacheTTL, function () {
-            // dd("Cache miss for key"); // Just checking the cache query is working or not
-            return Product::paginate(10);
+        $products = cache()->remember($cacheKey, $cacheTTL, function () use ($category) {
+            $query = Product::query();
+
+            if ($category !== 'all') {
+                $query->where('category', $category);
+            }
+
+            return $query->paginate(10);
         });
+
         return view('pages.brand', compact('products'));
     }
 
