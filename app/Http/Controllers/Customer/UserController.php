@@ -202,4 +202,14 @@ class UserController extends Controller
             return response()->json(['error'=>$exp->getMessage()],404);
         }
     }
+
+    // Show user cart product
+    public function showUserCart($id)
+    {
+        if(Session::get($id.'_cart')){
+            $cart = Session::get($id.'_cart');
+        }else{
+            $cart = json_decode(Auth::guard('user')->user()->userCart->cart);
+        }
+    }
 }
