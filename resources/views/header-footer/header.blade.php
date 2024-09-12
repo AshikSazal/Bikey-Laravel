@@ -201,6 +201,8 @@
                 document.body.style.overflow = 'hidden';
                 $('#show-error-message').text("Please Login First");
                 $("#show-error-message").show();
+            }else{
+                window.location=`cart/${Auth::guard('user')->user()->id}`
             }
         })
 
