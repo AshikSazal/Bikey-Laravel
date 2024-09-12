@@ -1,6 +1,8 @@
 @if(!empty($carts))
-    @forEach($carts as $cart)
-        <h1>{{$cart->name}}</h1>
+    @foreach($carts->items as $cart)
+        <h1>{{ $cart['item']->name }}</h1>
+        <p>Quantity: {{ $cart['qty'] }}</p>
+        <p>Price: {{ $cart['price'] }}</p>
     @endforeach
 @else
     <h1>NOT FOUND</h1>
