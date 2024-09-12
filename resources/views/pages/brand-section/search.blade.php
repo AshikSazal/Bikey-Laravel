@@ -161,6 +161,7 @@
                 $("#search-field").slideUp(200);
                 $("#search-open-icon").show();
                 $("#search-close-icon").hide();
+                $("#search-product-result2").hide();
                 searchOpen = false;
             } else {
                 $("#search-field").slideDown(200);
