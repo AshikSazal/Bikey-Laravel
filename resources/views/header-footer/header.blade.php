@@ -1,3 +1,7 @@
+@php
+    $user = Auth::guard('user')->user();
+    $userId = $user ? $user->id : null;
+@endphp
 <header>
     <nav class="grid grid-cols-5 md:grid-cols-5 p-4 shadow fixed w-full z-10 bg-white">
         <div class="flex items-center col-span-2 md:col-span-1"><img src="./images/logo.png" alt="" height="150" width="150"></div>
@@ -10,12 +14,21 @@
         
         <div class="col-span-2 grid grid-cols-2 md:col-span-2">
             <div class="flex relative items-center lg:justify-end sm:justify-center justify-end">
-                <a href="#" class="">
-                    <svg height="40" width="40" xmlns="http://www.w3.org/2000/svg" fill="#1ca3e4" viewBox="0 0 576 512"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
-                    <span id="user-cart" class="absolute text-lg text-white top-0 transform translate-x-8 -translate-y-1/4 bg-orange_color px-2 rounded-full">
-                        {{Session::get(Auth::guard('user')->user()?->id.'_cart') ? Session::get(Auth::guard('user')->user()?->id.'_cart')->totalQty : 0}}
-                    </span>
-                </a>
+                @if (Auth::guard('user')->check())
+                    <a id="user-cart-show" href="{{route('user.cart.show',['id'=>$userId])}}" class="">
+                        <svg height="40" width="40" xmlns="http://www.w3.org/2000/svg" fill="#1ca3e4" viewBox="0 0 576 512"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
+                        <span id="user-cart" class="absolute text-lg text-white top-0 transform translate-x-8 -translate-y-1/4 bg-orange_color px-2 rounded-full">
+                            {{Session::get(Auth::guard('user')->user()?->id.'_cart') ? Session::get(Auth::guard('user')->user()?->id.'_cart')->totalQty : 0}}
+                        </span>
+                    </a>
+                @else
+                    <a id="user-cart-show" href="#" class="">
+                        <svg height="40" width="40" xmlns="http://www.w3.org/2000/svg" fill="#1ca3e4" viewBox="0 0 576 512"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
+                        <span id="user-cart" class="absolute text-lg text-white top-0 transform translate-x-8 -translate-y-1/4 bg-orange_color px-2 rounded-full">
+                            0
+                        </span>
+                    </a>
+                @endif
             </div>
             @if (Auth::guard('user')->check())
                 <div class="ms:hidden md:flex relative">
@@ -117,9 +130,11 @@
         const listItems = document.querySelectorAll('.box-list li');
         const box = document.getElementById("box");
         const loading = document.getElementById("loading-container");
+        const userCartShow = document.getElementById("user-cart-show");
         
         const logout = document.getElementById("logout");
         const popLogout = document.getElementById("pop-logout");
+        const showError = document.getElementById('open-pop-up');
         
         let menuOpen = false;
         let timeout;
@@ -176,6 +191,18 @@
                 }
             });
         }
+
+        userCartShow.addEventListener('click',function(event){
+            event.preventDefault();
+            console.log("{{Auth::guard('user')->check()}}");
+            if(!"{{Auth::guard('user')->check()}}"){
+                showError.style.display = "flex";
+                showError.classList.add("z-20","bg-black", "bg-opacity-80");
+                document.body.style.overflow = 'hidden';
+                $('#show-error-message').text("Please Login First");
+                $("#show-error-message").show();
+            }
+        })
 
         if(logout){
             logout.addEventListener('click',function(event){
