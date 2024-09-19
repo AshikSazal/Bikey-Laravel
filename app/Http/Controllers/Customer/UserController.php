@@ -204,8 +204,9 @@ class UserController extends Controller
     }
 
     // Show user cart product
-    public function showUserCart($id)
+    public function showUserCart()
     {
+        $id = Auth::guard('user')->user()->id;
         if(Session::get($id.'_cart')){
             $carts = new Cart(Session::get($id.'_cart'));
         }else{

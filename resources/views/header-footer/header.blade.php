@@ -194,7 +194,6 @@
 
         userCartShow.addEventListener('click',function(event){
             event.preventDefault();
-            console.log("{{Auth::guard('user')->check()}}");
             if(!"{{Auth::guard('user')->check()}}"){
                 showError.style.display = "flex";
                 showError.classList.add("z-20","bg-black", "bg-opacity-80");
@@ -202,7 +201,7 @@
                 $('#show-error-message').text("Please Login First");
                 $("#show-error-message").show();
             }else{
-                window.location=`cart/${Auth::guard('user')->user()->id}`
+                window.location=`cart`
             }
         })
 
