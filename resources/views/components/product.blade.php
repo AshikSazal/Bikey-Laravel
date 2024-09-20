@@ -1,4 +1,4 @@
-<x-product-card class="bg-white">
+<x-product-card class="bg-white max-w-xs">
     <div class="bg-white">
         <img src="{{$product->image}}" alt="Product Image" class="w-full h-auto">
     </div>
