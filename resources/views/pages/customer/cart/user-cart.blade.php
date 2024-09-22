@@ -4,7 +4,7 @@
     <div class="mt-[120px]">
         <div class="grid grid-cols-3 m-6">
             <div class="col-span-2 w-full">
-                @if (!empty($carts))
+                @if (!empty($carts->items))
                     @foreach ($carts->items as $cart)
                         <div class="mb-4">
                             <x-cart-product :cart="$cart" />

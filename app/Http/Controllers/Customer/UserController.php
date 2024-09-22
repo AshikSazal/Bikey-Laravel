@@ -41,35 +41,36 @@ class UserController extends Controller
             foreach ($products as $key => $product) {
                 $oldCart->add($product, $product->id);
             }
-            Session::put($user->id.'_cart',$oldCart);
+            Session::put($user->id . '_cart', $oldCart);
         }
     }
 
-    function generateRandomString($length = 4) {
+    function generateRandomString($length = 4)
+    {
         // Define the characters to choose from: digits and letters
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
-    
+
         // Generate the random string
         for ($i = 0; $i < $length; $i++) {
             $randomIndex = random_int(0, $charactersLength - 1);
             $randomString .= $characters[$randomIndex];
         }
-    
+
         return $randomString;
     }
     public function signup(Request $request)
     {
-        try{
-            $this->validate($request,[
-                'name'=>'required',
-                'phone'=>'required|digits:11',
-                'email'=>'email|required|unique:users',
-                'password'=>'required|min:4'
+        try {
+            $this->validate($request, [
+                'name' => 'required',
+                'phone' => 'required|digits:11',
+                'email' => 'email|required|unique:users',
+                'password' => 'required|min:4'
             ]);
             $user = User::where('phone', $request->phone)->first();
-            if($user){
+            if ($user) {
                 throw new Exception("User found");
             }
             $user = new User();
@@ -80,9 +81,9 @@ class UserController extends Controller
             $user->save();
             // Auth::login($user);
             // Auth::guard('user')->login($user);
-            
-            return ['status'=>1];
-        }catch(Exception $exp){
+
+            return ['status' => 1];
+        } catch (Exception $exp) {
             return response()->json([
                 'error' => $exp->getMessage(),
             ]);
@@ -91,7 +92,7 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        try{
+        try {
             if (filter_var($request->emailPhone, FILTER_VALIDATE_EMAIL)) {
                 if (Auth::guard('user')->attempt(['email' => $request->emailPhone, 'password' => $request->password])) {
                     $this->getCartItem();
@@ -104,35 +105,35 @@ class UserController extends Controller
                 }
             }
             throw new Exception("Invalid Email & Password");
-        }catch(Exception $exp){
+        } catch (Exception $exp) {
             return response()->json([
                 'error' => $exp->getMessage(),
-            ],404);
-        } 
+            ], 404);
+        }
     }
 
     function verifyOTP(Request $request)
     {
-        try{
+        try {
             $user = User::where('phone', $request->phone)->first();
-            if(!$user){
+            if (!$user) {
                 throw new Exception("User Not found");
             }
-            $user->verification=1;
+            $user->verification = 1;
             $user->save();
             Auth::guard('user')->login($user);
             return redirect()->route('home');
-        }catch(Exception $exp){
+        } catch (Exception $exp) {
             return response()->json([
                 'error' => $exp->getMessage(),
-            ],404);
+            ], 404);
         }
     }
 
     public function logout()
     {
         $user = Auth::guard('user')->user();
-        Session::forget($user->id.'_cart');
+        Session::forget($user->id . '_cart');
         Auth::guard('user')->logout();
         return redirect()->route('user.login');
     }
@@ -140,66 +141,66 @@ class UserController extends Controller
     // Send verification code for reset password
     public function resetPasswordEmail(Request $request)
     {
-        try{
+        try {
             $user = User::where('email', $request->email)->first();
-            if(!$user){
+            if (!$user) {
                 throw new Exception("User Not found");
             }
             $code = new Verify();
             $code->code = $this->generateRandomString();
             // Mail::to($user->email)->send(new SendVerificationMail($code));
-            if($user->userVerification()->exists()){
+            if ($user->userVerification()->exists()) {
                 $user->userVerification()->update(['code' => $code->code]);
-            }else{
+            } else {
                 $user->userVerification()->save($code);
             }
-            return response()->json(['user'=>$user,'code'=>$code]);
-        }catch(Exception $exp){
+            return response()->json(['user' => $user, 'code' => $code]);
+        } catch (Exception $exp) {
             return response()->json([
                 'error' => $exp->getMessage(),
-            ],404);
+            ], 404);
         }
     }
 
     // Check verification code
     public function resetPasswordCode(Request $request)
     {
-        try{
+        try {
             // It has problem for case sensitive
             // $user = User::with(['userVerification' => function($query) use ($request) {
             //     $query->where('code', $request->code);
             // }])->where('email', $request->email)->first();
             $user = User::with('userVerification')->where('email', $request->email)->first();
 
-            if(!$user){
+            if (!$user) {
                 throw new Exception("User Not found");
             }
-            if($user->userVerification->code !== $request->code){
+            if ($user->userVerification->code !== $request->code) {
                 throw new Exception("Invalid Code");
             }
-            return response()->json(['data'=>$user]);
-        }catch(Exception $exp){
+            return response()->json(['data' => $user]);
+        } catch (Exception $exp) {
             return response()->json([
-                'error'=>$exp->getMessage()
-            ],404);
+                'error' => $exp->getMessage()
+            ], 404);
         }
     }
 
     // Reset the password
     public function resetPassword(Request $request)
     {
-        try{
+        try {
             $user = User::with('userVerification')->where('email', $request->email)->first();
 
-            if(!$user){
+            if (!$user) {
                 throw new Exception("User Not found");
             }
             $user->userVerification->delete();
             $user->password = bcrypt($request->password);
             $user->save();
-            return response()->json(['data'=>$user]);
-        }catch(Exception $exp){
-            return response()->json(['error'=>$exp->getMessage()],404);
+            return response()->json(['data' => $user]);
+        } catch (Exception $exp) {
+            return response()->json(['error' => $exp->getMessage()], 404);
         }
     }
 
@@ -207,32 +208,42 @@ class UserController extends Controller
     public function showUserCart()
     {
         $id = Auth::guard('user')->user()->id;
-        if(Session::get($id.'_cart')){
-            $carts = new Cart(Session::get($id.'_cart'));
-            $existed_cart = json_decode(Auth::guard('user')->user()->userCart->cart);
-            if($carts->totalQty!==$existed_cart->totalQty){
-                Session::forget($id.'_cart');
-                $carts = new Cart(null);
-                $productIds = array_keys((array) $existed_cart->items);
-                $products = Product::whereIn('id', $productIds)->get();
-                foreach ($products as $key => $product) {
-                    $carts->add($product, $product->id);
+        if (Auth::guard('user')->user()->userCart()->exists()) {
+            if (Session::get($id . '_cart')) {
+                $carts = new Cart(Session::get($id . '_cart'));
+                $existed_cart = json_decode(Auth::guard('user')->user()->userCart->cart);
+                if ($carts->totalQty !== $existed_cart->totalQty) {
+                    Session::forget($id . '_cart');
+                    $carts = new Cart(null);
+                    $productIds = array_keys((array) $existed_cart->items);
+                    $products = Product::whereIn('id', $productIds)->get();
+                    foreach ($products as $key => $product) {
+                        dd($product->id);
+                        $carts->add($product, $product->id, $existed_cart->items[$product->id]->qty);
+                    }
+                    Session::put($id . '_cart', $carts);
                 }
-                Session::put($id.'_cart',$carts);
+            } else {
+                $carts = new Cart(null);
+                $existed_cart = json_decode(Auth::guard('user')->user()->userCart->cart);
+                $existingItems = $existed_cart->items;
+                $productIds = array_keys((array) $existingItems);
+                $products = Product::whereIn('id', $productIds)->get();
+                foreach ($products as $product) {
+                    $productId = $product->id;
+                    if (property_exists($existingItems, $productId)) {
+                        $quantity = $existingItems->$productId->qty;
+                        $carts->add($product, $productId, $quantity);
+                    }
+                }
+                if (Session::has($id . '_cart')) {
+                    Session::forget($id . '_cart');
+                }
+                dd(Session::get($id . '_cart'));
             }
         }else{
             $carts = new Cart(null);
-            $existed_cart = json_decode(Auth::guard('user')->user()->userCart->cart);
-            $productIds = array_keys((array) $existed_cart->items);
-            $products = Product::whereIn('id', $productIds)->get();
-            foreach ($products as $key => $product) {
-                $carts->add($product, $product->id);
-            }
-            if (Session::has($id.'_cart')) {
-                Session::put($id.'_cart',$carts);
-            }
         }
-
-        return view('pages.customer.cart.user-cart',compact('carts'));
+        return view('pages.customer.cart.user-cart', compact('carts'));
     }
 }
