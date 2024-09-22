@@ -209,6 +209,17 @@ class UserController extends Controller
         $id = Auth::guard('user')->user()->id;
         if(Session::get($id.'_cart')){
             $carts = new Cart(Session::get($id.'_cart'));
+            $existed_cart = json_decode(Auth::guard('user')->user()->userCart->cart);
+            if($carts->totalQty!==$existed_cart->totalQty){
+                Session::forget($id.'_cart');
+                $carts = new Cart(null);
+                $productIds = array_keys((array) $existed_cart->items);
+                $products = Product::whereIn('id', $productIds)->get();
+                foreach ($products as $key => $product) {
+                    $carts->add($product, $product->id);
+                }
+                Session::put($id.'_cart',$carts);
+            }
         }else{
             $carts = new Cart(null);
             $existed_cart = json_decode(Auth::guard('user')->user()->userCart->cart);
@@ -216,6 +227,9 @@ class UserController extends Controller
             $products = Product::whereIn('id', $productIds)->get();
             foreach ($products as $key => $product) {
                 $carts->add($product, $product->id);
+            }
+            if (Session::has($id.'_cart')) {
+                Session::put($id.'_cart',$carts);
             }
         }
 

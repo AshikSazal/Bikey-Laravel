@@ -50,7 +50,7 @@
                     products = res.products;
                 },
                 error: function(xhr, status, error){
-                    loading.style.display="none";
+                    // loading.style.display="none";
                     // document.body.style.overflow = '';
                     
                     showError.style.display = "flex";
