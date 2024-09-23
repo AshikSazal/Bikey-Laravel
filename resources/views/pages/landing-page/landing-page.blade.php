@@ -88,32 +88,50 @@
 @endsection
 
 
+@section('scripts')
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const typewriter = document.getElementById('typewriter');
-        const text = typewriter.innerText;
-        let index = 0;
-        let isDeleting = false;
+        const noItemCart = document.getElementById('no-item-cart');
+if (noItemCart) {
+    const text = noItemCart.innerHTML;
+    let index = 0;
+    let isColored = false;
 
-        function type() {
-            if (isDeleting) {
-                if (index > 0) {
-                    typewriter.innerText = text.substring(0, index - 1);
-                    index--;
-                } else {
-                    isDeleting = false;
-                }
+    // Create a span for each letter
+    function createColoredText() {
+        noItemCart.innerHTML = ''; // Clear the container
+        for (let i = 0; i < text.length; i++) {
+            const span = document.createElement('span');
+            span.innerText = text[i];
+            // Change color based on the current index
+            span.style.color = i < index ? 'red' : 'black'; // Change 'red' to your desired color
+            noItemCart.appendChild(span);
+        }
+    }
+
+    function type() {
+        if (!isColored) {
+            if (index < text.length) {
+                index++;
             } else {
-                if (index < text.length) {
-                    typewriter.innerText = text.substring(0, index + 1);
-                    index++;
-                } else {
-                    isDeleting = true;
-                }
+                isColored = true; // Start reversing color
+            }
+        } else {
+            if (index > 0) {
+                index--;
+            } else {
+                // Reset for the next cycle
+                isColored = false;
+                index = 0;
             }
         }
+        createColoredText(); // Update the display each time
+    }
 
-        setInterval(type, 100);
+    setInterval(type, 100);
+}
+
     });
 
 </script>
+@endsection
