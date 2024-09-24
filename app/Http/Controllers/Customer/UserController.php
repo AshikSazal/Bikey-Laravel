@@ -218,8 +218,8 @@ class UserController extends Controller
                     $productIds = array_keys((array) $existed_cart->items);
                     $products = Product::whereIn('id', $productIds)->get();
                     foreach ($products as $key => $product) {
-                        dd($product->id);
-                        $carts->add($product, $product->id, $existed_cart->items[$product->id]->qty);
+                        $qty = $existed_cart->items->{$product->id}->qty;
+                        $carts->add($product, $product['id'], $qty);
                     }
                     Session::put($id . '_cart', $carts);
                 }
@@ -239,10 +239,12 @@ class UserController extends Controller
                 if (Session::has($id . '_cart')) {
                     Session::forget($id . '_cart');
                 }
-                dd(Session::get($id . '_cart'));
             }
         }else{
             $carts = new Cart(null);
+            if (Session::has($id . '_cart')) {
+                Session::forget($id . '_cart');
+            }
         }
         return view('pages.customer.cart.user-cart', compact('carts'));
     }
