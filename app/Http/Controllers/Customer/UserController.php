@@ -39,7 +39,8 @@ class UserController extends Controller
             $productIds = array_keys((array) $existed_cart->items);
             $products = Product::whereIn('id', $productIds)->get();
             foreach ($products as $key => $product) {
-                $oldCart->add($product, $product->id);
+                $qty = $existed_cart->items->{$product->id}->qty;
+                $oldCart->add($product, $product['id'], $qty);
             }
             Session::put($user->id . '_cart', $oldCart);
         }
@@ -207,8 +208,10 @@ class UserController extends Controller
     // Show user cart product
     public function showUserCart()
     {
-        $id = Auth::guard('user')->user()->id;
-        if (Auth::guard('user')->user()->userCart()->exists()) {
+        $user = Auth::guard('user')->user();
+        $id = $user->id;
+        /** @var \App\Models\User $user */
+        if ($user->userCart()->exists()) {
             if (Session::get($id . '_cart')) {
                 $carts = new Cart(Session::get($id . '_cart'));
                 $existed_cart = json_decode(Auth::guard('user')->user()->userCart->cart);
