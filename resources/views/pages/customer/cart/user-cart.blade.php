@@ -27,6 +27,7 @@
                 </x-card>
             </div>            
         @endif
+        <x-error />
     </div>
 @endsection
 
@@ -66,9 +67,63 @@
                     }
                     createColoredText();
                 }
-
                 setInterval(type, 100);
             }
+
+            $('.increase').on('click', function(event) {
+                event.preventDefault();
+                const showError = document.getElementById('open-pop-up');
+                const product_id = $(this).attr('data-id');
+                $.ajax({
+                    headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
+                    type: 'GET',
+                    url: `/add-to-cart/${product_id}`,
+                    success: function(res) {
+                        const totalCart = res.cart.totalQty;
+                        $("#user-cart").text(totalCart);
+                        $(`.cart-input-${product_id}`).val(res.cart.items[product_id].qty);
+                        console.log(res.cart.items[product_id].price);
+                        $(`.cart-price-${product_id}`).text(res.cart.items[product_id].price);
+                        // $(`.cart-price-${product_id}`).show();
+                    },
+                    error: function(xhr, status, error) {
+                        showError.style.display = "flex";
+                        showError.classList.add("z-20","bg-black", "bg-opacity-80");
+                        document.body.style.overflow = 'hidden';
+                        $('#show-error-message').text(xhr.responseJSON.error);
+                        $("#show-error-message").show();
+                    }
+                });
+            });
+
+            $('.decrease').on('click', function(event) {
+                event.preventDefault();
+                const showError = document.getElementById('open-pop-up');
+                const product_id = $(this).attr('data-id');
+                $.ajax({
+                    headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
+                    type: 'GET',
+                    url: `/remove-cart/${product_id}`,
+                    success: function(res) {
+                        const totalCart = res.cart.totalQty;
+                        $("#user-cart").text(totalCart);
+                        if(!res.cart.items[product_id])
+                            $(`.cart-input-${product_id}`).closest('.remove-cart').remove();
+                        else{
+                            $(`.cart-input-${product_id}`).val(res.cart.items[product_id].qty);
+                            $(`.cart-price-${product_id}`).text(res.cart.items[product_id].price);
+                            // $(`.cart-price-${product_id}`).show();
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        showError.style.display = "flex";
+                        showError.classList.add("z-20","bg-black", "bg-opacity-80");
+                        document.body.style.overflow = 'hidden';
+                        $('#show-error-message').text(xhr.responseJSON.error);
+                        $("#show-error-message").show();
+                    }
+                });
+            });
         });
     </script>
 @endsection

@@ -20,6 +20,7 @@
             {{-- {!! $products->onEachSide(1)->links() !!} --}}
             {{ $products->appends(request()->query())->links() }}
         </div>
+        <x-error />
         <x-loading />
     </div>
 @endsection

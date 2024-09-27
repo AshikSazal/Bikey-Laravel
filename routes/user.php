@@ -26,7 +26,8 @@ Route::get('/logout',[UserController::class,'logout'])->middleware('auth.check:u
 Route::post('/reset-password-email',[UserController::class,'resetPasswordEmail'])->middleware('guest:user')->name('reset.password.email');
 Route::post('/reset-password-code',[UserController::class,'resetPasswordCode'])->middleware('guest:user')->name('reset.password.code');
 Route::post('/reset-password',[UserController::class,'resetPassword'])->middleware('guest:user')->name('reset.password');
-
+Route::get('/add-to-cart/{id}',[ProductController::class,'addToCart'])->middleware('auth.check:user')->name('product.addToCart');
+Route::get('/remove-cart/{id}',[ProductController::class,'removeCart'])->middleware('auth.check:user')->name('product.removeCart');
 // Messaging
 // Route::post('/save-message',[ChatController::class,'saveMessage'])->middleware('auth.check:user')->name('user.save.message');
 // Route::post('/broadcasting/auth', function () {

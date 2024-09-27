@@ -37,7 +37,7 @@ use App\Http\Controllers\ProductController;
 // Route::post('/save-message',[ChatController::class,'saveMessage'])->middleware('auth.check:user')->name('user.save.message');
 // test end
 
-Route::get('/add-to-cart/{id}',[ProductController::class,'addToCart'])->middleware('auth.check:user')->name('product.addToCart');
+
 Route::post('/save-chat',[ChatController::class,'saveChat'])->middleware('auth.check:user')->name('save.message');
 Route::post('/delete-chat',[ChatController::class,'deleteChat'])->middleware('auth.check:user')->name('delete.message');
 Route::post('/load-chats',[ChatController::class,'loadChats'])->middleware('auth.check:user')->name('load.chats');

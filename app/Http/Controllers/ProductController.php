@@ -95,4 +95,44 @@ class ProductController extends Controller
             ],$exp->getCode());
         }
     }
+
+    public function removeCart($id)
+    {
+        try{
+            $product = Product::findOrFail($id);
+            $user = Auth::guard('user')->user();
+            $cart = null;
+            /** @var \App\Models\User $user */
+            if(!$user->userCart()->exists()){
+                Session::forget($user->id.'_cart');
+            }
+            if (Session::has($user->id.'_cart')) {
+                $cart = Session::get($user->id.'_cart');
+            } elseif ($user->userCart()->exists()) {
+                $cart = new Cart(null);
+                $existed_cart = json_decode($user->userCart->cart);
+                $productIds = array_keys((array) $existed_cart->items);
+                $products = Product::whereIn('id', $productIds)->get();
+                foreach ($products as $key => $product) {
+                    $cart->add($product, $product->id);
+                }
+            }
+            if($cart)
+                $cart->reduceByOne($id);
+            $finalCart = new Cart($cart);
+            foreach($finalCart->items as $key => $value){
+                if (isset($finalCart->items[$key]['item'])) {
+                    unset($finalCart->items[$key]['item']);
+                }
+            }
+            $user->userCart()->update([
+                'cart' => json_encode($finalCart)
+            ]);
+            return response()->json(['cart'=>$cart]);
+        }catch(Exception $exp){
+            return response()->json([
+                'error'=>$exp->getMessage()
+            ],$exp->getCode());
+        }
+    }
 }
