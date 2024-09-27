@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-span-1">
                     <x-card class="bg-white">
-                        <h1>Hello world</h1>
+                        <h1>{{$carts->totalPrice}}</h1>
                     </x-card>
                 </div>
             </div>
