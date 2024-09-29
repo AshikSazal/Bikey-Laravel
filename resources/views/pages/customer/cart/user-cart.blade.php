@@ -3,19 +3,42 @@
 @section('content')
     <div class="mt-[120px]">
         @if (!empty($carts->items))
-            <div class="grid grid-cols-3 m-6">
-                <div class="col-span-2 w-full">
+            <div class="flex justify-around m-6">
+                <div class="w-full">
                     @foreach ($carts->items as $cart)
                         <div class="mb-4">
                             <x-cart-product :cart="$cart" />
                         </div>
                     @endforeach
                 </div>
-                <div class="col-span-1">
-                    <x-card class="bg-white">
-                        <h1>{{$carts->totalPrice}}</h1>
-                    </x-card>
-                </div>
+                <x-card class="bg-white h-[300px]">
+                    <div class="w-full">
+                        <div>
+                            <h2 class="text-lg font-bold mb-4">SUMMARY</h2>
+                            <hr class="h-2 border-t-2 border-gray-300">
+                            <div class="flex justify-between">
+                                <p class="text-sm font-bold mb-2">ITEMS:</p>
+                                <p class="text-sm font-bold mb-2">${{ $carts->totalQty }}</p>
+                            </div>
+                            <div class="flex justify-between">
+                                <p class="text-sm font-bold mb-2">PRICE:</p>
+                                <p class="text-sm font-bold mb-2">${{ $carts->totalPrice }}</p>
+                            </div>
+                            <div class="flex justify-between">
+                                <p class="text-sm font-bold mb-2">DELIVERY:</p>
+                                <p class="text-sm font-bold mb-2">$5</p>
+                            </div>
+                            <hr class="h-2 border-t-2 border-gray-300">
+                            <div class="flex justify-between">
+                                <p class="text-sm font-bold mb-2">TOTAL:</p>
+                                <p class="text-sm font-bold mb-2">${{$carts->totalPrice+5}}</p>
+                            </div>
+                            <div class="grid mt-6 mb-4 w-full">
+                                <x-button type="submit" class="orange_color" id="check-out-btn" :disabled="false">CHECKOUT</x-button>
+                            </div>
+                        </div>
+                    </div>
+                </x-card>
             </div>
             @else
             <div class="flex items-center justify-center h-[80vh] ss:h-[40vh] md:h-[50vh] lg:h-[60vh] w-full px-4">
