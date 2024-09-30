@@ -18,11 +18,11 @@
                             <hr class="h-2 border-t-2 border-gray-300">
                             <div class="flex justify-between">
                                 <p class="text-sm font-bold mb-2">ITEMS:</p>
-                                <p class="text-sm font-bold mb-2">${{ $carts->totalQty }}</p>
+                                <p id="user-cart2" class="text-sm font-bold mb-2">${{ $carts->totalQty }}</p>
                             </div>
                             <div class="flex justify-between">
                                 <p class="text-sm font-bold mb-2">PRICE:</p>
-                                <p class="text-sm font-bold mb-2">${{ $carts->totalPrice }}</p>
+                                <p id="cart-total-price" class="text-sm font-bold mb-2">${{ $carts->totalPrice }}</p>
                             </div>
                             <div class="flex justify-between">
                                 <p class="text-sm font-bold mb-2">DELIVERY:</p>
@@ -31,7 +31,7 @@
                             <hr class="h-2 border-t-2 border-gray-300">
                             <div class="flex justify-between">
                                 <p class="text-sm font-bold mb-2">TOTAL:</p>
-                                <p class="text-sm font-bold mb-2">${{$carts->totalPrice+5}}</p>
+                                <p id="cart-total-price-deli" class="text-sm font-bold mb-2">${{$carts->totalPrice+5}}</p>
                             </div>
                             <div class="grid mt-6 mb-4 w-full">
                                 <x-button type="submit" class="orange_color" id="check-out-btn" :disabled="false">CHECKOUT</x-button>
@@ -103,9 +103,12 @@
                     url: `/add-to-cart/${product_id}`,
                     success: function(res) {
                         const totalCart = res.cart.totalQty;
+                        const totalPrice = res.cart.totalPrice;
                         $("#user-cart").text(totalCart);
+                        $("#user-cart2").text(totalCart);
+                        $("#cart-total-price").text(totalPrice);
+                        $("#cart-total-price-deli").text(totalPrice+5);
                         $(`.cart-input-${product_id}`).val(res.cart.items[product_id].qty);
-                        console.log(res.cart.items[product_id].price);
                         $(`.cart-price-${product_id}`).text(res.cart.items[product_id].price);
                         // $(`.cart-price-${product_id}`).show();
                     },
@@ -129,7 +132,11 @@
                     url: `/remove-cart/${product_id}`,
                     success: function(res) {
                         const totalCart = res.cart.totalQty;
+                        const totalPrice = res.cart.totalPrice;
                         $("#user-cart").text(totalCart);
+                        $("#user-cart2").text(totalCart);
+                        $("#cart-total-price").text(totalPrice);
+                        $("#cart-total-price-deli").text(totalPrice+5);
                         if(!res.cart.items[product_id])
                             $(`.cart-input-${product_id}`).closest('.remove-cart').remove();
                         else{
