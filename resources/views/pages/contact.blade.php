@@ -2,9 +2,7 @@
 
 @section('content')
 <div class="mt-[90px]">
-
     <div class="container mx-auto p-6 lg:p-12">
-        
         <header class="text-center mb-12">
             <h1 class="text-4xl font-bold text-gray-800 mb-4">Contact Us</h1>
             <p class="text-gray-600 text-lg">We’d love to hear from you! Here’s how you can get in touch with us.</p>
@@ -23,14 +21,12 @@
                     <li>Sunday: Closed</li>
                 </ul>
             </div>
-
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">Find Us</h2>
                 <div class="relative pb-2/3">
                     <iframe class="absolute inset-0 w-full h-full rounded-lg shadow-md" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.843211007052!2d-73.9352420840591!3d40.73061005965901!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259af83f18b77%3A0x23cce2baf1dcb741!2sNY!5e0!3m2!1sen!2sus!4v1632413612354!5m2!1sen!2sus" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
-
         </div>
 
         <section class="bg-white p-6 rounded-lg shadow-md mb-12">
@@ -66,8 +62,6 @@
                 </a>
             </div>
         </section>
-
     </div>
-
 </div>
 @endsection

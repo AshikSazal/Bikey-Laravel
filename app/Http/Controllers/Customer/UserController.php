@@ -29,6 +29,10 @@ class UserController extends Controller
     {
         return view('pages.customer.auth.reset-password');
     }
+    public function getUserAddress()
+    {
+        return view('pages.customer.user-address');
+    }
     public function getCartItem()
     {
         $user = Auth::guard('user')->user();
@@ -249,6 +253,10 @@ class UserController extends Controller
                 Session::forget($id . '_cart');
             }
         }
-        return view('pages.customer.cart.user-cart', compact('carts'));
+        $address=$user->userAddress;
+        if(!$address){
+            $address=null;
+        }
+        return view('pages.customer.cart.user-cart', ['carts'=>$carts,'address'=>$address]);
     }
 }

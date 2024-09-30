@@ -28,3 +28,4 @@ php artisan make:controller ProductController
 @REM This is for laravel pagination with tailwind
 php artisan vendor:publish --tag=laravel-pagination
 php artisan make:model UserCart -m
+php artisan make:model UserAddress -m

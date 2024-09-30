@@ -11,6 +11,7 @@ Route::get('/login',[UserController::class,'getLogin'])->middleware('guest:user'
 Route::get('/reset-password',[UserController::class,'getResetPassword'])->middleware('guest:user')->name('user.reset.password');
 Route::get('/get-all-product',[ProductController::class,'fetchAllProducts'])->middleware('guest:user')->name('fetchAllProducts');
 Route::get('/cart',[UserController::class,'showUserCart'])->middleware('auth.check:user')->name('user.cart.show');
+Route::get('/address',[UserController::class,'getUserAddress'])->middleware('auth.check:user')->name('user.address');
 
 Route::post('/signup',[UserController::class,'signup'])->name('user.signup');
 // Route::middleware(['login.check:user'])->group(function () {
