@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Session;
 use App\Mail\SendVerificationMail;
 use App\Models\Class\Cart;
 use App\Models\Product;
+use App\Models\UserAddress;
 
 class UserController extends Controller
 {
@@ -258,5 +259,31 @@ class UserController extends Controller
             $address=null;
         }
         return view('pages.customer.cart.user-cart', ['carts'=>$carts,'address'=>$address]);
+    }
+
+    public function saveUserAddress(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'post' => 'required',
+                'village' => 'required',
+                'district' => 'required'
+            ]);
+            /** @var \App\Models\User $user */
+            $user = Auth::guard('user')->user();
+            $address = new UserAddress();
+            $address->post = $request->post;
+            $address->road = $request->road;
+            $address->village = $request->village;
+            $address->district = $request->district;
+            $address->save();
+            $user->userAddress()->save($address);
+
+            return ['status' => 1];
+        } catch (Exception $exp) {
+            return response()->json([
+                'error' => $exp->getMessage(),
+            ]);
+        }
     }
 }
