@@ -14,6 +14,7 @@ use App\Mail\SendVerificationMail;
 use App\Models\Class\Cart;
 use App\Models\Product;
 use App\Models\UserAddress;
+use App\Models\UserPayment;
 
 class UserController extends Controller
 {
@@ -287,7 +288,33 @@ class UserController extends Controller
         } catch (Exception $exp) {
             return response()->json([
                 'error' => $exp->getMessage(),
+            ],$exp->getCode());
+        }
+    }
+
+    public function saveUserPayment(Request $request)
+    {
+        try{
+            $this->validate($request,[
+                'holder_name' => 'required',
+                'card_number' => 'required|digits:10',
+                'cvc' => 'required',
+                'card_expiry' => 'required|digits:7'
             ]);
+            /** @var \App\Models\User $user */
+            $user = Auth::guard('user')->user();
+            $payment = new UserPayment();
+            $payment->holder_name = $request->holder_name;
+            $payment->card_number = $request->card_number;
+            $payment->cvc = $request->cvc;
+            $payment->card_expiry = $request->card_expiry;
+            $payment->save();
+            $user->userPayment()->save($payment);
+            return ['status'=>1];
+        }catch(Exception $exp){
+            return response()->json([
+                'error' => $exp->getMessage()
+            ],$exp->getCode());
         }
     }
 }

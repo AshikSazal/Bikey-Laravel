@@ -4,14 +4,14 @@
     <div class="h-screen">
         <div class="w-full flex justify-center items-center h-full">
             <x-card class="bg-sky_blue_color w-screen ss:w-2/3 md:w-2/3 lg:w-2/4">
-                <form id="address-form" method="POST" action="{{route('user.address')}}">
+                <form id="payment-form" method="POST" action="{{route('user.payment')}}">
                     @csrf
                     <x-input type="text" name="holder-name" placeholder="Enter Card Holder Name" />
                     <x-input type="text" name="card-number" placeholder="Enter Card Number" />
                     <x-input type="text" name="cvc" placeholder="Enter Card Verification Code" />
                     <x-input type="text" name="card-expiry" placeholder="Enter Your Card Expiry (MM/YYYY)" />
                     <div class="grid justify-center items-center mt-6 mb-4">
-                        <x-button type="submit" class="orange_color" id="address-btn" :disabled="true">SUBMIT</x-button>
+                        <x-button type="submit" class="orange_color" id="payment-btn" :disabled="true">SUBMIT</x-button>
                     </div>
                 </form>
             </x-card>
@@ -38,9 +38,9 @@
             const cardExpiry = $('input[name="card-expiry"]').val();
 
             const holderNameIsValid = validate(holderName, [VALIDATOR_REQUIRE()]);
-            const cardNumberIsValid = validate(cardNumber, [VALIDATOR_REQUIRE()]);
+            const cardNumberIsValid = validate(cardNumber, [VALIDATOR_REQUIRE(),VALIDATOR_FIXLENGTH(10)]);
             const cvcIsValid = validate(cvc, [VALIDATOR_REQUIRE()]);
-            const cardExpiryIsValid = validate(cardExpiry, [VALIDATOR_REQUIRE(),VALIDATOR_MINLENGTH(7)]);
+            const cardExpiryIsValid = validate(cardExpiry, [VALIDATOR_REQUIRE(),VALIDATOR_FIXLENGTH(7)]);
 
             if (holderNameIsValid && cardNumberIsValid && cvcIsValid && cardExpiryIsValid) {
                 userHolderName = holderName;

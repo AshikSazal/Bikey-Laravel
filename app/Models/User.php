@@ -38,4 +38,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserAddress::class);
     }
+
+    public function userPayment()
+    {
+        return $this->hasOne(UserPayment::class);
+    }
 }

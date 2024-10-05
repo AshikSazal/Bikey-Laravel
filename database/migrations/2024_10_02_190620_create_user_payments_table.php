@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('user_payments', function (Blueprint $table) {
             $table->id();
+            $table->string('holder_name',50);
+            $table->string('card_number',10);
+            $table->string('cvc',10);
+            $table->string('card_expiry',7);
             $table->timestamps();
         });
     }
