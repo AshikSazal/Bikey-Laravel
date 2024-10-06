@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class UserAddress extends Model
 {
     use HasFactory;
-
     protected $fillable = [
         'post',
         'road',

@@ -39,7 +39,7 @@ class ChatController extends Controller
             return response()->json(['chat' =>$chat,'flag'=>$flag]);
         }catch(Exception $exp){
             return response()->json([
-                'error' => $exp->getMessage(),
+                'message' => $exp->getMessage(),
             ],404);
         }
     }
@@ -52,7 +52,7 @@ class ChatController extends Controller
             return response()->json(['chat' =>'']);
         }catch(Exception $exp){
             return response()->json([
-                'error' => $exp->getMessage(),
+                'message' => $exp->getMessage(),
             ],404);
         }
     }
@@ -71,7 +71,7 @@ class ChatController extends Controller
             return response()->json(['data' =>$chats]);
         }catch(Exception $exp){
             return response()->json([
-                'error' => $exp->getMessage(),
+                'message' => $exp->getMessage(),
             ],404);
         }
     }

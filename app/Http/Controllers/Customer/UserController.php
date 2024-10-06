@@ -96,7 +96,7 @@ class UserController extends Controller
             return ['status' => 1];
         } catch (Exception $exp) {
             return response()->json([
-                'error' => $exp->getMessage(),
+                'message' => $exp->getMessage(),
             ]);
         }
     }
@@ -118,7 +118,7 @@ class UserController extends Controller
             throw new Exception("Invalid Email & Password");
         } catch (Exception $exp) {
             return response()->json([
-                'error' => $exp->getMessage(),
+                'message' => $exp->getMessage(),
             ], 404);
         }
     }
@@ -136,7 +136,7 @@ class UserController extends Controller
             return redirect()->route('home');
         } catch (Exception $exp) {
             return response()->json([
-                'error' => $exp->getMessage(),
+                'message' => $exp->getMessage(),
             ], 404);
         }
     }
@@ -168,7 +168,7 @@ class UserController extends Controller
             return response()->json(['user' => $user, 'code' => $code]);
         } catch (Exception $exp) {
             return response()->json([
-                'error' => $exp->getMessage(),
+                'message' => $exp->getMessage(),
             ], 404);
         }
     }
@@ -192,7 +192,7 @@ class UserController extends Controller
             return response()->json(['data' => $user]);
         } catch (Exception $exp) {
             return response()->json([
-                'error' => $exp->getMessage()
+                'message' => $exp->getMessage()
             ], 404);
         }
     }
@@ -211,7 +211,7 @@ class UserController extends Controller
             $user->save();
             return response()->json(['data' => $user]);
         } catch (Exception $exp) {
-            return response()->json(['error' => $exp->getMessage()], 404);
+            return response()->json(['message' => $exp->getMessage()], 404);
         }
     }
 
@@ -276,19 +276,18 @@ class UserController extends Controller
             ]);
             /** @var \App\Models\User $user */
             $user = Auth::guard('user')->user();
+            if($user->userAddress()->exists())
+                throw new Exception("You already have address");
             $address = new UserAddress();
             $address->post = $request->post;
             $address->road = $request->road;
             $address->village = $request->village;
             $address->district = $request->district;
-            $address->save();
             $user->userAddress()->save($address);
 
             return ['status' => 1];
         } catch (Exception $exp) {
-            return response()->json([
-                'error' => $exp->getMessage(),
-            ],$exp->getCode());
+            return response()->json(['message' => $exp->getMessage()], 404);
         }
     }
 
@@ -308,13 +307,12 @@ class UserController extends Controller
             $payment->card_number = $request->card_number;
             $payment->cvc = $request->cvc;
             $payment->card_expiry = $request->card_expiry;
-            $payment->save();
             $user->userPayment()->save($payment);
             return ['status'=>1];
         }catch(Exception $exp){
             return response()->json([
-                'error' => $exp->getMessage()
-            ],$exp->getCode());
+                'message' => $exp->getMessage()
+            ],404);
         }
     }
 }

@@ -7,12 +7,11 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Log;
 use Exception;
 
 class ProductController extends Controller
 {
-    function fetchAllProducts()
+    public function fetchAllProducts()
     {
         try{
             $cacheKey = 'all_products';
@@ -23,8 +22,8 @@ class ProductController extends Controller
             return response()->json(['products'=>$products]);
         }catch(Exception $exp){
             return response()->json([
-                'error'=>$exp->getMessage()
-            ],$exp->getCode());
+                'message'=>$exp->getMessage()
+            ],404);
         }
     }
     
@@ -91,8 +90,8 @@ class ProductController extends Controller
             return response()->json(['cart'=>$cart]);
         }catch(Exception $exp){
             return response()->json([
-                'error'=>$exp->getMessage()
-            ],$exp->getCode());
+                'message'=>$exp->getMessage()
+            ],404);
         }
     }
 
@@ -131,8 +130,8 @@ class ProductController extends Controller
             return response()->json(['cart'=>$cart]);
         }catch(Exception $exp){
             return response()->json([
-                'error'=>$exp->getMessage()
-            ],$exp->getCode());
+                'message'=>$exp->getMessage()
+            ],404);
         }
     }
 }

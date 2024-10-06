@@ -99,7 +99,7 @@
                     showError.style.display = "flex";
                     showError.classList.add("z-20","bg-black", "bg-opacity-80");
                     document.body.style.overflow = 'hidden';
-                    $('#show-error-message').text(xhr.responseJSON.error);
+                    $('#show-error-message').text(xhr.responseJSON.message);
                     $("#show-error-message").show();
                 }
             });

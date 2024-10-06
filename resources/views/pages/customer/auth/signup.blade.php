@@ -196,7 +196,7 @@
                     },
                     error: function(xhr, status, error) {
                         // activeOTPResendButton();
-                        // $("#show-message").text(xhr.responseJSON.error);
+                        // $("#show-message").text(xhr.responseJSON.message);
                         $("#show-message").text("Invalid OTP Number");
                         $("#show-message").show();
                     }
@@ -374,7 +374,7 @@
                     // $("#show-message").html(data.message);
                 },
                 error: function(xhr, status, error) {
-                    $("#show-message").text(xhr.responseJSON.error);
+                    $("#show-message").text(xhr.responseJSON.message);
                     $("#show-message").show();
                 }
             });
