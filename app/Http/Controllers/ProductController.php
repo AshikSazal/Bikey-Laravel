@@ -8,6 +8,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {

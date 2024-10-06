@@ -22,7 +22,6 @@ class UserController extends Controller
     {
         return view('pages.customer.auth.signup');
     }
-
     public function getLogin()
     {
         return view('pages.customer.auth.login');
@@ -39,6 +38,7 @@ class UserController extends Controller
     {
         return view('pages.customer.user-payment');
     }
+
     public function getCartItem()
     {
         $user = Auth::guard('user')->user();
@@ -58,12 +58,10 @@ class UserController extends Controller
 
     function generateRandomString($length = 4)
     {
-        // Define the characters to choose from: digits and letters
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
 
-        // Generate the random string
         for ($i = 0; $i < $length; $i++) {
             $randomIndex = random_int(0, $charactersLength - 1);
             $randomString .= $characters[$randomIndex];
@@ -181,6 +179,7 @@ class UserController extends Controller
             // $user = User::with(['userVerification' => function($query) use ($request) {
             //     $query->where('code', $request->code);
             // }])->where('email', $request->email)->first();
+
             $user = User::with('userVerification')->where('email', $request->email)->first();
 
             if (!$user) {
@@ -277,7 +276,7 @@ class UserController extends Controller
             /** @var \App\Models\User $user */
             $user = Auth::guard('user')->user();
             if($user->userAddress()->exists())
-                throw new Exception("You already have address");
+                throw new Exception("You Already Have Address");
             $address = new UserAddress();
             $address->post = $request->post;
             $address->road = $request->road;

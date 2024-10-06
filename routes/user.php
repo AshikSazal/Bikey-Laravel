@@ -1,15 +1,13 @@
 <?php
 
-use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Customer\UserController;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
 
 Route::get('/signup',[UserController::class,'getSignup'])->middleware('guest:user')->name('user.signup');
 Route::get('/login',[UserController::class,'getLogin'])->middleware('guest:user')->name('user.login');
 Route::get('/reset-password',[UserController::class,'getResetPassword'])->middleware('guest:user')->name('user.reset.password');
-Route::get('/get-all-product',[ProductController::class,'fetchAllProducts'])->middleware('guest:user')->name('fetchAllProducts');
+Route::get('/get-all-product',[ProductController::class,'fetchAllProducts'])->name('fetchAllProducts');
 Route::get('/cart',[UserController::class,'showUserCart'])->middleware('auth.check:user')->name('user.cart.show');
 Route::get('/address',[UserController::class,'getUserAddress'])->middleware('auth.check:user')->name('user.address');
 Route::post('/address',[UserController::class,'saveUserAddress'])->middleware('auth.check:user')->name('user.address');

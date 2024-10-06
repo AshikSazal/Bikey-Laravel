@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Exception;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
 class AuthCheck
 {
@@ -24,7 +23,7 @@ class AuthCheck
             }
         }catch(Exception $exp){
             return response()->json([
-                'error' => $exp->getMessage(),
+                'message' => $exp->getMessage(),
             ],404);
         }
         return $next($request);

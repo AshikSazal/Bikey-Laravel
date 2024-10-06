@@ -7,8 +7,6 @@ use Closure;
 use Exception;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
 class LoginCheck
 {
@@ -41,7 +39,7 @@ class LoginCheck
             // }
         }catch(Exception $exp){
             return response()->json([
-                'error' => $exp->getMessage(),
+                'message' => $exp->getMessage(),
             ],404);
         }
         return $next($request);
