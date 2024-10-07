@@ -32,7 +32,12 @@ class UserController extends Controller
     }
     public function getUserAddress()
     {
-        return view('pages.customer.user-address');
+        $user = Auth::guard('user')->user();
+        $address=$user->userAddress;
+        if(!$address){
+            $address=null;
+        }
+        return view('pages.customer.user-address',compact('address'));
     }
     public function getUserPayment()
     {
@@ -258,11 +263,7 @@ class UserController extends Controller
                 Session::forget($id . '_cart');
             }
         }
-        $address=$user->userAddress;
-        if(!$address){
-            $address=null;
-        }
-        return view('pages.customer.cart.user-cart', ['carts'=>$carts,'address'=>$address]);
+        return view('pages.customer.cart.user-cart', ['carts'=>$carts]);
     }
 
     public function saveUserAddress(Request $request)

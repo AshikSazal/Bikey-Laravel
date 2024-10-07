@@ -3,18 +3,50 @@
 @section('content')
     <div class="h-screen">
         <div class="w-full flex justify-center items-center h-full">
+            @if (!$address)
             <x-card class="bg-sky_blue_color w-screen ss:w-2/3 md:w-2/3 lg:w-2/4">
-                <form id="address-form" method="POST" action="{{route('user.address')}}">
-                    @csrf
-                    <x-input type="text" name="post" placeholder="Enter Your Post" />
-                    <x-input type="text" name="road" placeholder="Enter Your Street Address" />
-                    <x-input type="text" name="village" placeholder="Enter Your Village" />
-                    <x-input type="text" name="district" placeholder="Enter Your District" />
-                    <div class="grid justify-center items-center mt-6 mb-4">
-                        <x-button type="submit" class="orange_color" id="address-btn" :disabled="true">SUBMIT</x-button>
+                    <form id="address-form" method="POST" action="{{route('user.address')}}">
+                        @csrf
+                        <x-input type="text" name="post" placeholder="Enter Your Post" />
+                        <x-input type="text" name="road" placeholder="Enter Your Street Address" />
+                        <x-input type="text" name="village" placeholder="Enter Your Village" />
+                        <x-input type="text" name="district" placeholder="Enter Your District" />
+                        <div class="grid justify-center items-center mt-6 mb-4">
+                            <x-button type="submit" class="orange_color" id="address-btn" :disabled="true">SUBMIT</x-button>
+                        </div>
+                    </form>
+                </x-card>
+                @else
+                <x-card class="bg-sky_blue_color shadow-md rounded-lg p-6 mt-4">
+                    <h2 class="text-xl font-semibold text-center text-white">ADDRESS INFORMATION</h2>
+                    <div class="bg-white -m-6 mt-4 p-6 rounded-b-lg">
+                        <hr class="h-0.5 bg-orange_color border-0">
+                        <table class="w-full mt-4">
+                            <tbody>
+                                <tr class="mb-4">
+                                    <td class="pr-2"><strong>POST</strong></td>
+                                    <td class="uppercase">{{ $address->post }}</td>
+                                </tr>
+                                <tr class="mb-4">
+                                    <td class="pr-2"><strong>ROAD</strong></td>
+                                    <td class="uppercase">{{ $address->road }}</td>
+                                </tr>
+                                <tr class="mb-4">
+                                    <td class="pr-2"><strong>VILLAGE</strong></td>
+                                    <td class="uppercase">{{ $address->village }}</td>
+                                </tr>
+                                <tr class="mb-4">
+                                    <td class="pr-2"><strong>DISTRICT</strong></td>
+                                    <td class="uppercase">{{ $address->district }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="grid justify-center items-center mt-6">
+                            <x-button type="button" class="orange_color" id="edit-address-btn" onclick="editAddress()">EDIT</x-button>
+                        </div>
                     </div>
-                </form>
-            </x-card>
+                </x-card>
+                @endif
         </div>
         <x-error />
         <x-loading />
@@ -97,7 +129,7 @@
                 success: function(){
                     // loading.style.display="none";
                     // document.body.style.overflow = '';
-                    window.location.href = "{{ route('home') }}";
+                    window.location.href = "{{ route('user.payment') }}";
                 },
                 error: function(xhr, status, error){
                     loading.style.display="none";

@@ -34,7 +34,7 @@
                                 <p id="cart-total-price-deli" class="text-sm font-bold mb-2">${{$carts->totalPrice+5}}</p>
                             </div>
                             <div class="grid mt-6 mb-4 place-items-center">
-                                <x-button type="submit" class="orange_color" id="check-out-btn" :disabled="false" link='true' href="{{ $address ? route('user.payment') : route('user.address') }}">CHECKOUT</x-button>
+                                <x-button type="submit" class="orange_color" id="check-out-btn" :disabled="false" link='true' href="{{ route('user.address') }}">CHECKOUT</x-button>
                             </div>
                         </div>
                     </div>
