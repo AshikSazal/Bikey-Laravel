@@ -4,7 +4,7 @@
     <div class="h-screen">
         <div class="w-full flex justify-center items-center h-full">
             @if (!$address)
-            <x-card class="bg-sky_blue_color w-screen ss:w-2/3 md:w-2/3 lg:w-2/4">
+                <x-card class="bg-sky_blue_color w-screen ss:w-2/3 md:w-2/3 lg:w-2/4">
                     <form id="address-form" method="POST" action="{{route('user.address')}}">
                         @csrf
                         <x-input type="text" name="post" placeholder="Enter Your Post" />
@@ -16,7 +16,7 @@
                         </div>
                     </form>
                 </x-card>
-                @else
+            @else
                 <x-card class="bg-sky_blue_color shadow-md rounded-lg p-6 mt-4">
                     <h2 class="text-xl font-semibold text-center text-white">ADDRESS INFORMATION</h2>
                     <div class="bg-white -m-6 mt-4 p-6 rounded-b-lg">
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                 </x-card>
-                @endif
+            @endif
         </div>
         <x-error />
         <x-loading />
