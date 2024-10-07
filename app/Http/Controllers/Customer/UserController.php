@@ -294,18 +294,18 @@ class UserController extends Controller
     {
         try{
             $this->validate($request,[
-                'holder_name' => 'required',
-                'card_number' => 'required|digits:10',
+                'holderName' => 'required',
+                'cardNumber' => 'required|digits:10',
                 'cvc' => 'required',
-                'card_expiry' => 'required|digits:7'
+                'cardExpiry' => 'required|string|size:7'
             ]);
             /** @var \App\Models\User $user */
             $user = Auth::guard('user')->user();
             $payment = new UserPayment();
-            $payment->holder_name = $request->holder_name;
-            $payment->card_number = $request->card_number;
+            $payment->holder_name = $request->holderName;
+            $payment->card_number = $request->cardNumber;
             $payment->cvc = $request->cvc;
-            $payment->card_expiry = $request->card_expiry;
+            $payment->card_expiry = $request->cardExpiry;
             $user->userPayment()->save($payment);
             return ['status'=>1];
         }catch(Exception $exp){

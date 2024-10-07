@@ -24,7 +24,7 @@
 @section('scripts')
 
 <script type="module">
-    import { validate, VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_PHONE_NUMBER, VALIDATOR_MINLENGTH } from "{{ URL::to('src/js/validator.js') }}";
+    import { validate, VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_PHONE_NUMBER, VALIDATOR_MINLENGTH, VALIDATOR_FIXLENGTH } from "{{ URL::to('src/js/validator.js') }}";
 
     document.addEventListener("DOMContentLoaded", function() {
         var userHolderName, userCardNumber, userCVC, userCardExpiry;
@@ -55,12 +55,12 @@
 
         function formValidate(){
             if (isFormValid()) {
-                $('#address-btn').css({
+                $('#payment-btn').css({
                     "background-color":"#f85606",
                     "border-color":"#f85606"
                 }).prop('disabled', false);
             } else {
-                $('#address-btn').css({
+                $('#payment-btn').css({
                     "background-color": "#9ca3af",
                     "border-color": "#9ca3af"
                 }).prop('disabled', true);
@@ -74,11 +74,11 @@
             $('input[name="card-expiry"]').val("");
         }
 
-        $('#address-form').on('keyup change','input',function(){
+        $('#payment-form').on('keyup change','input',function(){
             formValidate();
         });
 
-        $('#address-form').on('submit',function(event){
+        $('#payment-form').on('submit',function(event){
             event.preventDefault();
             
             $.ajax({

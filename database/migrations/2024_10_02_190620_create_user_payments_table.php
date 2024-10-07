@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('card_number',10);
             $table->string('cvc',10);
             $table->string('card_expiry',7);
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
