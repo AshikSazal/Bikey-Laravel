@@ -276,15 +276,21 @@ class UserController extends Controller
             ]);
             /** @var \App\Models\User $user */
             $user = Auth::guard('user')->user();
-            if($user->userAddress()->exists())
-                throw new Exception("You Already Have Address");
             $address = new UserAddress();
             $address->post = $request->post;
             $address->road = $request->road;
             $address->village = $request->village;
             $address->district = $request->district;
-            $user->userAddress()->save($address);
-
+            if($user->userAddress()->exists()){
+                $user->userAddress()->update([
+                    'post' => $address->post,
+                    'road' => $address->road,
+                    'village' => $address->village,
+                    'district' => $address->district,
+                ]);
+            }else{
+                $user->userAddress()->save($address);
+            }
             return ['status' => 1];
         } catch (Exception $exp) {
             return response()->json(['message' => $exp->getMessage()], 404);

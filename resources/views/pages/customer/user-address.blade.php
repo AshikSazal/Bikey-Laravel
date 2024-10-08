@@ -17,7 +17,7 @@
                     </form>
                 </x-card>
             @else
-                <x-card class="bg-sky_blue_color shadow-md rounded-lg p-6 mt-4">
+                <x-card class="bg-sky_blue_color shadow-md rounded-lg p-6 mt-4 w-screen ss:w-1/2 md:w-1/3 lg:w-1/4" id="address-info">
                     <h2 class="text-xl font-semibold text-center text-white">ADDRESS INFORMATION</h2>
                     <div class="bg-white -m-6 mt-4 p-6 rounded-b-lg">
                         <hr class="h-0.5 bg-orange_color border-0">
@@ -25,26 +25,38 @@
                             <tbody>
                                 <tr class="mb-4">
                                     <td class="pr-2"><strong>POST</strong></td>
-                                    <td class="uppercase">{{ $address->post }}</td>
+                                    <td class="uppercase" id="post-info">{{ $address->post }}</td>
                                 </tr>
                                 <tr class="mb-4">
                                     <td class="pr-2"><strong>ROAD</strong></td>
-                                    <td class="uppercase">{{ $address->road }}</td>
+                                    <td class="uppercase" id="road-info">{{ $address->road }}</td>
                                 </tr>
                                 <tr class="mb-4">
                                     <td class="pr-2"><strong>VILLAGE</strong></td>
-                                    <td class="uppercase">{{ $address->village }}</td>
+                                    <td class="uppercase" id="village-info">{{ $address->village }}</td>
                                 </tr>
                                 <tr class="mb-4">
                                     <td class="pr-2"><strong>DISTRICT</strong></td>
-                                    <td class="uppercase">{{ $address->district }}</td>
+                                    <td class="uppercase" id="district-info">{{ $address->district }}</td>
                                 </tr>
                             </tbody>
                         </table>
                         <div class="grid justify-center items-center mt-6">
-                            <x-button type="button" class="orange_color" id="edit-address-btn" onclick="editAddress()">EDIT</x-button>
+                            <x-button type="button" class="orange_color" id="edit-address-btn">EDIT</x-button>
                         </div>
                     </div>
+                </x-card>
+                <x-card class="bg-sky_blue_color w-screen ss:w-2/3 md:w-2/3 lg:w-2/4 hidden" id="edit-address-card">
+                    <form id="address-form" method="POST" action="{{route('user.address')}}">
+                        @csrf
+                        <x-input type="text" name="post" placeholder="Enter Your Post No" />
+                        <x-input type="text" name="road" placeholder="Enter Your Street Address" />
+                        <x-input type="text" name="village" placeholder="Enter Your Village" />
+                        <x-input type="text" name="district" placeholder="Enter Your District" />
+                        <div class="grid justify-center items-center mt-6 mb-4">
+                            <x-button type="submit" class="orange_color" id="address-btn" :disabled="true">SUBMIT</x-button>
+                        </div>
+                    </form>
                 </x-card>
             @endif
         </div>
@@ -142,6 +154,26 @@
                     $("#show-error-message").show();
                 }
             });
+        });
+
+        $("#edit-address-btn").on('click', function(event) {
+            const addressInfo = document.getElementById('address-info');
+            const editCard = document.getElementById('edit-address-card');
+
+            const postInfo = document.getElementById('post-info').textContent;
+            const roadInfo = document.getElementById('road-info').textContent;
+            const villageInfo = document.getElementById('village-info').textContent;
+            const districtInfo = document.getElementById('district-info').textContent;
+
+            $('input[name="post"]').val(postInfo);
+            $('input[name="road"]').val(roadInfo);
+            $('input[name="village"]').val(villageInfo);
+            $('input[name="district"]').val(districtInfo);
+
+            formValidate();
+
+            addressInfo.style.display = 'none';
+            editCard.classList.remove('hidden');
         });
 
         // Empty the input field when reload the page
