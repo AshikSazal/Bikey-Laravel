@@ -3,18 +3,61 @@
 @section('content')
     <div class="h-screen">
         <div class="w-full flex justify-center items-center h-full">
-            <x-card class="bg-sky_blue_color w-screen ss:w-2/3 md:w-2/3 lg:w-2/4">
-                <form id="payment-form" method="POST" action="{{route('user.payment')}}">
-                    @csrf
-                    <x-input type="text" name="holder-name" placeholder="Enter Card Holder Name" />
-                    <x-input type="text" name="card-number" placeholder="Enter Card Number" />
-                    <x-input type="text" name="cvc" placeholder="Enter Card Verification Code" />
-                    <x-input type="text" name="card-expiry" placeholder="Enter Your Card Expiry (MM/YYYY)" />
-                    <div class="grid justify-center items-center mt-6 mb-4">
-                        <x-button type="submit" class="orange_color" id="payment-btn" :disabled="true">SUBMIT</x-button>
+            @if (!$payment)
+                <x-card class="bg-sky_blue_color w-screen ss:w-2/3 md:w-2/3 lg:w-2/4">
+                    <form id="payment-form" method="POST" action="{{route('user.payment')}}">
+                        @csrf
+                        <x-input type="text" name="holder-name" placeholder="Enter Card Holder Name" />
+                        <x-input type="text" name="card-number" placeholder="Enter Card Number" />
+                        <x-input type="text" name="cvc" placeholder="Enter Card Verification Code" />
+                        <x-input type="text" name="card-expiry" placeholder="Enter Your Card Expiry (MM/YYYY)" />
+                        <div class="grid justify-center items-center mt-6 mb-4">
+                            <x-button type="submit" class="orange_color" id="payment-btn" :disabled="true">SUBMIT</x-button>
+                        </div>
+                    </form>
+                </x-card>
+            @else
+                <x-card class="bg-sky_blue_color shadow-md rounded-lg p-6 mt-4 w-screen ss:w-1/2 md:w-1/3 lg:w-1/4" id="address-info">
+                    <h2 class="text-xl font-semibold text-center text-white">PAYMENT INFORMATION</h2>
+                    <div class="bg-white -m-6 mt-4 p-6 rounded-b-lg">
+                        <hr class="h-0.5 bg-orange_color border-0">
+                        <table class="w-full mt-4">
+                            <tbody>
+                                <tr class="mb-4">
+                                    <td class="pr-2"><strong>HOLDER NAME</strong></td>
+                                    <td class="uppercase" id="post-info">{{ $payment->holder_name }}</td>
+                                </tr>
+                                <tr class="mb-4">
+                                    <td class="pr-2"><strong>CARD NUMBER</strong></td>
+                                    <td class="uppercase" id="road-info">{{ $payment->card_number }}</td>
+                                </tr>
+                                <tr class="mb-4">
+                                    <td class="pr-2"><strong>CARD EXPIRY</strong></td>
+                                    <td class="uppercase" id="village-info">{{ $payment->card_expiry }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="grid justify-center items-center mt-6">
+                            <x-button type="button" class="orange_color" id="go-to-shopping" :disabled="false" link='true' href="{{route('brand')}}">GO TO SHOPPING</x-button>
+                        </div>
+                        <div class="flex justify-center mt-3">
+                            <a class="text-sky_blue_color text-md underline cursor-pointer" id="edit-payment-btn">Edit</a>
+                        </div>
                     </div>
-                </form>
-            </x-card>
+                </x-card>
+                <x-card class="bg-sky_blue_color w-screen ss:w-2/3 md:w-2/3 lg:w-2/4 hidden">
+                    <form id="payment-form" method="POST" action="{{route('user.payment')}}">
+                        @csrf
+                        <x-input type="text" name="holder-name" placeholder="Enter Card Holder Name" />
+                        <x-input type="text" name="card-number" placeholder="Enter Card Number" />
+                        <x-input type="text" name="cvc" placeholder="Enter Card Verification Code" />
+                        <x-input type="text" name="card-expiry" placeholder="Enter Your Card Expiry (MM/YYYY)" />
+                        <div class="grid justify-center items-center mt-6 mb-4">
+                            <x-button type="submit" class="orange_color" id="payment-btn" :disabled="true">SUBMIT</x-button>
+                        </div>
+                    </form>
+                </x-card>
+            @endif
         </div>
         <x-error />
         <x-loading />
@@ -111,6 +154,26 @@
                     $("#show-error-message").show();
                 }
             });
+        });
+
+        $("#edit-payment-btn").on('click', function(event) {
+            const paymentInfo = document.getElementById('payment-info');
+            const editCard = document.getElementById('edit-payment-card');
+
+            const postInfo = document.getElementById('post-info').textContent;
+            const roadInfo = document.getElementById('road-info').textContent;
+            const villageInfo = document.getElementById('village-info').textContent;
+            const districtInfo = document.getElementById('district-info').textContent;
+
+            $('input[name="post"]').val(postInfo);
+            $('input[name="road"]').val(roadInfo);
+            $('input[name="village"]').val(villageInfo);
+            $('input[name="district"]').val(districtInfo);
+
+            formValidate();
+
+            paymentInfo.style.display = 'none';
+            editCard.classList.remove('hidden');
         });
 
         // Empty the input field when reload the page

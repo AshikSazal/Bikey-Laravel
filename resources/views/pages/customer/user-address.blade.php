@@ -42,7 +42,10 @@
                             </tbody>
                         </table>
                         <div class="grid justify-center items-center mt-6">
-                            <x-button type="button" class="orange_color" id="edit-address-btn">EDIT</x-button>
+                            <x-button type="button" class="orange_color" id="go-to-payment" :disabled="false" link='true' href="{{route('user.payment')}}">GO TO PAYMENT</x-button>
+                        </div>
+                        <div class="flex justify-center mt-3">
+                            <a class="text-sky_blue_color text-md underline cursor-pointer" id="edit-address-btn">Edit</a>
                         </div>
                     </div>
                 </x-card>

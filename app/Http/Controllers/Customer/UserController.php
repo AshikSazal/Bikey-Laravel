@@ -41,7 +41,12 @@ class UserController extends Controller
     }
     public function getUserPayment()
     {
-        return view('pages.customer.user-payment');
+        $user = Auth::guard('user')->user();
+        $payment=$user->userPayment;
+        if(!$payment){
+            $payment=null;
+        }
+        return view('pages.customer.user-payment',compact('payment'));
     }
 
     public function getCartItem()
