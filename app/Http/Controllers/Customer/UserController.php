@@ -45,6 +45,8 @@ class UserController extends Controller
         $payment=$user->userPayment;
         if(!$payment){
             $payment=null;
+        }else{
+            $payment->card_expiry = str_replace('-','/',$payment->card_expiry);
         }
         return view('pages.customer.user-payment',compact('payment'));
     }
@@ -318,7 +320,16 @@ class UserController extends Controller
             $payment->card_number = $request->cardNumber;
             $payment->cvc = $request->cvc;
             $payment->card_expiry = $request->cardExpiry;
-            $user->userPayment()->save($payment);
+            if($user->userPayment()->exists()){
+                $user->userPayment()->update([
+                    'holder_name' => $payment->holder_name,
+                    'card_number' => $payment->card_number,
+                    'cvc' => $payment->cvc,
+                    'card_expiry' => $payment->card_expiry,
+                ]);
+            }else{
+                $user->userPayment()->save($payment);
+            }
             return ['status'=>1];
         }catch(Exception $exp){
             return response()->json([

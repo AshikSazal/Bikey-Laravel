@@ -17,7 +17,7 @@
                     </form>
                 </x-card>
             @else
-                <x-card class="bg-sky_blue_color shadow-md rounded-lg p-6 mt-4 w-screen ss:w-1/2 md:w-1/3 lg:w-1/4" id="address-info">
+                <x-card class="bg-sky_blue_color shadow-md rounded-lg p-6 mt-4 w-screen ss:w-1/2 md:w-1/3 lg:w-1/4" id="payment-info">
                     <h2 class="text-xl font-semibold text-center text-white">PAYMENT INFORMATION</h2>
                     <div class="bg-white -m-6 mt-4 p-6 rounded-b-lg">
                         <hr class="h-0.5 bg-orange_color border-0">
@@ -25,15 +25,19 @@
                             <tbody>
                                 <tr class="mb-4">
                                     <td class="pr-2"><strong>HOLDER NAME</strong></td>
-                                    <td class="uppercase" id="post-info">{{ $payment->holder_name }}</td>
+                                    <td class="uppercase" id="holder-name-info">{{ $payment->holder_name }}</td>
                                 </tr>
                                 <tr class="mb-4">
                                     <td class="pr-2"><strong>CARD NUMBER</strong></td>
-                                    <td class="uppercase" id="road-info">{{ $payment->card_number }}</td>
+                                    <td class="uppercase" id="card-number-info">{{ $payment->card_number }}</td>
+                                </tr>
+                                <tr class="mb-4">
+                                    <td class="pr-2"><strong>CARD VERIFICATION CODE</strong></td>
+                                    <td class="uppercase" id="cvc-info">{{ $payment->cvc }}</td>
                                 </tr>
                                 <tr class="mb-4">
                                     <td class="pr-2"><strong>CARD EXPIRY</strong></td>
-                                    <td class="uppercase" id="village-info">{{ $payment->card_expiry }}</td>
+                                    <td class="uppercase" id="card-expiry-info">{{ $payment->card_expiry }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -45,7 +49,7 @@
                         </div>
                     </div>
                 </x-card>
-                <x-card class="bg-sky_blue_color w-screen ss:w-2/3 md:w-2/3 lg:w-2/4 hidden">
+                <x-card class="bg-sky_blue_color w-screen ss:w-2/3 md:w-2/3 lg:w-2/4 hidden" id="edit-payment-card">
                     <form id="payment-form" method="POST" action="{{route('user.payment')}}">
                         @csrf
                         <x-input type="text" name="holder-name" placeholder="Enter Card Holder Name" />
@@ -160,15 +164,15 @@
             const paymentInfo = document.getElementById('payment-info');
             const editCard = document.getElementById('edit-payment-card');
 
-            const postInfo = document.getElementById('post-info').textContent;
-            const roadInfo = document.getElementById('road-info').textContent;
-            const villageInfo = document.getElementById('village-info').textContent;
-            const districtInfo = document.getElementById('district-info').textContent;
+            const holderNameInfo = document.getElementById('holder-name-info').textContent;
+            const cardNumberInfo = document.getElementById('card-number-info').textContent;
+            const cvcInfo = document.getElementById('cvc-info').textContent;
+            const cardExpiryInfo = document.getElementById('card-expiry-info').textContent;
 
-            $('input[name="post"]').val(postInfo);
-            $('input[name="road"]').val(roadInfo);
-            $('input[name="village"]').val(villageInfo);
-            $('input[name="district"]').val(districtInfo);
+            $('input[name="holder-name"]').val(holderNameInfo);
+            $('input[name="card-number"]').val(cardNumberInfo);
+            $('input[name="cvc"]').val(cvcInfo);
+            $('input[name="card-expiry"]').val(cardExpiryInfo);
 
             formValidate();
 
