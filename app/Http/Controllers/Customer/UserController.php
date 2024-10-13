@@ -14,6 +14,7 @@ use App\Mail\SendVerificationMail;
 use App\Models\Class\Cart;
 use App\Models\Product;
 use App\Models\UserAddress;
+use App\Models\UserOrder;
 use App\Models\UserPayment;
 
 class UserController extends Controller
@@ -330,6 +331,17 @@ class UserController extends Controller
             }else{
                 $user->userPayment()->save($payment);
             }
+            $existing_cart = null;
+            if (Session::has($user->id . '_cart')) {
+                $existing_cart = Session::get($user->id . '_cart');
+                Session::forget($user->id . '_cart');
+            }else{
+                $existing_cart = $user->userCart->cart;
+            }
+            $user_order = new UserOrder();
+            $user_order->products = json_encode($existing_cart);
+            $user->userOrder()->save($user_order);
+            $user->userCart()->delete();
             return ['status'=>1];
         }catch(Exception $exp){
             return response()->json([

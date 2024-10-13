@@ -74,7 +74,11 @@
     import { validate, VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_PHONE_NUMBER, VALIDATOR_MINLENGTH, VALIDATOR_FIXLENGTH } from "{{ URL::to('src/js/validator.js') }}";
 
     document.addEventListener("DOMContentLoaded", function() {
-        var userHolderName, userCardNumber, userCVC, userCardExpiry;
+        let userHolderName = document.getElementById('holder-name-info').textContent;
+        let userCardNumber = document.getElementById('card-number-info').textContent;
+        let userCVC = document.getElementById('cvc-info').textContent;
+        let userCardExpiry = document.getElementById('card-expiry-info').textContent;
+
         const showError = document.getElementById('open-pop-up');
         const loading = document.getElementById("loading-container");
 
@@ -125,9 +129,15 @@
             formValidate();
         });
 
-        $('#payment-form').on('submit',function(event){
-            event.preventDefault();
-            
+        function orderDone(){
+            if(!userHolderName){
+                userHolderName = document.getElementById('holder-name-info').textContent;
+                userCardNumber = document.getElementById('card-number-info').textContent;
+                userCVC = document.getElementById('cvc-info').textContent;
+                userCardExpiry = document.getElementById('card-expiry-info').textContent;
+                userCardExpiry = userCardExpiry.replace('/', '-');
+            }
+
             $.ajax({
                 headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
                 type:"POST",
@@ -158,6 +168,17 @@
                     $("#show-error-message").show();
                 }
             });
+        }
+
+        $('#payment-form').on('submit',function(event){
+            event.preventDefault();
+            
+            orderDone();
+        });
+        $('#go-to-shopping').on('click',function(event){
+            event.preventDefault();
+            
+            orderDone();
         });
 
         $("#edit-payment-btn").on('click', function(event) {
