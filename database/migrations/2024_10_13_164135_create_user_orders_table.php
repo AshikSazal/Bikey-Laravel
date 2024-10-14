@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->longText('products');
+            $table->longText('order_token');
             $table->timestamps();
         });
     }
