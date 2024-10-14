@@ -69,6 +69,7 @@
 @endsection
 
 @section('scripts')
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
 <script type="module">
     import { validate, VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_PHONE_NUMBER, VALIDATOR_MINLENGTH, VALIDATOR_FIXLENGTH } from "{{ URL::to('src/js/validator.js') }}";
@@ -130,13 +131,13 @@
         });
 
         function orderDone(){
-            if(!userHolderName){
-                userHolderName = document.getElementById('holder-name-info').textContent;
-                userCardNumber = document.getElementById('card-number-info').textContent;
-                userCVC = document.getElementById('cvc-info').textContent;
-                userCardExpiry = document.getElementById('card-expiry-info').textContent;
-                userCardExpiry = userCardExpiry.replace('/', '-');
-            }
+            // if(!userHolderName){
+            //     userHolderName = document.getElementById('holder-name-info').textContent;
+            //     userCardNumber = document.getElementById('card-number-info').textContent;
+            //     userCVC = document.getElementById('cvc-info').textContent;
+            //     userCardExpiry = document.getElementById('card-expiry-info').textContent;
+            //     userCardExpiry = userCardExpiry.replace('/', '-');
+            // }
 
             $.ajax({
                 headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
