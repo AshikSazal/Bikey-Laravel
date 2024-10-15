@@ -73,12 +73,15 @@
 
 <script type="module">
     import { validate, VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_PHONE_NUMBER, VALIDATOR_MINLENGTH, VALIDATOR_FIXLENGTH } from "{{ URL::to('src/js/validator.js') }}";
-
+    
     document.addEventListener("DOMContentLoaded", function() {
+        Stripe.setPublishableKey("{{ env('STRIPE_PUBLIC_API_KEY') }}");
+
         let userHolderName = document.getElementById('holder-name-info').textContent;
         let userCardNumber = document.getElementById('card-number-info').textContent;
         let userCVC = document.getElementById('cvc-info').textContent;
         let userCardExpiry = document.getElementById('card-expiry-info').textContent;
+        let token = null;
 
         const showError = document.getElementById('open-pop-up');
         const loading = document.getElementById("loading-container");
@@ -90,7 +93,7 @@
             const cardExpiry = $('input[name="card-expiry"]').val();
 
             const holderNameIsValid = validate(holderName, [VALIDATOR_REQUIRE()]);
-            const cardNumberIsValid = validate(cardNumber, [VALIDATOR_REQUIRE(),VALIDATOR_FIXLENGTH(10)]);
+            const cardNumberIsValid = validate(cardNumber, [VALIDATOR_REQUIRE(),VALIDATOR_FIXLENGTH(16)]);
             const cvcIsValid = validate(cvc, [VALIDATOR_REQUIRE()]);
             const cardExpiryIsValid = validate(cardExpiry, [VALIDATOR_REQUIRE(),VALIDATOR_FIXLENGTH(7)]);
 
@@ -130,6 +133,22 @@
             formValidate();
         });
 
+        function stripeResponseHandler(status, response) {
+            if (response.error) {
+                loading.style.display="none";
+                // document.body.style.overflow = '';
+                    
+                showError.style.display = "flex";
+                showError.classList.add("z-20","bg-black", "bg-opacity-80");
+                document.body.style.overflow = 'hidden';
+                $('#show-error-message').text(userCardNumber);
+                $("#show-error-message").show();
+                $form.find('button').prop('disabled', false);
+            } else {
+                token = response.id;
+            }
+        }
+
         function orderDone(){
             // if(!userHolderName){
             //     userHolderName = document.getElementById('holder-name-info').textContent;
@@ -139,15 +158,26 @@
             //     userCardExpiry = userCardExpiry.replace('/', '-');
             // }
 
+            const [month, year] = userCardExpiry.split("/");
+
+            Stripe.card.createToken({
+                number: userCardNumber,
+                cvc: userCVC,
+                exp_month: month,
+                exp_year: year,
+                name: userHolderName
+            }, stripeResponseHandler);
+
             $.ajax({
                 headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
                 type:"POST",
-                url: "{{route('user.payment')}}",
+                url: "{{ route('user.payment') }}",
                 data: {
                     holderName: userHolderName,
                     cardNumber: userCardNumber,
                     cvc: userCVC,
-                    cardExpiry: userCardExpiry
+                    cardExpiry: userCardExpiry.replace('/','-'),
+                    token: token
                 },
                 beforeSend: function(){
                     loading.style.display="flex";

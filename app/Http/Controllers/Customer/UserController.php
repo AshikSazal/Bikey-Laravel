@@ -16,6 +16,8 @@ use App\Models\Product;
 use App\Models\UserAddress;
 use App\Models\UserOrder;
 use App\Models\UserPayment;
+use Stripe\Stripe;
+use Stripe\Charge;
 
 class UserController extends Controller
 {
@@ -310,7 +312,7 @@ class UserController extends Controller
         try{
             $this->validate($request,[
                 'holderName' => 'required',
-                'cardNumber' => 'required|digits:10',
+                'cardNumber' => 'required|digits:16',
                 'cvc' => 'required',
                 'cardExpiry' => 'required|string|size:7'
             ]);
@@ -334,12 +336,24 @@ class UserController extends Controller
             $existing_cart = null;
             if (Session::has($user->id . '_cart')) {
                 $existing_cart = Session::get($user->id . '_cart');
-                Session::forget($user->id . '_cart');
+                // Session::forget($user->id . '_cart');
             }else{
-                $existing_cart = $user->userCart->cart;
+                $existing_cart = json_decode($user->userCart->cart);
             }
+
+            // Stripe charge
+            Stripe::setApiKey(env('STRIPE_SECREAT_API_KEY'));
+            $charge = Charge::create(array(
+                "amount" => 10000,
+                "currency" => "usd",
+                "source" => $request->token,
+                "description" => "Test Charge"
+            ));
+
+            // For order table
             $user_order = new UserOrder();
             $user_order->products = json_encode($existing_cart);
+            $user_order->payment_id = $charge->id;
             $user->userOrder()->save($user_order);
             $user->userCart()->delete();
             return ['status'=>1];
