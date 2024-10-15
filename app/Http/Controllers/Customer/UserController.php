@@ -336,7 +336,7 @@ class UserController extends Controller
             $existing_cart = null;
             if (Session::has($user->id . '_cart')) {
                 $existing_cart = Session::get($user->id . '_cart');
-                // Session::forget($user->id . '_cart');
+                Session::forget($user->id . '_cart');
             }else{
                 $existing_cart = json_decode($user->userCart->cart);
             }
@@ -344,7 +344,7 @@ class UserController extends Controller
             // Stripe charge
             Stripe::setApiKey(env('STRIPE_SECREAT_API_KEY'));
             $charge = Charge::create(array(
-                "amount" => 10000,
+                "amount" => $existing_cart->totalPrice,
                 "currency" => "usd",
                 "source" => $request->token,
                 "description" => "Test Charge"

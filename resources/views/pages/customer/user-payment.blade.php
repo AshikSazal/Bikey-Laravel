@@ -81,7 +81,7 @@
         let userCardNumber = document.getElementById('card-number-info').textContent;
         let userCVC = document.getElementById('cvc-info').textContent;
         let userCardExpiry = document.getElementById('card-expiry-info').textContent;
-        let token = null;
+        var orderToken = null;
 
         const showError = document.getElementById('open-pop-up');
         const loading = document.getElementById("loading-container");
@@ -133,31 +133,21 @@
             formValidate();
         });
 
-        function stripeResponseHandler(status, response) {
+        function stripeResponseHandler(status, response, callback) {
             if (response.error) {
-                loading.style.display="none";
-                // document.body.style.overflow = '';
-                    
+                loading.style.display = "none";
                 showError.style.display = "flex";
-                showError.classList.add("z-20","bg-black", "bg-opacity-80");
+                showError.classList.add("z-20", "bg-black", "bg-opacity-80");
                 document.body.style.overflow = 'hidden';
                 $('#show-error-message').text(userCardNumber);
                 $("#show-error-message").show();
-                $form.find('button').prop('disabled', false);
             } else {
-                token = response.id;
+                const token = response.id;
+                callback(token);
             }
         }
 
         function orderDone(){
-            // if(!userHolderName){
-            //     userHolderName = document.getElementById('holder-name-info').textContent;
-            //     userCardNumber = document.getElementById('card-number-info').textContent;
-            //     userCVC = document.getElementById('cvc-info').textContent;
-            //     userCardExpiry = document.getElementById('card-expiry-info').textContent;
-            //     userCardExpiry = userCardExpiry.replace('/', '-');
-            // }
-
             const [month, year] = userCardExpiry.split("/");
 
             Stripe.card.createToken({
@@ -166,38 +156,40 @@
                 exp_month: month,
                 exp_year: year,
                 name: userHolderName
-            }, stripeResponseHandler);
-
-            $.ajax({
-                headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
-                type:"POST",
-                url: "{{ route('user.payment') }}",
-                data: {
-                    holderName: userHolderName,
-                    cardNumber: userCardNumber,
-                    cvc: userCVC,
-                    cardExpiry: userCardExpiry.replace('/','-'),
-                    token: token
-                },
-                beforeSend: function(){
-                    loading.style.display="flex";
-                    document.body.style.overflow = 'hidden';
-                },
-                success: function(){
-                    // loading.style.display="none";
-                    // document.body.style.overflow = '';
-                    window.location.href = "{{ route('home') }}";
-                },
-                error: function(xhr, status, error){
-                    loading.style.display="none";
-                    // document.body.style.overflow = '';
-                    
-                    showError.style.display = "flex";
-                    showError.classList.add("z-20","bg-black", "bg-opacity-80");
-                    document.body.style.overflow = 'hidden';
-                    $('#show-error-message').text(xhr.responseJSON.message);
-                    $("#show-error-message").show();
-                }
+            },function(status, response) {
+                stripeResponseHandler(status, response, function(token) {
+                    $.ajax({
+                        headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
+                        type:"POST",
+                        url: "{{ route('user.payment') }}",
+                        data: {
+                            holderName: userHolderName,
+                            cardNumber: userCardNumber,
+                            cvc: userCVC,
+                            cardExpiry: userCardExpiry.replace('/','-'),
+                            token: token
+                        },
+                        beforeSend: function(){
+                            loading.style.display="flex";
+                            document.body.style.overflow = 'hidden';
+                        },
+                        success: function(){
+                            // loading.style.display="none";
+                            // document.body.style.overflow = '';
+                            window.location.href = "{{ route('home') }}";
+                        },
+                        error: function(xhr, status, error){
+                            loading.style.display="none";
+                            // document.body.style.overflow = '';
+                            
+                            showError.style.display = "flex";
+                            showError.classList.add("z-20","bg-black", "bg-opacity-80");
+                            document.body.style.overflow = 'hidden';
+                            $('#show-error-message').text(xhr.responseJSON.message);
+                            $("#show-error-message").show();
+                        }
+                    });
+                });
             });
         }
 
