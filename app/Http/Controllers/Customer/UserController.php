@@ -344,7 +344,7 @@ class UserController extends Controller
             // Stripe charge
             Stripe::setApiKey(env('STRIPE_SECREAT_API_KEY'));
             $charge = Charge::create(array(
-                "amount" => $existing_cart->totalPrice,
+                "amount" => $existing_cart->totalPrice * 100,
                 "currency" => "usd",
                 "source" => $request->token,
                 "description" => "Test Charge"
