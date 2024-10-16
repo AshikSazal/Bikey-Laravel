@@ -174,8 +174,6 @@
                             document.body.style.overflow = 'hidden';
                         },
                         success: function(){
-                            // loading.style.display="none";
-                            // document.body.style.overflow = '';
                             window.location.href = "{{ route('home') }}";
                         },
                         error: function(xhr, status, error){
