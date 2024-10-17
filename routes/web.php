@@ -1,9 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChatController;
-use App\Http\Controllers\Customer\UserController;
 use App\Http\Controllers\ProductController;
 
 /*
@@ -55,3 +53,4 @@ Route::get('/brand', [ProductController::class,'showAllProduct'])->name('brand')
 
 
 require __DIR__.'/user.php';
+require __DIR__.'/admin.php';

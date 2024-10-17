@@ -30,3 +30,4 @@ php artisan vendor:publish --tag=laravel-pagination
 php artisan make:model UserCart -m
 php artisan make:model UserAddress -m
 php artisan make:model UserPayment -m
+php artisan make:model Admin -m
