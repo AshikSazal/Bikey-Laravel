@@ -28,7 +28,27 @@
     {{-- until fully loaded the page loading spinner will show --}}
     <x-loading />
 
-    @yield('content')
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white shadow-md h-screen">
+            <div class="p-6">
+                <h1 class="text-2xl font-bold">Admin Panel</h1>
+                <nav class="mt-6">
+                    <ul>
+                        <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Dashboard</a></li>
+                        <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Users</a></li>
+                        <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Settings</a></li>
+                        <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Reports</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6">
+            @yield('content')
+        </main>
+    </div>
 
     <script>
         // until fully loaded the page loading spinner will show
