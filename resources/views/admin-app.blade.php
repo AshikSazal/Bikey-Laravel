@@ -32,27 +32,27 @@
         <!-- Sidebar -->
         <aside class="w-64 bg-white shadow-md h-screen relative">
             <div class="p-6">
-                <h1 class="text-2xl font-bold">Admin Panel</h1>
+                <h1 class="text-2xl font-bold">ADMIN PANEL</h1>
                 <nav class="mt-6">
                     <ul>
                         <li>
                             <a href="#" class="flex items-center py-2 px-4 text-gray-700 hover:bg-gray-200">
-                                <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+                                <i class="fas fa-tachometer-alt mr-2"></i> DASHBOARD
                             </a>
                         </li>
                         <li>
                             <a href="#" class="flex items-center py-2 px-4 text-gray-700 hover:bg-gray-200">
-                                <i class="fas fa-users mr-2"></i> Users
+                                <i class="fas fa-users mr-2"></i> USERS
                             </a>
                         </li>
                         <li>
                             <a href="#" class="flex items-center py-2 px-4 text-gray-700 hover:bg-gray-200">
-                                <i class="fas fa-cog mr-2"></i> Settings
+                                <i class="fas fa-cog mr-2"></i> SETTINGS
                             </a>
                         </li>
                         <li>
                             <a href="#" class="flex items-center py-2 px-4 text-gray-700 hover:bg-gray-200">
-                                <i class="fas fa-chart-line mr-2"></i> Reports
+                                <i class="fas fa-chart-line mr-2"></i> REPORTS
                             </a>
                         </li>
                     </ul>
