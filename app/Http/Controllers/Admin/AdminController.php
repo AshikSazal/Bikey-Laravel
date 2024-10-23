@@ -11,4 +11,9 @@ class AdminController extends Controller
     {
         return view('pages.admin.landing-page');
     }
+
+    public function getAdminLogin()
+    {
+        return view('pages.admin.auth.login');
+    }
 }
