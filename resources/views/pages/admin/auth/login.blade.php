@@ -30,16 +30,12 @@
             <x-card class="bg-sky_blue_color w-screen ss:w-2/3 md:w-2/3 lg:w-2/4">
                 <form id="login-form" method="POST" action="{{route('admin.login')}}">
                     @csrf
-                    <x-input type="text" name="email_phone" placeholder="Enter Your E-Mail or Phone" />
+                    <x-input type="email" name="email" placeholder="Enter Your E-Mail" />
                     <x-input type="password" name="password" placeholder="Enter Your Password" />
                     <div class="grid justify-center items-center mt-6 mb-4">
                         <x-button type="submit" class="orange_color" id="login-btn" :disabled="true">LOGIN</x-button>
                     </div>
                 </form>
-                <div class="flex justify-between">
-                    <a class="text-white text-md underline" href="{{route('user.signup')}}">Create an account?Signup</a>
-                    <a class="text-md text-black underline" href="{{route('user.reset.password')}}">Forget Password?Reset</a>
-                </div>
             </x-card>
         </div>
         <x-error />
@@ -109,7 +105,7 @@
                 
                 $.ajax({
                     type:"POST",
-                    url: "{{route('user.login')}}",
+                    url: "{{route('admin.login')}}",
                     data: {
                         _token: '{!! csrf_token() !!}',
                         emailPhone: emailPhone,
@@ -122,7 +118,7 @@
                     success: function(){
                         // loading.style.display="none";
                         // document.body.style.overflow = '';
-                        window.location.href = "{{ route('home') }}";
+                        window.location.href = "{{ route('admin.dashboard') }}";
                     },
                     error: function(xhr, status, error){
                         loading.style.display="none";
