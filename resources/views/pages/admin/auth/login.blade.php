@@ -54,7 +54,7 @@
             }
         };
 
-        import { validate, VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_PHONE_NUMBER, VALIDATOR_MINLENGTH } from "{{ URL::to('src/js/validator.js') }}";
+        import { validate, VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_MINLENGTH } from "{{ URL::to('src/js/validator.js') }}";
 
         document.addEventListener("DOMContentLoaded", function() {
             var emailPhone, userPassword;
@@ -62,10 +62,9 @@
             const loading = document.getElementById("loading-container");
 
             function isFormValid() {
-                var email = $('input[name="email_phone"]').val();
+                var email = $('input[name="email"]').val();
                 var pass = $('input[name="password"]').val();
 
-                var phoneIsValid = validate(email, [VALIDATOR_REQUIRE(),VALIDATOR_PHONE_NUMBER()]);
                 var emailIsValid = validate(email, [VALIDATOR_REQUIRE(),VALIDATOR_EMAIL()]);
                 var passwordIsValid = validate(pass, [VALIDATOR_REQUIRE(),VALIDATOR_MINLENGTH(4)]);
 
