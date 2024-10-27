@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function () {
@@ -8,4 +9,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminController::class, 'getAdminLogin'])->name('admin.login');
     
     Route::post('/login', [AdminController::class, 'postAdminLogin'])->name('admin.login.submit');
+
+    Route::get('/chat',[ChatController::class,'getAdminChat'])->name('admin.chat');
 });

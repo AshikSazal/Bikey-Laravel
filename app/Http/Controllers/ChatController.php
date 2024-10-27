@@ -11,6 +11,11 @@ use Exception;
 
 class ChatController extends Controller
 {
+    public function getAdminChat()
+    {
+        return view('pages.admin.admin-chat');
+    }
+    
     public function saveChat(Request $request)
     {
         try{

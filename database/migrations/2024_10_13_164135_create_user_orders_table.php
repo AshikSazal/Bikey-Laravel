@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('user_id');
             $table->longText('products');
             $table->string('payment_id');
+            $table->integer('status');
             $table->timestamps();
         });
     }

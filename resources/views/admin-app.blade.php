@@ -41,8 +41,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="flex items-center py-2 px-4 text-gray-700 hover:bg-gray-200">
-                                <i class="fas fa-users mr-2"></i> USERS
+                            <a href="{{route('admin.chat')}}" class="flex items-center py-2 px-4 text-gray-700 hover:bg-gray-200">
+                                <i class="fas fa-users mr-2"></i> CHATS
                             </a>
                         </li>
                         <li>
@@ -68,9 +68,6 @@
             @yield('content')
         </main>
     </div>
-
-
-
 
     <script>
         // until fully loaded the page loading spinner will show
