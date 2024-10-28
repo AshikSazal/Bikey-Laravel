@@ -92,7 +92,7 @@
             }
 
             function emptyInputField(){
-                $('input[name="email_phone"]').val("");
+                $('input[name="email"]').val("");
             }
 
             $('#login-form').on('keyup change','input',function(){
