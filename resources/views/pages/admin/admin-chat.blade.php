@@ -1,7 +1,7 @@
 @extends('admin-app')
 
 @section('content')
-    <div class="flex h-screen">
+    <div class="flex h-full">
         <div class="w-1/4 bg-white border-r border-gray-300 p-4">
             <h2 class="text-xl font-semibold mb-4">Users</h2>
             <ul class="space-y-2">
@@ -41,7 +41,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-4">
+            <div class="mt-0">
                 <input type="text" class="border border-gray-300 rounded-lg p-2 w-full" placeholder="Type your message...">
             </div>
         </div>

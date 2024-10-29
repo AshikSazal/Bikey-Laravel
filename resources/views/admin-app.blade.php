@@ -41,7 +41,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('admin.chat')}}" class="flex items-center py-2 px-4 text-gray-700 hover:bg-gray-200">
+                            <a href="{{ route('admin.chat') }}" class="flex items-center py-2 px-4 text-gray-700 hover:bg-gray-200">
                                 <i class="fas fa-users mr-2"></i> CHATS
                             </a>
                         </li>
@@ -58,7 +58,7 @@
                     </ul>
                 </nav>
             </div>
-            <div class="absolute bottom-0 left-0 w-full p-6">
+            <div class="absolute bottom-0 left-0 w-full p-10">
                 <a id="pop-logout" href="{{ route('admin.logout') }}" class="relative flex items-center justify-center text-sky_blue_color bg-white border-2 border-sky_blue_color py-3 space-x-3 rounded-full overflow-hidden group">
                     <span class="absolute inset-0 bg-sky_blue_color transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-in-out origin-center"></span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-6 relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
@@ -70,10 +70,11 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 p-6">
+        <main class="flex-1 p-6 overflow-auto h-screen">
             @yield('content')
         </main>
     </div>
+
 
     <script>
         // until fully loaded the page loading spinner will show
