@@ -23,8 +23,11 @@ class AuthCheck
                     return response()->json([
                         'message' => 'Please Login First',
                     ], 401);
+                }elseif($guard === 'user'){
+                    return redirect()->route('user.login');
+                }else{
+                    return redirect()->route('admin.login');
                 }
-                return redirect()->route('user.login');
             }
         }catch(Exception $exp){
             return response()->json([

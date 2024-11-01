@@ -41,8 +41,13 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-4">
+            <div class="mt-4 flex">
                 <input type="text" class="border border-gray-300 rounded-lg p-2 w-full" placeholder="Type your message...">
+                <button class="bg-blue-500 text-white rounded-lg p-2 ml-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7l18 5-7 7-1-6-6-1-1-6z" />
+                    </svg>
+                </button>
             </div>
         </div>
     </div>
