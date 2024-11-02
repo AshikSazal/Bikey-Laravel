@@ -24,7 +24,9 @@
         </div>
 
         <div class="flex-1 p-4">
-            <h2 class="text-xl font-semibold mb-4">Chat with User</h2>
+            <h2 class="text-xl font-semibold mb-4">
+                {{ isset($userId) ? 'USER ' . $userId : 'SELECT A USER' }}
+            </h2>
             <div class="bg-white border border-gray-300 rounded-lg h-full p-4 overflow-y-auto">
                 <div class="space-y-4">
                     <div class="flex">
@@ -44,9 +46,7 @@
             <div class="mt-4 flex">
                 <input type="text" class="border border-gray-300 rounded-lg p-2 w-full" placeholder="Type your message...">
                 <button class="bg-blue-500 text-white rounded-lg p-2 ml-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7l18 5-7 7-1-6-6-1-1-6z" />
-                    </svg>
+                    <svg class="text-white h-5 w-5" height="30" width="30" transform="rotate(55)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480l0-83.6c0-4 1.5-7.8 4.2-10.8L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/></svg>
                 </button>
             </div>
         </div>

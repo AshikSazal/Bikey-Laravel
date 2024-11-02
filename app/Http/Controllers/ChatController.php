@@ -8,6 +8,7 @@ use App\Events\MessageUpdateEvent;
 use Illuminate\Http\Request;
 use App\Models\Chat;
 use Exception;
+use App\Models\User;
 
 class ChatController extends Controller
 {
@@ -15,6 +16,17 @@ class ChatController extends Controller
     {
         return view('pages.admin.admin-chat');
     }
+
+    public function getUserChats($userId)
+    {
+        $user = User::findOrFail($userId);
+
+        // Retrieve all chats sent or received by this user
+        $chats = $user->sentChats()->with('receiver')->get()->merge($user->receivedChats()->with('sender')->get());
+
+        return view('path.to.your.view', compact('chats'));
+    }
+
     
     public function saveChat(Request $request)
     {

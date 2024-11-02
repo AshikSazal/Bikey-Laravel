@@ -14,4 +14,9 @@ class Admin extends Model
         'email',
         'password'
     ];
+
+    public function receivedChats()
+    {
+        return $this->hasMany(Chat::class, 'receiver_id');
+    }
 }

@@ -48,4 +48,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserOrder::class);
     }
+
+    //  For chats only
+    public function sentChats()
+    {
+        return $this->hasMany(Chat::class, 'sender_id');
+    }
+
+    public function receivedChats()
+    {
+        return $this->hasMany(Chat::class, 'receiver_id');
+    }
+
+    public function allChats()
+    {
+        return $this->sentChats()->union($this->receivedChats());
+    }
 }
