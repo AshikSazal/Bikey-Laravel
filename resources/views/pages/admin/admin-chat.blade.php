@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex">
         <div class="w-1/4 bg-white border-r border-gray-300 p-4">
-            <h2 class="text-xl font-semibold mb-4">Users</h2>
+            <h2 class="text-xl font-semibold mb-4">USERS</h2>
             <ul class="space-y-2">
                 <li>
                     <a href="#" class="block p-2 bg-gray-200 rounded cursor-pointer hover:bg-gray-300">User 1</a>
