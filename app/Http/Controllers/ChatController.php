@@ -11,23 +11,7 @@ use Exception;
 use App\Models\User;
 
 class ChatController extends Controller
-{
-    public function getAdminChat()
-    {
-        return view('pages.admin.admin-chat');
-    }
-
-    public function getUserChats($userId)
-    {
-        $user = User::findOrFail($userId);
-
-        // Retrieve all chats sent or received by this user
-        $chats = $user->sentChats()->with('receiver')->get()->merge($user->receivedChats()->with('sender')->get());
-
-        return view('path.to.your.view', compact('chats'));
-    }
-
-    
+{    
     public function saveChat(Request $request)
     {
         try{

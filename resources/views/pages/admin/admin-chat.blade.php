@@ -5,10 +5,15 @@
         <div class="w-1/4 bg-white border-r border-gray-300 p-4">
             <h2 class="text-xl font-semibold mb-4">USERS</h2>
             <ul class="space-y-2">
-                <li>
-                    <a href="#" class="block p-2 bg-gray-200 rounded cursor-pointer hover:bg-gray-300">User 1</a>
-                </li>
-                <li>
+                @forelse($customers as $customer)
+                    <li>
+                        <a href="#" class="block p-2 bg-gray-200 rounded cursor-pointer hover:bg-gray-300">{{ $customer->name }}</a>
+                    </li>
+                @empty
+                    <li>NO CUSTOMER FOUND</li> 
+                @endforelse
+
+                {{-- <li>
                     <a href="#" class="block p-2 bg-gray-200 rounded cursor-pointer hover:bg-gray-300">User 2</a>
                 </li>
                 <li>
@@ -19,13 +24,13 @@
                 </li>
                 <li>
                     <a href="#" class="block p-2 bg-gray-200 rounded cursor-pointer hover:bg-gray-300">User 5</a>
-                </li>
+                </li> --}}
             </ul>            
         </div>
 
         <div class="flex-1 p-4">
             <h2 class="text-xl font-semibold mb-4">
-                {{ isset($userId) ? 'USER ' . $userId : 'SELECT A USER' }}
+                {{ isset($userId) ? "USER " . $userId : "SELECT A USER" }}
             </h2>
             <div class="bg-white border border-gray-300 rounded-lg h-full p-4 overflow-y-auto">
                 <div class="space-y-4">

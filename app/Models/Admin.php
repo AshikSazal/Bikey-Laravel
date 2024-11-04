@@ -17,6 +17,6 @@ class Admin extends Model
 
     public function receivedChats()
     {
-        return $this->hasMany(Chat::class, 'receiver_id');
+        return $this->hasMany(Chat::class, 'receiver_id','id');
     }
 }
