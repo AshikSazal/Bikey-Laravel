@@ -10,7 +10,7 @@
                         <a href="#" class="block p-2 bg-gray-200 rounded cursor-pointer hover:bg-gray-300">{{ $customer->name }}</a>
                     </li>
                 @empty
-                    <li>NO CUSTOMER FOUND</li> 
+                    <li>NO CUSTOMERS FOUND</li> 
                 @endforelse
 
                 {{-- <li>
