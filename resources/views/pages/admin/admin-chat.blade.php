@@ -10,7 +10,12 @@
                         <a href="#" class="block p-2 bg-gray-200 rounded cursor-pointer hover:bg-gray-300">{{ $customer->name }}</a>
                     </li>
                 @empty
-                    <li>NO CUSTOMERS FOUND</li> 
+                    <li class="text-center p-4">
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                            <strong class="font-bold">NO CUSTOMERS FOUND</strong>
+                            <span class="block sm:inline">PLEASE CHECK BACK LATER</span>
+                        </div>
+                    </li>
                 @endforelse
 
                 {{-- <li>

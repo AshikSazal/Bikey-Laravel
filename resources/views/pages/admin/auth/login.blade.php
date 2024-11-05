@@ -27,7 +27,7 @@
 <body>
     <div class="h-screen">
         <div class="w-full flex justify-center items-center h-full">
-            <x-card class="bg-sky_blue_color w-screen ss:w-2/3 md:w-2/3 lg:w-2/4">
+            <x-card class="bg-sky_blue_color w-screen ss:w-2/3 md:w-1/3">
                 <form id="login-form" method="POST" action="{{route('admin.login')}}">
                     @csrf
                     <x-input type="email" name="email" placeholder="Enter Your E-Mail" />
@@ -39,7 +39,6 @@
             </x-card>
         </div>
         <x-error />
-        <x-loading />
     </div>
 
     <script>
