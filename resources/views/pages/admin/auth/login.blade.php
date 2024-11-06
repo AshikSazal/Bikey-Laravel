@@ -16,11 +16,6 @@
         {!! Vite::content('resources/js/app.js') !!}
     </script>
     <script src="{{asset('src/js/chat.js')}}"></script>
-    <script>
-        var sender_id = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : null;
-        var receiver_id=99999;
-        var messageSize;
-    </script>
     <title>Bikey</title>
 </head>
 
@@ -39,24 +34,14 @@
             </x-card>
         </div>
         <x-error />
+        <x-loading />
     </div>
 
-    <script>
-        // until fully loaded the page loading spinner will show
-        document.onreadystatechange = function() {
-            if (document.readyState !== "complete") {
-                document.querySelector("body").style.overflow = 'hidden';
-                document.querySelector("#loading-container").style.display = "flex";
-            } else {
-                document.querySelector("#loading-container").style.display = "none";
-                document.querySelector("body").style.overflow = "";
-            }
-        };
-
+    <script type="module">
         import { validate, VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_MINLENGTH } from "{{ URL::to('src/js/validator.js') }}";
-
+        
         document.addEventListener("DOMContentLoaded", function() {
-            var emailPhone, userPassword;
+            var userEmail, userPassword;
             const showError = document.getElementById('open-pop-up');
             const loading = document.getElementById("loading-container");
 
@@ -67,8 +52,8 @@
                 var emailIsValid = validate(email, [VALIDATOR_REQUIRE(),VALIDATOR_EMAIL()]);
                 var passwordIsValid = validate(pass, [VALIDATOR_REQUIRE(),VALIDATOR_MINLENGTH(4)]);
 
-                if ((emailIsValid || phoneIsValid) && passwordIsValid) {
-                    emailPhone=email;
+                if (emailIsValid && passwordIsValid) {
+                    userEmail=email;
                     userPassword=pass;
                     return true;
                 } else {
@@ -106,7 +91,7 @@
                     url: "{{route('admin.login')}}",
                     data: {
                         _token: '{!! csrf_token() !!}',
-                        emailPhone: emailPhone,
+                        email: userEmail,
                         password: userPassword
                     },
                     beforeSend: function(){

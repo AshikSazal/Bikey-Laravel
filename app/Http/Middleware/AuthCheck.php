@@ -18,15 +18,25 @@ class AuthCheck
     public function handle(Request $request, Closure $next, $guard=null): Response
     {
         try{
-            if (!Auth::guard($guard)->user()) {
-                if ($request->expectsJson()) {
-                    return response()->json([
-                        'message' => 'Please Login First',
-                    ], 401);
-                }elseif($guard === 'user'){
-                    return redirect()->route('user.login');
-                }else{
-                    return redirect()->route('admin.login');
+            if($guard === 'admin'){
+                if(!Auth::guard($guard)->user()){
+                    if ($request->expectsJson()) {
+                        return response()->json([
+                            'message' => 'Please Login First',
+                        ], 401);
+                    }else{
+                        return redirect()->route('admin.login');
+                    }
+                }
+            }elseif($guard === 'user'){
+                if(!Auth::guard($guard)->user()){
+                    if ($request->expectsJson()) {
+                        return response()->json([
+                            'message' => 'Please Login First',
+                        ], 401);
+                    }else{
+                        return redirect()->route('user.login');
+                    }
                 }
             }
         }catch(Exception $exp){

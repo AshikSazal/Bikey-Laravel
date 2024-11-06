@@ -43,7 +43,7 @@ class AdminController extends Controller
     {
         try {
             if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
-                return redirect()->route('admin.dashboard');
+                return ['status'=>1];
             }
             throw new Exception("Invalid Email & Password");
         } catch (Exception $exp) {

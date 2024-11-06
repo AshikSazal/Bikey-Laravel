@@ -24,6 +24,8 @@ php artisan db:seed --class=ProductsTableSeeder
 php artisan make:seeder UsersTableSeeder
 php artisan db:seed --class=UsersTableSeeder
 php artisan make:controller ProductController
+@REM redirect if authenticated
+app\Http\Middleware\RedirectIfAuthenticated.php
 @REM app\Providers\AppServiceProvider.php // make changes for use of pagination for globally use
 @REM This is for laravel pagination with tailwind
 php artisan vendor:publish --tag=laravel-pagination
