@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="./images/logo.png" type="image/png">
-    <link rel="stylesheet" href="./src/css/loading.css">
+    <link rel="stylesheet" href="{{ asset('src/css/loading.css') }}">
     {{-- <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script> --}}
     <script type="text/javascript" src="{{ URL::to('src/js/firebase.js') }}"></script>
     <script type="text/javascript" src="{{ URL::to('src/js/jquery.js') }}"></script>

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="./images/logo.png" type="image/png">
-    <link rel="stylesheet" href="./src/css/loading.css">
+    <link rel="stylesheet" href="{{ asset('src/css/loading.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script type="text/javascript" src="{{ URL::to('src/js/firebase.js') }}"></script>
     <script type="text/javascript" src="{{ URL::to('src/js/jquery.js') }}"></script>
@@ -121,7 +121,8 @@
                 emptyInputField();
             });
         });
-    </script>    
+    </script>
+    @stack('pop-up-close-scripts') 
 </body>
 
 </html>
