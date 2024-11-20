@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -99,13 +98,10 @@
                         document.body.style.overflow = 'hidden';
                     },
                     success: function(){
-                        // loading.style.display="none";
-                        // document.body.style.overflow = '';
                         window.location.href = "{{ route('admin.dashboard') }}";
                     },
                     error: function(xhr, status, error){
                         loading.style.display="none";
-                        // document.body.style.overflow = '';
                         
                         showError.style.display = "flex";
                         showError.classList.add("z-20","bg-black", "bg-opacity-80");
