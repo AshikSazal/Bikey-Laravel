@@ -19,4 +19,14 @@ class Admin extends Authenticatable
     {
         return $this->hasMany(Chat::class, 'receiver_id','id');
     }
+
+    public function sentChats()
+    {
+        return $this->hasMany(Chat::class, 'sender_id','id');
+    }
+
+    public function sender()
+    {
+        return $this->belongsTo(User::class, 'sender_id');
+    }
 }

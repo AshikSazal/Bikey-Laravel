@@ -7,7 +7,7 @@
             <ul class="space-y-2">
                 @forelse($customers as $customer)
                     <li>
-                        <a href="#" class="block p-2 bg-gray-200 rounded cursor-pointer hover:bg-gray-300">{{ $customer->name }}</a>
+                        <a href="{{ route('admin.chat.user', ['id' => $customer->sender->id]) }}" class="block p-2 bg-gray-200 rounded cursor-pointer hover:bg-gray-300">{{ ucfirst($customer->sender->name) }}</a>
                     </li>
                 @empty
                     <li class="text-center p-4">

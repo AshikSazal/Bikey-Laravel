@@ -25,7 +25,7 @@ class AdminController extends Controller
     {
         /** @var \App\Models\Admin $admin */
         $admin = Auth::guard('admin')->user();
-        $customers = $admin->receivedChats()->get()->unique('receiver_id');
+        $customers = $admin->receivedChats()->with('sender')->get()->unique('sender_id');
         return view('pages.admin.admin-chat',compact('customers'));
     }
 

@@ -86,10 +86,10 @@
                 event.preventDefault();
                 
                 $.ajax({
+                    headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
                     type:"POST",
                     url: "{{route('admin.login')}}",
                     data: {
-                        _token: '{!! csrf_token() !!}',
                         email: userEmail,
                         password: userPassword
                     },
