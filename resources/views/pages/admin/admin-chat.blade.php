@@ -7,7 +7,7 @@
             <ul class="space-y-2">
                 @forelse($customers as $customer)
                     <li>
-                        <a href="{{ route('admin.chat.user', ['id' => $customer->sender->id]) }}" class="block p-2 bg-gray-200 rounded cursor-pointer hover:bg-gray-300">{{ ucfirst($customer->sender->name) }}</a>
+                        <a href="{{ route('admin.chat.user', ['id' => $customer->sender->id]) }}" class="block p-2 bg-gray-200 rounded cursor-pointer hover:bg-gray-300 admin-chat" data-id="{{$customer->sender->id}}">{{ ucfirst($customer->sender->name) }}</a>
                     </li>
                 @empty
                     <li class="text-center p-4">
@@ -39,7 +39,7 @@
             </h2>
             <div class="bg-white border border-gray-300 rounded-lg h-full p-4 overflow-y-auto">
                 <div class="space-y-4">
-                    <div class="flex">
+                    {{-- <div class="flex">
                         <div class="bg-blue-500 text-white p-2 rounded-lg">Hello!</div>
                     </div>
                     <div class="flex justify-end">
@@ -50,6 +50,9 @@
                     </div>
                     <div class="flex justify-end">
                         <div class="bg-gray-200 text-gray-800 p-2 rounded-lg">I'm good, thanks!</div>
+                    </div> --}}
+                    <div class="relative mb-4" id="show-message">
+                    
                     </div>
                 </div>
             </div>
@@ -61,4 +64,16 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            $('.admin-chat').click(function() {
+                const dataId = $(this).data('id');
+                console.log("sender id:",sender_id);
+                console.log('Clicked link with data-id:', dataId);
+            });
+        });
+    </script>
 @endsection
