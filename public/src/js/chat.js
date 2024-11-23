@@ -127,12 +127,14 @@ $(document).ready(function(){
 
     // Load old chats
     function loadOldChats(){
+        $("#show-message").empty();
         $.ajax({
             headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
             url: "/load-chats",
             type: "POST",
             data: { sender_id: sender_id, receiver_id: receiver_id},
             success: function(res){
+                $("#show-message").append('');
                 const chats = res.data;
                 let html='';
                 for(let i=0;i<chats.length;i++){
@@ -184,9 +186,7 @@ $(document).ready(function(){
         loadOldChats();
     })
 
-    // Message send
-    $("#chat-form").submit(function(event){
-        event.preventDefault();
+    function chatSubmit(){
         const message = $("#message-input").val();
         const updateChatId = $('#update-input-id').val();
         if(updateChatId){
@@ -249,6 +249,18 @@ $(document).ready(function(){
                 $("#show-error-message").show();
             }
         });
+    }
+
+    // User chat submit
+    $("#chat-form").submit(function(event){
+        event.preventDefault();
+        chatSubmit();
+    });
+
+    // Admin chat submit
+    $("#admin-chat-form").submit(function(event){
+        event.preventDefault();
+        chatSubmit();
     });
 });
 

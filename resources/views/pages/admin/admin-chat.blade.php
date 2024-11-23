@@ -56,12 +56,13 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-4 flex">
+            <form action="{{route('save.message')}}" id="admin-chat-form" method="POST" class="mt-4 flex">
+                @csrf
                 <input type="text" class="border border-gray-300 rounded-lg p-2 w-full" placeholder="Type your message...">
                 <button class="bg-blue-500 text-white rounded-lg p-2 ml-2">
                     <svg class="text-white h-5 w-5" height="30" width="30" transform="rotate(55)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480l0-83.6c0-4 1.5-7.8 4.2-10.8L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/></svg>
                 </button>
-            </div>
+            </form>
         </div>
     </div>
 @endsection
@@ -69,10 +70,12 @@
 @section('scripts')
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            $('.admin-chat').click(function() {
-                const dataId = $(this).data('id');
-                console.log("sender id:",sender_id);
-                console.log('Clicked link with data-id:', dataId);
+            $('.admin-chat').click(function(event) {
+                event.preventDefault();
+                const receiver_id = $(this).data('id');
+                const newUrl = `/chat/${receiver_id}`;
+                window.history.pushState(null, null, newUrl);
+                loadOldChats();
             });
         });
     </script>
